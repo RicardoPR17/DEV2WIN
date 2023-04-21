@@ -1,46 +1,43 @@
 package com.dev2win.iniciativas;
 
+import java.util.Arrays;
+
+import javax.faces.webapp.FacesServlet;
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import com.dev2win.iniciativas.usuarios.Usuario;
-import com.dev2win.iniciativas.usuarios.UsuarioService;
+import com.dev2win.iniciativas.data.usuarios.Usuario;
+import com.dev2win.iniciativas.data.usuarios.UsuarioService;
 
 @SpringBootApplication
 public class IniciativasApplication {
 
-	@Autowired
-	UsuarioService usuarioService;
+    @Autowired
+    UsuarioService usuarioService;
 
-	public static void main(String[] args) {
-		SpringApplication.run(IniciativasApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(IniciativasApplication.class, args);
+    }
 
-	@Bean
-	public CommandLineRunner run() throws Exception {
-		return (args) -> {
+    @Bean
+    ServletRegistrationBean jsfServletRegistration (ServletContext servletContext) {
+        //spring boot only works if this is set
+        servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-			usuarioService.getAllUsuarios().forEach(Usuario -> usuarioService.deleteUsuario(Usuario.getUsuarioId()));
+        //registration
+        ServletRegistrationBean srb = new ServletRegistrationBean();
+        srb.setServlet(new FacesServlet());
+        srb.setUrlMappings(Arrays.asList("*.xhtml"));
+        srb.setLoadOnStartup(1);
 
-			System.out.println("Adding Usuarios....\n");
-			usuarioService.addUsuario(new Usuario("Ricardo Pulido", "prueba", "Proponente", "", "Estudiante"));
-
-			System.out.println("\nGetting all Usuarios....");
-			usuarioService.getAllUsuarios().forEach(Usuario -> System.out.println(Usuario));
-
-			/*
-			 * System.out.println("\nGetting Usuario with id = 1....");
-			 * System.out.println(usuarioService.getUsuario(1L));
-			 */
-
-			/*
-			 * System.out.println("\nDeleting Usuario....");
-			 * usuarioService.deleteUsuario(1L);
-			 */
-		};
-	}
+        //adduser
+        usuarioService.addUsuario(new Usuario("prueba", "contrasena", "dev", "desarrollo", "estudiante"));
+        return srb;
+    }
 
 }
