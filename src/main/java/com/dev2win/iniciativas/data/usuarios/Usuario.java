@@ -19,13 +19,11 @@ public class Usuario {
     private String estado;
     private String perfil;
 
-    public Usuario(String nombre, String contrasena, String rol, String estado, String perfil) {
+    public Usuario(String nombre, String contrasena, Rol rol, String estado, Perfil perfil) {
         this.nombre = nombre;
-        this.rol = rol;
-        // setRol(rol);
+        this.rol = rol.getValue();
         this.estado = estado;
-        this.perfil = perfil;
-        // setPerfil(perfil);
+        this.perfil = perfil.getValue();
         this.contrasena = contrasena;
     }
 
