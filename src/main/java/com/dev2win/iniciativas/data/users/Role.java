@@ -1,12 +1,12 @@
-package com.dev2win.iniciativas.data.usuarios;
+package com.dev2win.iniciativas.data.users;
 
-public enum Rol {
+public enum Role {
     Proponente("Proponente"),
     Administrador("Administrador");
 
     private String value;
 
-    Rol(String value) {
+    Role(String value) {
         this.value = value;
     }
 

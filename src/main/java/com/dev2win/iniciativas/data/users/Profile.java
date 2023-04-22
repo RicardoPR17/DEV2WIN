@@ -1,13 +1,13 @@
-package com.dev2win.iniciativas.data.usuarios;
+package com.dev2win.iniciativas.data.users;
 
-public enum Perfil {
+public enum Profile {
     Estudiante("Estudiante"),
     Profesor("Profesor"),
     Directivo("Directivo");
 
     private String value;
 
-    Perfil(String value) {
+    Profile(String value) {
         this.value = value;
     }
 

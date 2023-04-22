@@ -11,8 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import com.dev2win.iniciativas.data.usuarios.Usuario;
-import com.dev2win.iniciativas.data.usuarios.UsuarioService;
+import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
 public class IniciativasApplication {
@@ -36,7 +35,7 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         //adduser
-        usuarioService.addUsuario(new Usuario("prueba", "contrasena", "dev", "desarrollo", "estudiante"));
+        usuarioService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante));
         return srb;
     }
 

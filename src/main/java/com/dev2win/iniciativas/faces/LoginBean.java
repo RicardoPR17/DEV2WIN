@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.dev2win.iniciativas.data.usuarios.UsuarioService;
+import com.dev2win.iniciativas.data.users.UsuarioService;
 
 @Component
 @ManagedBean(name = "loginBean")
@@ -44,7 +44,7 @@ public class LoginBean {
     public void login() {
         // Verficiar que la contrasena del usuario corresponde
         // Get de contrasena base de datos y comparar con el campo enviado
-        boolean auntenticado = contrasena.equals(usuarioService.getUsuarioByNombre(nombreUsuario).getContrasena());
+        boolean auntenticado = contrasena.equals(usuarioService.getUserByName(nombreUsuario).getPassword());
         if (auntenticado) {
             try {
                 // enviar a pagina de bienvenida general
