@@ -17,25 +17,25 @@ import com.dev2win.iniciativas.data.users.*;
 public class IniciativasApplication {
 
     @Autowired
-    UsuarioService usuarioService;
+    UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
     }
 
     @Bean
-    ServletRegistrationBean jsfServletRegistration (ServletContext servletContext) {
-        //spring boot only works if this is set
+    ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
+        // spring boot only works if this is set
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-        //registration
+        // registration
         ServletRegistrationBean srb = new ServletRegistrationBean();
         srb.setServlet(new FacesServlet());
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
-        //adduser
-        usuarioService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante));
+        // adduser
+        userService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante));
         return srb;
     }
 

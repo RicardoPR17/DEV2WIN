@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.dev2win.iniciativas.data.users.UsuarioService;
+import com.dev2win.iniciativas.data.users.UserService;
 
 @Component
 @ManagedBean(name = "loginBean")
@@ -18,12 +18,13 @@ import com.dev2win.iniciativas.data.users.UsuarioService;
 public class LoginBean {
 
     @Autowired
-    UsuarioService usuarioService;
-    
+    UserService usuarioService;
+
     private String nombreUsuario;
     private String contrasena;
 
-    public LoginBean () {}
+    public LoginBean() {
+    }
 
     public String getNombreUsuario() {
         return nombreUsuario;

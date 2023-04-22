@@ -14,4 +14,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
     @Query("SELECT * FROM sys.user WHERE profile=:profile")
     List<User> findByProfile(String profile);
 
+    @Query("SELECT * FROM sys.user WHERE role=:role")
+    List<User> findByRole(String role);
+
 }

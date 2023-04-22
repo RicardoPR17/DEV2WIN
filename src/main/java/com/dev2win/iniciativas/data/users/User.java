@@ -7,7 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class User {
     @Id
@@ -17,13 +16,13 @@ public class User {
     private String password;
     private String role;
     private String state;
-    private String perfil;
+    private String profile;
 
-    public User(String name, String password, Role role, String state, Profile perfil) {
+    public User(String name, String password, Role role, String state, Profile profile) {
         this.name = name;
         this.role = role.getValue();
         this.state = state;
-        this.perfil = perfil.getValue();
+        this.profile = profile.getValue();
         this.password = password;
     }
 
@@ -71,12 +70,12 @@ public class User {
         this.state = state;
     }
 
-    public String getPerfil() {
-        return perfil;
+    public String getprofile() {
+        return profile;
     }
 
-    public void setPerfil(String perfil) {
-        this.perfil = perfil;
+    public void setprofile(String profile) {
+        this.profile = profile;
     }
 
     @Override
@@ -88,27 +87,30 @@ public class User {
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
-        result = prime * result + ((perfil == null) ? 0 : perfil.hashCode());
+        result = prime * result + ((profile == null) ? 0 : profile.hashCode());
         return result;
     }
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof User)) return false;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof User))
+            return false;
         User other = (User) obj;
         return Objects.equals(UserId, other.UserId) &&
-               Objects.equals(name, other.name) &&
-               Objects.equals(password, other.password) &&
-               Objects.equals(role, other.role) &&
-               Objects.equals(state, other.state) &&
-               Objects.equals(perfil, other.perfil);
+                Objects.equals(name, other.name) &&
+                Objects.equals(password, other.password) &&
+                Objects.equals(role, other.role) &&
+                Objects.equals(state, other.state) &&
+                Objects.equals(profile, other.profile);
     }
-    
+
     @Override
     public String toString() {
-        return String.format("User [UserId=%s, name=%s, password=%s, role=%s, state=%s, perfil=%s]",
-                             UserId, name, password, role, state, perfil);
+        return "User [UserId = " + UserId + ", name = " + name + ", password = " + password + ", role = " + role
+                + ", state = "
+                + state + ", profile = " + profile + "]";
     }
 
 }
