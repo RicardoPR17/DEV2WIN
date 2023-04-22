@@ -1,9 +1,12 @@
-package com.dev2win.iniciativas.usuarios;
+package com.dev2win.iniciativas.data.usuarios;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import java.util.Objects;
+
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
 
 @Entity
 public class Usuario {
@@ -122,52 +125,21 @@ public class Usuario {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
+        if (this == obj) return true;
+        if (!(obj instanceof Usuario)) return false;
         Usuario other = (Usuario) obj;
-        if (usuarioId == null) {
-            if (other.usuarioId != null)
-                return false;
-        } else if (!usuarioId.equals(other.usuarioId))
-            return false;
-        if (nombre == null) {
-            if (other.nombre != null)
-                return false;
-        } else if (!nombre.equals(other.nombre))
-            return false;
-        if (contrasena == null) {
-            if (other.contrasena != null)
-                return false;
-        } else if (!contrasena.equals(other.contrasena))
-            return false;
-        if (rol == null) {
-            if (other.rol != null)
-                return false;
-        } else if (!rol.equals(other.rol))
-            return false;
-        if (estado == null) {
-            if (other.estado != null)
-                return false;
-        } else if (!estado.equals(other.estado))
-            return false;
-        if (perfil == null) {
-            if (other.perfil != null)
-                return false;
-        } else if (!perfil.equals(other.perfil))
-            return false;
-        return true;
+        return Objects.equals(usuarioId, other.usuarioId) &&
+               Objects.equals(nombre, other.nombre) &&
+               Objects.equals(contrasena, other.contrasena) &&
+               Objects.equals(rol, other.rol) &&
+               Objects.equals(estado, other.estado) &&
+               Objects.equals(perfil, other.perfil);
     }
-
+    
     @Override
     public String toString() {
-        return "Usuario [usuarioId = " + usuarioId + ", nombre = " + nombre + ", contrasena = " + contrasena
-                + ", rol = "
-                + rol
-                + ", estado = " + estado + ", perfil = " + perfil + "]";
+        return String.format("Usuario [usuarioId=%s, nombre=%s, contrasena=%s, rol=%s, estado=%s, perfil=%s]",
+                             usuarioId, nombre, contrasena, rol, estado, perfil);
     }
 
 }

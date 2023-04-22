@@ -1,4 +1,4 @@
-package com.dev2win.iniciativas.usuarios;
+package com.dev2win.iniciativas.data.usuarios;
 
 import java.util.List;
 
@@ -23,6 +23,10 @@ public class UsuarioService {
         return usuarioRepository.findById(usuarioId).get();
     }
 
+    public Usuario getUsuarioByNombre(String nombreUsuario) {
+        return usuarioRepository.findByNombre(nombreUsuario).get();
+    }
+
     public List<Usuario> getAllUsuarios() {
         return usuarioRepository.findAll();
     }
@@ -31,7 +35,6 @@ public class UsuarioService {
         if (usuarioRepository.existsById(usuario.getUsuarioId())) {
             return usuarioRepository.save(usuario);
         }
-
         return null;
     }
 
