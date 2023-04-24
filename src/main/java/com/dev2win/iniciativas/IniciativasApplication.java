@@ -12,6 +12,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
+import com.dev2win.iniciativas.data.ideas.Initiative;
+import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
@@ -19,6 +21,9 @@ public class IniciativasApplication {
 
     @Autowired
     UserService userService;
+    
+    @Autowired
+    InitiativeService initiativeService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
@@ -46,7 +51,8 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         // adduser
-        userService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante));
+        userService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante, "prueba@mail.escuelaing.edu.co"));
+        initiativeService.addInitiative(new Initiative("description", "status"));
         return srb;
     }
 
