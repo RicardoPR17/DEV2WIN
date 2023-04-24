@@ -13,8 +13,8 @@
     <section class="login-section">
         <h:form id="login-form">
             <h2>Login Page</h2>
-            <p:inputText value="#{loginBean.nombreUsuario}" placeholder="Nombre de Usuario" required="true"/>
-            <p:password value="#{loginBean.contrasena}" placeholder="Contrasena" required="true"/>
+            <p:inputText value="#{loginBean.userName}" placeholder="Nombre de Usuario" required="true"/>
+            <p:password value="#{loginBean.password}" placeholder="Contrasena" required="true"/>
             <p:commandButton value="Iniciar Sesion" action="#{loginBean.login()}" />
         </h:form>
     </section>

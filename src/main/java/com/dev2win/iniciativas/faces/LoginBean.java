@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.dev2win.iniciativas.data.usuarios.UsuarioService;
+import com.dev2win.iniciativas.data.users.UserService;
 
 @Component
 @ManagedBean(name = "loginBean")
@@ -18,33 +18,34 @@ import com.dev2win.iniciativas.data.usuarios.UsuarioService;
 public class LoginBean {
 
     @Autowired
-    UsuarioService usuarioService;
-    
-    private String nombreUsuario;
-    private String contrasena;
+    UserService userService;
 
-    public LoginBean () {}
+    private String userName;
+    private String password;
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public LoginBean() {
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void login() {
-        // Verficiar que la contrasena del usuario corresponde
-        // Get de contrasena base de datos y comparar con el campo enviado
-        boolean auntenticado = contrasena.equals(usuarioService.getUsuarioByNombre(nombreUsuario).getContrasena());
+        // Verficiar que la password del usuario corresponde
+        // Get de password base de datos y comparar con el campo enviado
+        boolean auntenticado = password.equals(userService.getUserByName(userName).getPassword());
         if (auntenticado) {
             try {
                 // enviar a pagina de bienvenida general
