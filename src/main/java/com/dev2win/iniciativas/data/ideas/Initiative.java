@@ -19,11 +19,11 @@ public class Initiative {
   private String description;
   @Column(name = "registration_date")
   private LocalDate date;
-  private String status;
+  private String state;
 
-  public Initiative(String description, String status) {
+  public Initiative(String description, String state) {
     this.description = description;
-    this.status = status;
+    this.state = state;
     this.date = LocalDate.now();
   }
 
@@ -55,12 +55,12 @@ public class Initiative {
     this.date = date;
   }
 
-  public String getStatus() {
-    return status;
+  public String getState() {
+    return state;
   }
   
-  public void setStatus(String status) {
-    this.status = status;
+  public void setState(String state) {
+    this.state = state;
   }
 
   @Override
@@ -70,7 +70,7 @@ public class Initiative {
     result = prime * result + ((initiativeId == null) ? 0 : initiativeId.hashCode());
     result = prime * result + ((description == null) ? 0 : description.hashCode());
     result = prime * result + ((date == null) ? 0 : date.hashCode());
-    result = prime * result + ((status == null) ? 0 : status.hashCode());
+    result = prime * result + ((state == null) ? 0 : state.hashCode());
     return result;
   }
 
@@ -98,10 +98,10 @@ public class Initiative {
         return false;
     } else if (!date.equals(other.date))
       return false;
-    if (status == null) {
-      if (other.status != null)
+    if (state == null) {
+      if (other.state != null)
         return false;
-    } else if (!status.equals(other.status))
+    } else if (!state.equals(other.state))
       return false;
     return true;
   }

@@ -21,9 +21,6 @@ public class IniciativasApplication {
 
     @Autowired
     UserService userService;
-    
-    @Autowired
-    InitiativeService initiativeService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
@@ -51,8 +48,13 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         // adduser
-        userService.addUser(new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante, "prueba@mail.escuelaing.edu.co"));
-        initiativeService.addInitiative(new Initiative("description", "status"));
+        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+        Initiative initiativeOne = new Initiative("description", "status");
+        Initiative initiativeTwo = new Initiative("description", "revision");
+        
+        user.getIdeas().add(initiativeOne);
+        user.getIdeas().add(initiativeTwo);
+        userService.addUser(user);
         return srb;
     }
 
