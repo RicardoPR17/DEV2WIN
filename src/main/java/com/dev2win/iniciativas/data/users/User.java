@@ -1,11 +1,18 @@
 package com.dev2win.iniciativas.data.users;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+
+import com.dev2win.iniciativas.data.ideas.Initiative;
 
 @Entity
 public class User {
@@ -17,13 +24,18 @@ public class User {
     private String role;
     private String state;
     private String profile;
-
-    public User(String name, String password, Role role, String state, Profile profile) {
+    private String mail;
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "userId")
+    List <Initiative> ideas = new ArrayList<>();
+    
+    public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
         this.role = role.getValue();
         this.state = state;
         this.profile = profile.getValue();
         this.password = password;
+        this.mail = mail;
     }
 
     public User() {
@@ -78,6 +90,23 @@ public class User {
         this.profile = profile;
     }
 
+    public String getmail() {
+        return mail;
+    }
+
+    public void setmail(String mail) {
+        this.mail = mail;
+    }
+    
+    
+    public List<Initiative> getIdeas() {
+        return ideas;
+    }
+
+    public void setIdeas(List<Initiative> ideas) {
+        this.ideas = ideas;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -88,6 +117,7 @@ public class User {
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         result = prime * result + ((profile == null) ? 0 : profile.hashCode());
+        result = prime * result + ((mail == null) ? 0 : mail.hashCode());
         return result;
     }
 
@@ -103,14 +133,16 @@ public class User {
                 Objects.equals(password, other.password) &&
                 Objects.equals(role, other.role) &&
                 Objects.equals(state, other.state) &&
-                Objects.equals(profile, other.profile);
+                Objects.equals(profile, other.profile) &&
+                Objects.equals(mail, other.mail);
+
     }
 
     @Override
     public String toString() {
         return "User [UserId = " + UserId + ", name = " + name + ", password = " + password + ", role = " + role
                 + ", state = "
-                + state + ", profile = " + profile + "]";
+                + state + ", profile = " + profile + "mail = " + mail + "]";
     }
 
 }
