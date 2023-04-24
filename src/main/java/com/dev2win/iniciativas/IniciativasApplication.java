@@ -6,6 +6,7 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
@@ -22,6 +23,16 @@ public class IniciativasApplication {
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
     }
+
+    /*
+     * @Bean
+     * public CommandLineRunner run() throws Exception {
+     * return (args) -> {
+     * 
+     * System.out.println(userService.getUserByProfile("Estudiante"));
+     * };
+     * }
+     */
 
     @Bean
     ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {

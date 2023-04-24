@@ -18,34 +18,34 @@ import com.dev2win.iniciativas.data.users.UserService;
 public class LoginBean {
 
     @Autowired
-    UserService usuarioService;
+    UserService userService;
 
-    private String nombreUsuario;
-    private String contrasena;
+    private String userName;
+    private String password;
 
     public LoginBean() {
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getContrasena() {
-        return contrasena;
+    public String getPassword() {
+        return password;
     }
 
-    public void setContrasena(String contrasena) {
-        this.contrasena = contrasena;
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void login() {
-        // Verficiar que la contrasena del usuario corresponde
-        // Get de contrasena base de datos y comparar con el campo enviado
-        boolean auntenticado = contrasena.equals(usuarioService.getUserByName(nombreUsuario).getPassword());
+        // Verficiar que la password del usuario corresponde
+        // Get de password base de datos y comparar con el campo enviado
+        boolean auntenticado = password.equals(userService.getUserByName(userName).getPassword());
         if (auntenticado) {
             try {
                 // enviar a pagina de bienvenida general
