@@ -36,7 +36,7 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         //adduser
-        usuarioService.addUsuario(new Usuario("prueba", "contrasena", "dev", "desarrollo", "estudiante"));
+        //usuarioService.addUsuario(new Usuario("prueba", "contrasena", "dev", "desarrollo", "estudiante"));
         return srb;
     }
 
