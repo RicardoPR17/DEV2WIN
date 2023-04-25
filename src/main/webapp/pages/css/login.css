@@ -1,1 +1,121 @@
-/* Poner login bonito OwO */
+html {
+    width: 100%;
+    height: 100%;
+    
+}
+
+body {
+    background: linear-gradient(225deg, #000000, #231c50);
+    background-repeat: no-repeat;
+    font-family: Helvetica;
+}
+
+.sponsor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.leftPage{
+    width: 40vw;
+    margin-left: 10%;
+    margin-top: 10%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.teamImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+}
+
+.loginSection {
+    position: relative;
+    background: #1c1642;
+    border: 2px groove #2e2469;
+    border-radius: 12px;
+    width: 320px;
+    height: 220px;
+    text-align: center;
+}
+
+.loginContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.formTitle{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 5hv;
+    color: #fff;
+    text-align: center;
+    font-weight: normal;
+}
+
+.nombre{
+    margin-bottom: 6%;
+    margin-right: 27%;
+    margin-left: 17%;
+    border: none;
+    border-radius: 3px;
+}
+
+.contrasena{
+    margin-bottom: 6%;
+    margin-right: 17%;
+    margin-left: 17%;
+    border: none;
+    border-radius: 3px;
+}
+
+.rightPage{
+    display: flex;
+    right: 0;
+    background: #dfdee6;
+    border: 2px groove #2e2469;
+    margin-top: -1.5%;
+    position: absolute;
+    top: 0;
+    width: 40vw;
+}
+
+.menuImage{
+    margin-top: -1.5%;
+    margin-left: 1%;
+    min-width: none;
+    overflow: hidden;
+    top: 0;
+    bottom: 0;
+}
