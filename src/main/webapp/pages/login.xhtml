@@ -1,20 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-    <link rel="stylesheet" type="text/css" href="styles/login.css"/>
-</h:head>
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    </h:head>
 
 <h:body>
     <section class="login-section">
         <h:form id="login-form">
             <h2>Login Page</h2>
-            <p:inputText value="#{loginBean.userName}" placeholder="Nombre de Usuario" required="true"/>
-            <p:password value="#{loginBean.password}" placeholder="Contrasena" required="true"/>
+            <p:inputText value="#{loginBean.nombreUsuario}" placeholder="Nombre de Usuario" required="true"/>
+            <p:password value="#{loginBean.contrasena}" placeholder="Contrasena" required="true"/>
             <p:commandButton value="Iniciar Sesion" action="#{loginBean.login()}" />
         </h:form>
     </section>
