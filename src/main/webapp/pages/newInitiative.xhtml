@@ -5,20 +5,20 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-    <link rel="stylesheet" type="text/css" href="styles/login.css"/>
-</h:head>
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="styles/login.css"/>
+    </h:head>
 
-<h:body>
-    <section class="initiative-section">
-        <h:form id="initiative-form">
-            <h2>Add a new initiative:</h2>
-            <p:inputTextarea value="#{initiativeBean.description}" rows="6" cols="120" counter="display" maxlength="10" counterTemplate="{0} characters remaining." placeholder="Write your initiative here..." required="true"/>
-            <p:inputText value="#{initiativeBean.keyword1}" placeholder="Initiative Keywords" required="true"/>
-            <p:inputText value="#{initiativeBean.keyword2}" required="true"/>
-            <p:inputText value="#{initiativeBean.keyword3}" required="true"/>
-            <p:commandButton value="Add" action="#{loginBean.add()}" />
-        </h:form>
-    </section>
-</h:body>
+    <h:body>
+        <section class="initiative-section">
+            <h:form id="initiative-form">
+                <h2>Add a new initiative:</h2>
+                <p:inputTextarea value="#{initiativeBean.description}" maxlength="10" counterTemplate="{0} characters remaining." placeholder="Write your initiative here..." required="true"/>
+                <p:inputText value="#{initiativeBean.keyword1}" placeholder="Initiative Keywords" required="true"/>
+                <p:inputText value="#{initiativeBean.keyword2}" required="true"/>
+                <p:inputText value="#{initiativeBean.keyword3}" required="true"/>
+                <p:commandButton value="Add" actionListener="#{initiativeBean.add()}" />
+            </h:form>
+        </section>
+    </h:body>
 </html>

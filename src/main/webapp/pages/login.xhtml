@@ -1,22 +1,39 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-    <link rel="stylesheet" type="text/css" href="styles/login.css"/>
-</h:head>
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="css/login.css"/>
+    </h:head>
 
-<h:body>
-    <section class="login-section">
-        <h:form id="login-form">
-            <h2>Login Page</h2>
-            <p:inputText value="#{loginBean.userName}" placeholder="Nombre de Usuario" required="true"/>
-            <p:password value="#{loginBean.password}" placeholder="Contrasena" required="true"/>
-            <p:commandButton value="Iniciar Sesion" action="#{loginBean.login()}" />
-        </h:form>
-    </section>
-</h:body>
+    <h:body>
+        <div class="leftPage">
+            <div class="title">
+                <h3>Welcome to the idea bank</h3>
+            </div>
+            <section class="loginContainer">
+                <h:form id="login-form" class="loginSection">
+                    <h2>Sign in</h2>
+                    <p:inputText value="#{loginBean.userName}" placeholder="Username" required="true" styleClass="nombre"/>
+                    <p:password value="#{loginBean.password}" placeholder="Password" required="true" styleClass="contrasena"/>
+                    <p:commandButton actionListener="#{loginBean.login()}" value="Sign in" styleClass="inicio"/>
+                </h:form>
+            </section>
+            <br></br>
+            <br></br>
+            <br></br>
+            <br></br>
+            <div class="sponsor">
+                <h2>Created by the besto team</h2>
+                <img src="https://user-images.githubusercontent.com/4140058/233420265-c256dc29-a77d-4e69-86f2-9835850dcb53.png" 
+                style="width:160px;height:120px;" class="teamImage"/>
+            </div>
+        </div>
+        <div class="rightPage">
+            <img src="https://img.pikbest.com/backgrounds/20190924/technology-background-with-blue-gradient-background-v_1559315jpg!bwr800"
+            style="width:800px;height:761px;" class="menuImage"/>
+        </div>
+    </h:body>
 </html>

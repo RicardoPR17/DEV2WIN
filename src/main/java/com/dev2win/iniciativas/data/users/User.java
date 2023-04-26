@@ -38,9 +38,7 @@ public class User {
         this.mail = mail;
     }
 
-    public User() {
-
-    }
+    public User() { }
 
     public Long getUserId() {
         return UserId;
