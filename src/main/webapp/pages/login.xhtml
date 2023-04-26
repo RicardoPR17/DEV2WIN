@@ -14,12 +14,12 @@
                 <h3>Welcome to the idea bank</h3>
             </div>
             <section class="loginContainer">
-                <form id="login-form" class="loginSection">
+                <h:form id="login-form" class="loginSection">
                     <h2>Sign in</h2>
-                    <p:inputText placeholder="Username" required="true" class="nombre"/>
-                    <p:password placeholder="Password" required="true" class="contrasena"/>
-                    <p:commandButton type="submit" value="Sign in" action="#{loginBean.login()}" class="inicio"/>
-                </form>
+                    <p:inputText value="#{loginBean.userName}" placeholder="Username" required="true" styleClass="nombre"/>
+                    <p:password value="#{loginBean.password}" placeholder="Password" required="true" styleClass="contrasena"/>
+                    <p:commandButton actionListener="#{loginBean.login()}" value="Sign in" styleClass="inicio"/>
+                </h:form>
             </section>
             <br></br>
             <br></br>
