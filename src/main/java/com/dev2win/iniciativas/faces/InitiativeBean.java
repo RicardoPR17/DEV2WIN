@@ -1,6 +1,5 @@
 package com.dev2win.iniciativas.faces;
 
-import java.time.LocalDate;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -74,16 +73,16 @@ public class InitiativeBean {
         this.userName = userName;
     }
 
-    public void add(String userName){
+    public void add(String userName) {
         try {
-            //Creamos la iniciativa, le seteamos la fecha actual y la agregamos a la BD mediante el servicio.
+            // Creamos la iniciativa y la agregamos a la BD mediante el servicio.
             User userOwner = userService.getUserByMail(userName);
-            initiativeService.addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner));
-            //Redirigimos a una página de éxito
+            initiativeService
+                    .addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner));
+            // Redirigimos a una página de éxito
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "../pages/initiativeSuccess.xhtml");
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -14,7 +14,7 @@ import com.dev2win.iniciativas.data.users.User;
 
 @Entity
 public class Initiative {
-  
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private Long initiativeId;
@@ -29,7 +29,6 @@ public class Initiative {
   @ManyToOne
   @JoinColumn(name = "user_id")
   private User user;
-  //private Long userId;
 
   public Initiative(String description, String state, String keyword1, String keyword2, String keyword3, User user) {
     this.description = description;
@@ -72,7 +71,7 @@ public class Initiative {
   public String getState() {
     return state;
   }
-  
+
   public void setState(String state) {
     this.state = state;
   }
