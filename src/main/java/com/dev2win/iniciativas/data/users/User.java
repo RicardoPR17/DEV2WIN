@@ -4,12 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
@@ -25,9 +23,8 @@ public class User {
     private String state;
     private String profile;
     private String mail;
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "userId")
-    List <Initiative> ideas = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Initiative> ideas = new ArrayList<>();
     
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;

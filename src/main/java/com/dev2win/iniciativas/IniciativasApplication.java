@@ -50,11 +50,6 @@ public class IniciativasApplication {
                 // adduser
                 User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
                                 "prueba@mail.escuelaing.edu.co");
-                Initiative initiativeOne = new Initiative("description", "status");
-                Initiative initiativeTwo = new Initiative("description", "revision");
-
-                user.getIdeas().add(initiativeOne);
-                user.getIdeas().add(initiativeTwo);
                 userService.addUser(user);
                 return srb;
         }

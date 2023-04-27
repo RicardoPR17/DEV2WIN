@@ -76,7 +76,7 @@ public class InitiativeBean {
         try {
             //Creamos la iniciativa, le seteamos la fecha actual y la agregamos a la BD mediante el servicio.
             User userOwner = userService.getUserByMail(userName);
-            initiativeService.addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner.getUserId()));
+            initiativeService.addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner));
             //Redirigimos a una página de éxito
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "../pages/initiativeSuccess.xhtml");
