@@ -1,6 +1,7 @@
 package com.dev2win.iniciativas.data.ideas;
 
 import java.time.LocalDate;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,119 +13,101 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "initiatives")
 public class Initiative {
-  
-  @Id
-  @GeneratedValue(strategy = GenerationType.AUTO)
-  private Long initiativeId;
-  private String description;
-  @Column(name = "registration_date")
-  private LocalDate date;
-  private String state;
-  private String keyword1;
-  private String keyword2;
-  private String keyword3;
 
-  public Initiative(String description, String state) {
-    this.description = description;
-    this.state = state;
-    this.date = LocalDate.now();
-  }
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long initiativeId;
+    private String description;
+    @Column(name = "registration_date")
+    private LocalDate date;
+    private String state;
+    private String keyword1;
+    private String keyword2;
+    private String keyword3;
+    private Long userId;
 
-  public Initiative() {
+    public Initiative(String description, String state, String keyword1, String keyword2, String keyword3, Long userId) {
+        this.description = description;
+        this.state = state;
+        this.date = LocalDate.now();
+        this.keyword1 = keyword1;
+        this.keyword2 = keyword2;
+        this.keyword3 = keyword3;
+        this.userId = userId;
+    }
 
-  }
+    public Initiative() {
 
-  public Long getInitiativeId() {
-    return initiativeId;
-  }
+    }
 
-  public void setInitiativeId(Long initiativeId) {
-    this.initiativeId = initiativeId;
-  }
+    public Long getInitiativeId() {
+        return initiativeId;
+    }
 
-  public String getDescription() {
-    return description;
-  }
+    public void setInitiativeId(Long initiativeId) {
+        this.initiativeId = initiativeId;
+    }
 
-  public void setDescription(String description) {
-    this.description = description;
-  }
+    public String getDescription() {
+        return description;
+    }
 
-  public LocalDate getDate() {
-    return date;
-  }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-  public void setDate(LocalDate date) {
-    this.date = date;
-  }
+    public LocalDate getDate() {
+        return date;
+    }
 
-  public String getState() {
-    return state;
-  }
-  
-  public void setState(String state) {
-    this.state = state;
-  }
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
-  @Override
-  public int hashCode() {
-    final int prime = 31;
-    int result = 1;
-    result = prime * result + ((initiativeId == null) ? 0 : initiativeId.hashCode());
-    result = prime * result + ((description == null) ? 0 : description.hashCode());
-    result = prime * result + ((date == null) ? 0 : date.hashCode());
-    result = prime * result + ((state == null) ? 0 : state.hashCode());
-    return result;
-  }
+    public String getState() {
+        return state;
+    }
 
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj)
-      return true;
-    if (obj == null)
-      return false;
-    if (getClass() != obj.getClass())
-      return false;
-    Initiative other = (Initiative) obj;
-    if (initiativeId == null) {
-      if (other.initiativeId != null)
-        return false;
-    } else if (!initiativeId.equals(other.initiativeId))
-      return false;
-    if (description == null) {
-      if (other.description != null)
-        return false;
-    } else if (!description.equals(other.description))
-      return false;
-    if (date == null) {
-      if (other.date != null)
-        return false;
-    } else if (!date.equals(other.date))
-      return false;
-    if (state == null) {
-      if (other.state != null)
-        return false;
-    } else if (!state.equals(other.state))
-      return false;
-    return true;
-  }
+    public void setState(String state) {
+        this.state = state;
+    }
 
-  /*public String getKeyword1() {
-    return keyword1;
-  }
-  public void setKeyword1(String keyword1) {
-    this.keyword1 = keyword1;
-  }
-  public String getKeyword2() {
-    return keyword2;
-  }
-  public void setKeyword2(String keyword2) {
-    this.keyword2 = keyword2;
-  }
-  public String getKeyword3() {
-    return keyword3;
-  }
-  public void setKeyword3(String keyword3) {
-    this.keyword3 = keyword3;
-  }*/
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + ((initiativeId == null) ? 0 : initiativeId.hashCode());
+        result = prime * result + ((description == null) ? 0 : description.hashCode());
+        result = prime * result + ((date == null) ? 0 : date.hashCode());
+        result = prime * result + ((state == null) ? 0 : state.hashCode());
+        result = prime * result + ((keyword1 == null) ? 0 : keyword1.hashCode());
+        result = prime * result + ((keyword2 == null) ? 0 : keyword2.hashCode());
+        result = prime * result + ((keyword3 == null) ? 0 : keyword3.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null || getClass() != obj.getClass())
+            return false;
+
+        Initiative other = (Initiative) obj;
+        return Objects.equals(initiativeId, other.initiativeId) &&
+            Objects.equals(description, other.description) &&
+            Objects.equals(date, other.date) &&
+            Objects.equals(state, other.state) &&
+            Objects.equals(keyword1, other.keyword1) &&
+            Objects.equals(keyword2, other.keyword2) &&
+            Objects.equals(keyword3, other.keyword3);
+    }
+
+    @Override
+    public String toString() {
+        return "Initiative [initiativeId=" + initiativeId + ", description=" + description + ", date=" + date
+                + ", state=" + state + ", keyword1=" + keyword1 + ", keyword2=" + keyword2 + ", keyword3=" + keyword3
+                + "]";
+    }
+
 }
