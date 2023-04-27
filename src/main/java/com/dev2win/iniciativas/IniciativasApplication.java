@@ -19,44 +19,44 @@ import com.dev2win.iniciativas.data.users.*;
 @SpringBootApplication
 public class IniciativasApplication {
 
-    @Autowired
-    UserService userService;
+        @Autowired
+        UserService userService;
 
-    public static void main(String[] args) {
-        SpringApplication.run(IniciativasApplication.class, args);
-    }
+        public static void main(String[] args) {
+                SpringApplication.run(IniciativasApplication.class, args);
+        }
 
-    /*
-     * @Bean
-     * public CommandLineRunner run() throws Exception {
-     * return (args) -> {
-     * 
-     * System.out.println(userService.getUserByProfile("Estudiante"));
-     * };
-     * }
-     */
+        /*
+         * @Bean
+         * public CommandLineRunner run() throws Exception {
+         * return (args) -> {
+         * 
+         * System.out.println(userService.getUserByProfile("Estudiante"));
+         * };
+         * }
+         */
 
-    @Bean
-    ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
-        // spring boot only works if this is set
-        servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
+        @Bean
+        ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
+                // spring boot only works if this is set
+                servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-        // registration
-        ServletRegistrationBean srb = new ServletRegistrationBean();
-        srb.setServlet(new FacesServlet());
-        srb.setUrlMappings(Arrays.asList("*.xhtml"));
-        srb.setLoadOnStartup(1);
+                // registration
+                ServletRegistrationBean srb = new ServletRegistrationBean();
+                srb.setServlet(new FacesServlet());
+                srb.setUrlMappings(Arrays.asList("*.xhtml"));
+                srb.setLoadOnStartup(1);
 
-        // adduser
-        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
-                "prueba@mail.escuelaing.edu.co");
-        Initiative initiativeOne = new Initiative("description", "status");
-        Initiative initiativeTwo = new Initiative("description", "revision");
+                // adduser
+                User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
+                                "prueba@mail.escuelaing.edu.co");
+                Initiative initiativeOne = new Initiative("description", "status");
+                Initiative initiativeTwo = new Initiative("description", "revision");
 
-        user.getIdeas().add(initiativeOne);
-        user.getIdeas().add(initiativeTwo);
-        userService.addUser(user);
-        return srb;
-    }
+                user.getIdeas().add(initiativeOne);
+                user.getIdeas().add(initiativeTwo);
+                userService.addUser(user);
+                return srb;
+        }
 
 }
