@@ -1,6 +1,7 @@
 package com.dev2win.iniciativas.faces;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
@@ -11,6 +12,7 @@ import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
+//import com.sun.org.apache.xml.internal.security.Init;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -84,6 +86,10 @@ public class InitiativeBean {
         catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public List<Initiative> getAll() {
+        return initiativeService.getAllInitiatives();
     }
 
 }

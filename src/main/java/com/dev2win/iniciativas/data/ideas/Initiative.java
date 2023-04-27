@@ -101,6 +101,10 @@ public class Initiative {
     this.keyword3 = keyword3;
   }
 
+  public String getKeywords() {
+    return keyword1 + "; " + keyword2 + "; " + keyword3;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;

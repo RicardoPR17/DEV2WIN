@@ -13,11 +13,12 @@
         <section class="initiative-section">
             <h:form id="initiative-form">
                 <h2>Add a new initiative:</h2>
-                <p:inputTextarea value="#{initiativeBean.description}" maxlength="10" counterTemplate="{0} characters remaining." placeholder="Write your initiative here..." required="true"/>
+                <p:inputTextarea value="#{initiativeBean.description}" maxlength="250" counterTemplate="{0} characters remaining." placeholder="Write your initiative here..." required="true"/>
                 <p:inputText value="#{initiativeBean.keyword1}" placeholder="Initiative Keywords" required="true"/>
                 <p:inputText value="#{initiativeBean.keyword2}" placeholder="Initiative Keywords" required="true"/>
                 <p:inputText value="#{initiativeBean.keyword3}" placeholder="Initiative Keywords" required="true"/>
-                <p:commandButton value="Add" actionListener="#{initiativeBean.add(loginBean.getUserName())}" />
+                <p:commandButton value="Add" actionListener="#{initiativeBean.add('prueba@mail.escuelaing.edu.co')}" />
+                <!--p:commandButton value="Add" actionListener="#{initiativeBean.add(loginBean.getUserName())}" /-->
             </h:form>
         </section>
     </h:body>
