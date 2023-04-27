@@ -8,6 +8,8 @@ import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.users.User;
+import com.dev2win.iniciativas.data.users.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -19,10 +21,13 @@ import org.springframework.web.context.annotation.SessionScope;
 public class InitiativeBean {
     @Autowired
     InitiativeService initiativeService;
+    @Autowired
+    UserService userService;
     private String description;
     private String keyword1;
     private String keyword2;
     private String keyword3;
+    private String userName;
 
     public InitiativeBean() {
     }
@@ -59,12 +64,19 @@ public class InitiativeBean {
         this.keyword3 = keyword3;
     }
 
-    public void add(){
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void add(String userName){
         try {
             //Creamos la iniciativa, le seteamos la fecha actual y la agregamos a la BD mediante el servicio.
-            Initiative newInitiative = new Initiative(description, "created");
-            newInitiative.setDate(LocalDate.now());
-            initiativeService.addInitiative(newInitiative);
+            User userOwner = userService.getUserByMail(userName);
+            initiativeService.addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner.getUserId()));
             //Redirigimos a una página de éxito
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "../pages/initiativeSuccess.xhtml");
