@@ -21,20 +21,32 @@ public class IniciativasApplication {
 
         @Autowired
         UserService userService;
+        InitiativeService initiativeService;
 
         public static void main(String[] args) {
                 SpringApplication.run(IniciativasApplication.class, args);
         }
 
-        /*
-         * @Bean
-         * public CommandLineRunner run() throws Exception {
-         * return (args) -> {
-         * 
-         * System.out.println(userService.getUserByProfile("Estudiante"));
-         * };
-         * }
-         */
+        @Bean
+        public CommandLineRunner run() throws Exception {
+                return (args) -> {
+                        System.out.println("Deleting users and initiatives on DB...\n");
+                        // initiativeService.getAllInitiatives().forEach(initiative ->
+                        // initiativeService.deleteInitiative(initiative.getInitiativeId()));
+                        // userService.getAllUsers().forEach(user ->
+                        // userService.deleteUser(user.getUserId()));
+
+                        // System.out.println(userService.getUserByProfile("Estudiante"));
+                        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
+                                        Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+                        Initiative initiativeOne = new Initiative("description", "status", null, null, null, user);
+                        Initiative initiativeTwo = new Initiative("description", "revision", null, null, null, user);
+
+                        user.getIdeas().add(initiativeOne);
+                        user.getIdeas().add(initiativeTwo);
+                        userService.addUser(user);
+                };
+        }
 
         @Bean
         ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {

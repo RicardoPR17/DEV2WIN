@@ -36,4 +36,5 @@ public class InitiativeService {
     List<Initiative> listThree = initiativeRepository.findByKeyword3(word);
     return Stream.of(listOne, listTwo, listThree).flatMap(Collection::stream).collect(Collectors.toList());
   }
+  public void deleteAll() { initiativeRepository.deleteAll(); }
 }
