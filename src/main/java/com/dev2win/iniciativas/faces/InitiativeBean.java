@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
@@ -78,7 +79,8 @@ public class InitiativeBean {
             // Creamos la iniciativa y la agregamos a la BD mediante el servicio.
             User userOwner = userService.getUserByMail(userName);
             initiativeService
-                    .addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner));
+                    .addInitiative(
+                            new Initiative(description, State.Supported, keyword1, keyword2, keyword3, userOwner));
             // Redirigimos a una página de éxito
             ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
             ec.redirect(ec.getRequestContextPath() + "../pages/initiativeSuccess.xhtml");

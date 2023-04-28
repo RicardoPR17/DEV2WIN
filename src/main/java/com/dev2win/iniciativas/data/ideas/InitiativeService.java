@@ -10,7 +10,7 @@ import java.util.stream.Stream;
 
 @Service
 public class InitiativeService {
-  
+
   private final InitiativeRepository initiativeRepository;
 
   @Autowired
@@ -28,13 +28,20 @@ public class InitiativeService {
 
   public void deleteInitiative(Long initiativeId) {
     initiativeRepository.deleteById(initiativeId);
-}
+  }
 
   public List<Initiative> getByKeyword(String word) {
-    List<Initiative> listOne = initiativeRepository.findByKeyword1(word);
-    List<Initiative> listTwo = initiativeRepository.findByKeyword2(word);
-    List<Initiative> listThree = initiativeRepository.findByKeyword3(word);
-    return Stream.of(listOne, listTwo, listThree).flatMap(Collection::stream).collect(Collectors.toList());
+    return initiativeRepository.findByKeyword(word);
   }
-  public void deleteAll() { initiativeRepository.deleteAll(); }
+
+  public void deleteAll() {
+    initiativeRepository.deleteAll();
+  }
+
+  public Initiative updateInitiative(Initiative initiative) {
+    if (initiativeRepository.existsById(initiative.getInitiativeId())) {
+      return initiativeRepository.save(initiative);
+    }
+    return null;
+  }
 }
