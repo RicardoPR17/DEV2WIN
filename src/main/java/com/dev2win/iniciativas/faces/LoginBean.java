@@ -45,17 +45,16 @@ public class LoginBean {
     public void login() {
         // Verficiar que la password del usuario corresponde
         // Get de password base de datos y comparar con el campo enviado
-        boolean auntenticado = password.equals(userService.getUserByName(userName).getPassword());
+        boolean auntenticado = password.equals(userService.getUserByMail(userName).getPassword());
         if (auntenticado) {
             try {
                 // enviar a pagina de bienvenida general
                 // eso depende del rol (administrador, proponente...)
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + "../pages/welcome.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "../pages/newInitiative.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }

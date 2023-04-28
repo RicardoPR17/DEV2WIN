@@ -27,6 +27,10 @@ public class UserService {
         return userRepository.findByName(userName).get();
     }
 
+    public User getUserByMail(String userMail) {
+        return userRepository.findByMail(userMail).get();
+    }
+
     public List<User> getAllUsers() {
         return userRepository.findAll();
     }
@@ -49,4 +53,5 @@ public class UserService {
     public List<User> getUserByRole(String roleToSearch) {
         return userRepository.findByRole(roleToSearch);
     }
+    public void deleteAll() { userRepository.deleteAll(); }
 }

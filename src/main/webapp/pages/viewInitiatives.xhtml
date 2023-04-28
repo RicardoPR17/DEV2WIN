@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+<h:head>
+    <link rel="stylesheet" type="text/css" href="styles/welcome.css"/>
+</h:head>
+
+<h:body>
+    <div class="view-initiatives">
+        <h:form id="initiatives-menu">
+            <p:growl id="messages" show-detail="true" />
+            <p:toolbar></p:toolbar>
+            <p:dataTable id="initiatives-list" var="initiative" value="#{initiativeBean.getAll()}"
+                rowKey="#{initative.initiativeId}" paginator="true" rows="20" paginatorPosition="bottom"
+                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                <f:facet name="header">
+                    <div class="initiatives-list-header">
+                        <span style="font-weight: bold">INITIATIVES</span>
+                        <span class="filter-container ui-input-icon-left"> <i class="pi pi-search"></i>
+                        <p:inputText id="globalFilter" onkeyup="PF('initiatives-list').filter()" placeholder="Search" />
+                    </span>
+                    </div>
+                </f:facet>
+                <p:column headerText="#" sortBy="#{initiative.initiativeId}">
+                    <h:outputText value="#{initiative.initiativeId}" />
+                </p:column>
+                <p:column headerText="Date" sortBy="#{initiative.date}">
+                    <h:outputText value="#{initiative.date}" />
+                </p:column>
+                <p:column headerText="Description" sortBy="#{initiative.description}">
+                    <h:outputText value="#{initiative.description}" />
+                </p:column>
+                <p:column headerText="Keywords" sortBy="#{initiative.getKeywords()}"
+                          filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
+                    <h:outputText value="#{initiative.getKeywords()}" />
+                </p:column>
+                <p:column headerText="State" sortBy="#{initiative.state}">
+                    <h:outputText value="#{initiative.state}" />
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </div>
+</h:body>
+</html>
