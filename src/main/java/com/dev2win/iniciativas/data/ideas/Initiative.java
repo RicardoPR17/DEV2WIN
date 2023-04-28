@@ -30,9 +30,9 @@ public class Initiative {
   @JoinColumn(name = "user_id")
   private User user;
 
-  public Initiative(String description, String state, String keyword1, String keyword2, String keyword3, User user) {
+  public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
     this.description = description;
-    this.state = state;
+    this.state = state.getValue();
     this.date = LocalDate.now();
     this.keyword1 = keyword1;
     this.keyword2 = keyword2;
@@ -104,6 +104,14 @@ public class Initiative {
     return keyword1 + "; " + keyword2 + "; " + keyword3;
   }
 
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   @Override
   public int hashCode() {
     final int prime = 31;
@@ -115,6 +123,7 @@ public class Initiative {
     result = prime * result + ((keyword1 == null) ? 0 : keyword1.hashCode());
     result = prime * result + ((keyword2 == null) ? 0 : keyword2.hashCode());
     result = prime * result + ((keyword3 == null) ? 0 : keyword3.hashCode());
+    result = prime * result + ((user == null) ? 0 : user.hashCode());
     return result;
   }
 
@@ -162,6 +171,21 @@ public class Initiative {
         return false;
     } else if (!keyword3.equals(other.keyword3))
       return false;
+    if (user == null) {
+      if (other.user != null)
+        return false;
+    } else if (!user.equals(other.user))
+      return false;
     return true;
   }
+
+  @Override
+  public String toString() {
+    return "Initiative [initiativeId = " + initiativeId + ", description = " + description + ", date = " + date
+        + ", state = "
+        + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3 + ", user = "
+        + user
+        + "]";
+  }
+
 }
