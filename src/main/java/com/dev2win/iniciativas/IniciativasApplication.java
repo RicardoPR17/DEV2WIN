@@ -37,8 +37,6 @@ public class IniciativasApplication {
                                         initiative -> initiativeService.deleteInitiative(initiative.getInitiativeId()));
                         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
 
-                        // System.out.println(userService.getUserByProfile("Estudiante"));
-
                         User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
                                         Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
 
@@ -53,6 +51,7 @@ public class IniciativasApplication {
                                         new Initiative("Prueba3", State.Revision, "Ayuda", "Analisis", "Colaborar",
                                                         user));
 
+                        // System.out.println(userService.getUserByProfile("Estudiante"));
                         // System.out.println(initiativeService.getByKeyword("Proyecto"));
                 };
         }
