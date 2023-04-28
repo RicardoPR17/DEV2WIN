@@ -14,6 +14,7 @@ import org.springframework.context.annotation.Bean;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
@@ -43,9 +44,16 @@ public class IniciativasApplication {
 
                         userService.addUser(user);
                         initiativeService
-                                        .addInitiative(new Initiative("description", "status", null, null, null, user));
+                                        .addInitiative(new Initiative("Prueba1", State.Open, "Prueba", "Ciclos",
+                                                        "Proyecto", user));
                         initiativeService.addInitiative(
-                                        new Initiative("description", "revision", null, null, null, user));
+                                        new Initiative("Prueba2", State.Revision, "Proyecto", "Estandar", "Idea",
+                                                        user));
+                        initiativeService.addInitiative(
+                                        new Initiative("Prueba3", State.Revision, "Ayuda", "Analisis", "Colaborar",
+                                                        user));
+
+                        // System.out.println(initiativeService.getByKeyword("Proyecto"));
                 };
         }
 
