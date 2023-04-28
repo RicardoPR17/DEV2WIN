@@ -1,0 +1,101 @@
+html {
+    padding: 0px;
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+body {
+    background: linear-gradient(45deg, #000000, #231c50);
+    background-repeat: no-repeat;
+    font-family: Helvetica;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 4vw;
+    color: #fff;
+    text-align: center;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 5hv;
+    color: #fff;
+    text-align: center;
+    font-weight: normal;
+}
+
+.Img{
+    height: 100px;
+}
+
+.ImgContainer{
+    float:left; 
+    display:inline;
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 2%;
+    left: 0;
+}
+
+.Title{
+    float:left; 
+    display:inline; 
+    width: 25%;
+    margin-top: 2%;
+    left: 0;
+}
+
+.initiative-section{
+    float:left; 
+    display:inline; 
+    width: 100%;
+    margin-left: 20%;
+    left: 0;
+}
+
+.InitiativeDescription{
+    width: 60%;
+}
+
+.Options{
+    float:left; 
+    display:inline; 
+    width: 100%;
+    margin-top: 0.5%;
+    margin-bottom: 3%;
+}
+
+.KeyWord1{
+    width: 14%;
+    margin-right: 0.5%;
+}
+
+.KeyWord2{
+    width: 14%;
+    margin-right: 0.5%;
+}
+
+.KeyWord3{
+    width: 14%;
+    margin-right: 0.5%;
+}
+
+.Publish{
+    width: 7.5%;
+}
+
+.view-initiatives{
+    float:left; 
+    display:inline; 
+    width: 70%;
+    margin-left: 14.5%;
+    margin-bottom: 5%;
+}
+
