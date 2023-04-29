@@ -99,7 +99,7 @@ public class InitiativeBean {
             User userOwner = userService.getUserByMail(userName);
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
-            this.selectedInitiative.setState(StateInitiative.Created);
+            this.selectedInitiative.setState(State.Open);
             initiativeService.addInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
         }
