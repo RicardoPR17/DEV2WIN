@@ -28,39 +28,41 @@ public class IniciativasApplication {
                 SpringApplication.run(IniciativasApplication.class, args);
         }
 
-        @Bean
-        public CommandLineRunner run() throws Exception {
-                return (args) -> {
-                        System.out.println("Deleting users and initiatives on DB...\n");
-                        initiativeService.getAllInitiatives().forEach(
-                                        initiative -> initiativeService.deleteInitiative(initiative.getInitiativeId()));
-                        userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+        // @Bean
+        // public CommandLineRunner run() throws Exception {
+        //     return (args) -> {
+        //         System.out.println("Deleting users and initiatives on DB...\n");
+        //         initiativeService.getAllInitiatives().forEach(
+        //                         initiative -> initiativeService.deleteInitiative(initiative.getInitiativeId()));
+        //         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
 
-                        // System.out.println(userService.getUserByProfile("Estudiante"));
+        //         // System.out.println(userService.getUserByProfile("Estudiante"));
 
-                        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
-                                        Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+        //         User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
+        //                         Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
 
-                        userService.addUser(user);
-                        initiativeService
-                                        .addInitiative(new Initiative("description", "status", null, null, null, user));
-                        initiativeService.addInitiative(
-                                        new Initiative("description", "revision", null, null, null, user));
-                };
-        }
+        //         userService.addUser(user);
+        //         initiativeService
+        //                         .addInitiative(new Initiative("description", "status", null, null, null, user));
+        //         initiativeService.addInitiative(
+        //                         new Initiative("description", "revision", null, null, null, user));
+        //     };
+        // }
 
         @Bean
         ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
-                // spring boot only works if this is set
-                servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
+            // spring boot only works if this is set
+            servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-                // registration
-                ServletRegistrationBean srb = new ServletRegistrationBean();
-                srb.setServlet(new FacesServlet());
-                srb.setUrlMappings(Arrays.asList("*.xhtml"));
-                srb.setLoadOnStartup(1);
+            // registration
+            ServletRegistrationBean srb = new ServletRegistrationBean();
+            srb.setServlet(new FacesServlet());
+            srb.setUrlMappings(Arrays.asList("*.xhtml"));
+            srb.setLoadOnStartup(1);
 
-                return srb;
+            User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+            userService.addUser(user);
+            return srb;
         }
 
 }
