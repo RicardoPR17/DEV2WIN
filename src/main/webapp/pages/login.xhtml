@@ -2,6 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
@@ -16,11 +17,55 @@
             <section class="loginContainer">
                 <h:form id="login-form" class="loginSection">
                     <h2>Sign in</h2>
-                    <p:inputText value="#{loginBean.userName}" placeholder="Username" required="true" styleClass="nombre"/>
-                    <p:password value="#{loginBean.password}" placeholder="Password" required="true" styleClass="contrasena"/>
-                    <p:commandButton actionListener="#{loginBean.login()}" value="Sign in" styleClass="inicio"/>
+                    <p:growl id="messages" show-detail="true" />
+                    <p:inputText value="#{loginBean.userName}" placeholder="Username" styleClass="nombre"/>
+                    <p:password value="#{loginBean.password}" placeholder="Password" styleClass="contrasena"/>
+                    <p:commandButton actionListener="#{loginBean.createUserAccount}" value="Create Account" icon="pi pi-user-plus" 
+                        update=":dialogs:create-account-content" oncomplete="PF('createAccountDialog').show()">
+                        <p:resetInput target=":dialogs:create-account-content" />
+                    </p:commandButton>
+                    <p:commandButton actionListener="#{loginBean.login}" value="Sign In" icon="pi pi-user" />
+                </h:form>
+
+                <h:form id="dialogs">
+                    <p:dialog header="Create Account" showEffect="fade" modal="true" widgetVar="createAccountDialog"
+                    responsive="true">
+                        <p:outputPanel id="create-account-content" class="ui-fluid">
+                            <p:outputPanel rendered="#{not empty loginBean.newUser}">
+                                <div class="field">
+                                    <p:inputTextarea id="full-name" required="true" placeholder="Full Name"
+                                    value="#{loginBean.newUser.name}" />
+                                </div>
+                                <div class="field">
+                                    <p:inputTextarea id="email" required="true" placeholder="Email"
+                                    value="#{loginBean.newUser.mail}" />
+                                </div>
+                                <div class="field">
+                                    <p:inputText id="password" type="password" required="true" 
+                                    value="#{loginBean.newUser.password}" placeholder="password"/>
+                                </div>
+                                <div class="field">
+                                    <p:selectOneMenu id="role" value="#{loginBean.newUser.profile}" label="Text 2" style="width: 12rem">
+                                        <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                                        <f:selectItem itemLabel="Estudiante" itemValue="Estudiante"/>
+                                        <f:selectItem itemLabel="Profesor" itemValue="Profesor"/>
+                                        <f:selectItem itemLabel="Directivo" itemValue="Directivo"/>
+                                    </p:selectOneMenu>
+                                </div>
+                            </p:outputPanel>
+                            
+                        </p:outputPanel>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Create" icon="pi pi-check" actionListener="#{loginBean.createAccount()}"
+                                update="create-account-content" process="create-account-content @this"/>
+                            <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('createAccountDialog').hide()"
+                                class="ui-button-secondary" type="button" />
+                        </f:facet>
+                    </p:dialog>
                 </h:form>
             </section>
+            
             <br></br>
             <br></br>
             <br></br>

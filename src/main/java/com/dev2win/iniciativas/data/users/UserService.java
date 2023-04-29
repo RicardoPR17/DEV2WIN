@@ -28,7 +28,10 @@ public class UserService {
     }
 
     public User getUserByMail(String userMail) {
-        return userRepository.findByMail(userMail).get();
+        if (userRepository.findByMail(userMail).isPresent()) {
+            return userRepository.findByMail(userMail).get();
+        }
+        return null;
     }
 
     public List<User> getAllUsers() {
