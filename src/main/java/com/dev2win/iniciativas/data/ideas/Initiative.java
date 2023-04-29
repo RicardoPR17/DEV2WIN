@@ -121,47 +121,47 @@ public class Initiative {
     @Override
     public boolean equals(Object obj) {
         if (this == obj)
-        return true;
+            return true;
         if (obj == null)
-        return false;
+            return false;
         if (getClass() != obj.getClass())
-        return false;
+            return false;
         Initiative other = (Initiative) obj;
         if (initiativeId == null) {
-        if (other.initiativeId != null)
-            return false;
+            if (other.initiativeId != null)
+                return false;
         } else if (!initiativeId.equals(other.initiativeId))
-        return false;
+            return false;
         if (description == null) {
-        if (other.description != null)
-            return false;
+            if (other.description != null)
+                return false;
         } else if (!description.equals(other.description))
-        return false;
+            return false;
         if (date == null) {
-        if (other.date != null)
-            return false;
+            if (other.date != null)
+                return false;
         } else if (!date.equals(other.date))
-        return false;
+            return false;
         if (state == null) {
-        if (other.state != null)
-            return false;
+            if (other.state != null)
+                return false;
         } else if (!state.equals(other.state))
-        return false;
+            return false;
         if (keyword1 == null) {
-        if (other.keyword1 != null)
-            return false;
+            if (other.keyword1 != null)
+                return false;
         } else if (!keyword1.equals(other.keyword1))
-        return false;
+            return false;
         if (keyword2 == null) {
-        if (other.keyword2 != null)
-            return false;
+            if (other.keyword2 != null)
+                return false;
         } else if (!keyword2.equals(other.keyword2))
-        return false;
-        if (keyword3 == null) {
-        if (other.keyword3 != null)
             return false;
+        if (keyword3 == null) {
+            if (other.keyword3 != null)
+                return false;
         } else if (!keyword3.equals(other.keyword3))
-        return false;
+            return false;
         return true;
     }
 
@@ -174,11 +174,12 @@ public class Initiative {
     }
 
     @Override
-      public String toString() {
+    public String toString() {
         return "Initiative [initiativeId = " + initiativeId + ", description = " + description + ", date = " + date
-            + ", state = "
-            + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3 + ", user = "
-            + user
-            + "]";
-      }
+                + ", state = "
+                + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3
+                + ", user = "
+                + user
+                + "]";
+    }
 }
