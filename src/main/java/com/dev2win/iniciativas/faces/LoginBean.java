@@ -2,14 +2,17 @@ package com.dev2win.iniciativas.faces;
 
 import java.io.IOException;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.dev2win.iniciativas.data.users.Role;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
@@ -23,6 +26,8 @@ public class LoginBean {
 
     private String userName;
     private String password;
+
+    private User newUser;
 
     public LoginBean() {
     }
@@ -41,6 +46,40 @@ public class LoginBean {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public User getNewUser() {
+        return newUser;
+    }
+
+    public void setNewUser(User newUser) {
+        this.newUser = newUser;
+    }
+
+    public void createUserAccount() {
+        this.newUser = new User();
+        this.userName = "";
+        this.password = "";
+    }
+
+    public void createAccount() {
+        try {
+            User userToCreate = userService.getUserByMail(this.newUser.getMail());
+                    
+            if (userToCreate == null) {
+                this.newUser.setRole(Role.Proponente.getValue());
+                this.newUser.setState("desarrollo");
+                userService.addUser(this.newUser);
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Account Created Successfully"));
+            } else {
+                FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Already Account Exist"));
+            }
+            PrimeFaces.current().executeScript("PF('createAccountDialog').hide()");
+            PrimeFaces.current().ajax().update("login-form:messages");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     public void login() {
@@ -62,5 +101,6 @@ public class LoginBean {
                 e.printStackTrace();
             }
         }
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The username or password are incorrect"));
     }
 }
