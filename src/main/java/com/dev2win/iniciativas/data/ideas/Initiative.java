@@ -30,7 +30,7 @@ public class Initiative {
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Initiative(String description, StateInitiative state, String keyword1, String keyword2, String keyword3, User user) {
+    public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
         this.description = description;
         this.state = state.getValue();
         this.date = LocalDate.now();
@@ -72,7 +72,7 @@ public class Initiative {
         return state;
     }
 
-    public void setState(StateInitiative state) {
+    public void setState(State state) {
         this.state = state.getValue();
     }
 
@@ -180,4 +180,5 @@ public class Initiative {
             + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3 + ", user = "
             + user
             + "]";
+      }
 }
