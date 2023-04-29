@@ -39,14 +39,53 @@ public class AdminBean {
         this.newRole = newRole;
     }
 
+    public void searchUser(String userName) {
+        setUserToMod(userService.getUserByName(userName));
+    }
+
+    public String getUserToModName() {
+        if (userToMod != null) {
+            return userToMod.getName();
+        }
+        return "";
+    }
+
+    public String getUserToModRole() {
+        if (userToMod != null) {
+            return userToMod.getRole();
+        }
+        return "";
+    }
+
+    public String getUserToModState() {
+        if (userToMod != null) {
+            return userToMod.getState();
+        }
+        return "";
+    }
+
+    public String getUserToModProfile() {
+        if (userToMod != null) {
+            return userToMod.getProfile();
+        }
+        return "";
+    }
+
     public void modifyUserRole(String userName) {
         try {
             // Get the user given his name and setting his new role
-            userToMod = userService.getUserByName(userName);
-            userToMod.setRole(Role.findByValue(userName).getValue());
+            searchUser(userName);
+            userToMod.setRole(Role.findByValue(newRole).getValue());
             userService.updateUsuario(userToMod);
         } catch (Exception e) {
             e.printStackTrace();
+        } finally {
+            clear();
         }
+    }
+
+    public void clear() {
+        setUserToMod(null);
+        setnewRole(null);
     }
 }

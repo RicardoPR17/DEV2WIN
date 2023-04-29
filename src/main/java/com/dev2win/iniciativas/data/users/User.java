@@ -25,7 +25,7 @@ public class User {
     private String mail;
     @OneToMany(mappedBy = "user")
     List<Initiative> ideas = new ArrayList<>();
-    
+
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
         this.role = role.getValue();
@@ -35,7 +35,8 @@ public class User {
         this.mail = mail;
     }
 
-    public User() { }
+    public User() {
+    }
 
     public Long getUserId() {
         return UserId;
@@ -77,11 +78,11 @@ public class User {
         this.state = state;
     }
 
-    public String getprofile() {
+    public String getProfile() {
         return profile;
     }
 
-    public void setprofile(String profile) {
+    public void setProfile(String profile) {
         this.profile = profile;
     }
 
@@ -92,8 +93,7 @@ public class User {
     public void setmail(String mail) {
         this.mail = mail;
     }
-    
-    
+
     public List<Initiative> getIdeas() {
         return ideas;
     }
