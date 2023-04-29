@@ -9,12 +9,6 @@ import java.util.List;
 
 @Repository
 public interface InitiativeRepository extends JpaRepository<Initiative, Long> {
-    @Query("SELECT i FROM Initiative i WHERE i.keyword1=:keyword1")
-    List<Initiative> findByKeyword1(@Param("keyword1") String keyword1);
-
-    @Query("SELECT i FROM Initiative i WHERE i.keyword2=:keyword2")
-    List<Initiative> findByKeyword2(@Param("keyword2") String keyword2);
-
-    @Query("SELECT i FROM Initiative i WHERE i.keyword3=:keyword3")
-    List<Initiative> findByKeyword3(@Param("keyword3") String keyword3);
+    @Query("SELECT i FROM Initiative i WHERE i.keyword1=:keyword OR i.keyword2=:keyword OR i.keyword3=:keyword")
+    List<Initiative> findByKeyword(@Param("keyword") String keyword);
 }
