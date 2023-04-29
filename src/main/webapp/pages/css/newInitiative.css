@@ -64,6 +64,10 @@ h2 {
     width: 60%;
 }
 
+.toolbar-crud {
+    margin-bottom: 5%;
+}
+
 .Options{
     float:left; 
     display:inline; 
