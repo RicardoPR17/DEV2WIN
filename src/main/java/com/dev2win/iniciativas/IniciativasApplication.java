@@ -39,8 +39,10 @@ public class IniciativasApplication {
 
                         User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
                                         Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
-
+                        User user2 = new User("Angie", "AngieM", Role.Proponente, "Melo",
+                                        Profile.Estudiante, "angie@mail.escuelaing.edu.co");
                         userService.addUser(user);
+                        userService.addUser(user2);
                         initiativeService
                                         .addInitiative(new Initiative("Prueba1", State.Open, "Prueba", "Ciclos",
                                                         "Proyecto", user));

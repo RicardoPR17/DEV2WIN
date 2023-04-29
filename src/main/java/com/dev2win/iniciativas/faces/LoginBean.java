@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
+import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
 @Component
@@ -45,13 +46,18 @@ public class LoginBean {
     public void login() {
         // Verficiar que la password del usuario corresponde
         // Get de password base de datos y comparar con el campo enviado
-        boolean auntenticado = password.equals(userService.getUserByMail(userName).getPassword());
+        User user = userService.getUserByMail(userName);
+        boolean auntenticado = password.equals(user.getPassword());
         if (auntenticado) {
             try {
                 // enviar a pagina de bienvenida general
                 // eso depende del rol (administrador, proponente...)
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + "../pages/welcome.xhtml");
+                if (user.getRole().equals("Administrador")) {
+                    ec.redirect(ec.getRequestContextPath() + "../pages/welcomeAdmin.xhtml");
+                } else {
+                    ec.redirect(ec.getRequestContextPath() + "../pages/welcomeProponente.xhtml");
+                }
             } catch (IOException e) {
                 e.printStackTrace();
             }
