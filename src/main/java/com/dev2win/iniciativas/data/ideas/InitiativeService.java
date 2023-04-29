@@ -3,10 +3,7 @@ package com.dev2win.iniciativas.data.ideas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class InitiativeService {
@@ -31,21 +28,17 @@ public class InitiativeService {
     }
 
     public Initiative updateInitiative(Initiative initiative) {
-        if(initiativeRepository.existsById(initiative.getInitiativeId())) {
-			return initiativeRepository.save(initiative);
-		}
-	
-		return null;
+        if (initiativeRepository.existsById(initiative.getInitiativeId())) {
+            return initiativeRepository.save(initiative);
+        }
+        return null;
     }
 
     public List<Initiative> getByKeyword(String word) {
-        List<Initiative> listOne = initiativeRepository.findByKeyword1(word);
-        List<Initiative> listTwo = initiativeRepository.findByKeyword2(word);
-        List<Initiative> listThree = initiativeRepository.findByKeyword3(word);
-        return Stream.of(listOne, listTwo, listThree).flatMap(Collection::stream).collect(Collectors.toList());
+        return initiativeRepository.findByKeyword(word);
     }
-    
-    public void deleteAll() { 
-        initiativeRepository.deleteAll(); 
+
+    public void deleteAll() {
+        initiativeRepository.deleteAll();
     }
 }
