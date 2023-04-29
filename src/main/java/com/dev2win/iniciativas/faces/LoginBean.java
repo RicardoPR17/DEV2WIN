@@ -56,12 +56,11 @@ public class LoginBean {
                 if (user.getRole().equals("Administrador")) {
                     ec.redirect(ec.getRequestContextPath() + "../pages/welcomeAdmin.xhtml");
                 } else {
-                    ec.redirect(ec.getRequestContextPath() + "../pages/welcomeProponente.xhtml");
+                    ec.redirect(ec.getRequestContextPath() + "../pages/newInitiative.xhtml");
                 }
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }
