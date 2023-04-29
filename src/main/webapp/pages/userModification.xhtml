@@ -18,7 +18,7 @@
 
         <div class="card">
             <h:form id="userMod_form">
-                <p:panel header="Modify an user" style="margin-bottom:10px;">
+                <p:panel header="" style="margin-bottom:10px;">
                     <h:panelGrid columns="2" cellpadding="5">
                         <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
                         <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User" styleClass="ui-button-outlined ui-button-info" />
