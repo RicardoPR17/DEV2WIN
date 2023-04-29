@@ -10,7 +10,7 @@ import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
-import com.dev2win.iniciativas.data.ideas.StateInitiative;
+import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 

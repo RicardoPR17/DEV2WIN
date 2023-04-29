@@ -172,4 +172,12 @@ public class Initiative {
     public void setUser(User user) {
         this.user = user;
     }
+
+    @Override
+      public String toString() {
+        return "Initiative [initiativeId = " + initiativeId + ", description = " + description + ", date = " + date
+            + ", state = "
+            + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3 + ", user = "
+            + user
+            + "]";
 }

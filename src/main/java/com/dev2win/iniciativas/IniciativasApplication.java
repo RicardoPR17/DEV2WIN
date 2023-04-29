@@ -14,10 +14,12 @@ import org.springframework.context.annotation.Bean;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
 public class IniciativasApplication {
+
 
     @Autowired
     UserService userService;

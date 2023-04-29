@@ -13,4 +13,15 @@ public enum Role {
     public String getValue() {
         return value;
     }
+
+    public static Role findByValue(String role) {
+        Role response = null;
+        for (Role r : Role.values()) {
+            if (r.getValue().equalsIgnoreCase(role)) {
+                response = r;
+                break;
+            }
+        }
+        return response;
+    }
 }

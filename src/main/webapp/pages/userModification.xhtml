@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+    </h:head>
+
+    <h:body>
+        <h:form id="userMod_form">
+            <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
+            <h:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User"/>
+            <br></br>
+            <br></br>
+            <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/><br></br>
+            <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/><br></br>
+            <h:outputLabel value="State: #{adminBean.getUserToModState()}"/><br></br>
+            <h:outputLabel value="Profile: #{adminBean.getUserToModProfile()}"/><br></br>
+            <br></br>
+
+            <h:outputLabel for="role" value="New Role: "/>
+            <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">
+                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
+            </p:selectOneMenu>
+            <br></br>
+
+            <h:commandButton actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User"/>
+        </h:form>
+    </h:body>
+</html>
