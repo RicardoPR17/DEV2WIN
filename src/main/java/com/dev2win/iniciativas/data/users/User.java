@@ -16,7 +16,7 @@ import com.dev2win.iniciativas.data.ideas.Initiative;
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long UserId;
+    private Long userId;
     private String name;
     private String password;
     private String role;
@@ -39,11 +39,11 @@ public class User {
     }
 
     public Long getUserId() {
-        return UserId;
+        return userId;
     }
 
     public void setUserId(Long userId) {
-        UserId = userId;
+        this.userId = userId;
     }
 
     public String getName() {
@@ -85,12 +85,12 @@ public class User {
     public void setProfile(String profile) {
         this.profile = profile;
     }
-
-    public String getmail() {
+    
+    public String getMail() {
         return mail;
     }
 
-    public void setmail(String mail) {
+    public void setMail(String mail) {
         this.mail = mail;
     }
 
@@ -103,39 +103,75 @@ public class User {
     }
 
     @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        User other = (User) obj;
+        if (userId == null) {
+            if (other.userId != null)
+                return false;
+        } else if (!userId.equals(other.userId))
+            return false;
+        if (name == null) {
+            if (other.name != null)
+                return false;
+        } else if (!name.equals(other.name))
+            return false;
+        if (password == null) {
+            if (other.password != null)
+                return false;
+        } else if (!password.equals(other.password))
+            return false;
+        if (role == null) {
+            if (other.role != null)
+                return false;
+        } else if (!role.equals(other.role))
+            return false;
+        if (state == null) {
+            if (other.state != null)
+                return false;
+        } else if (!state.equals(other.state))
+            return false;
+        if (profile == null) {
+            if (other.profile != null)
+                return false;
+        } else if (!profile.equals(other.profile))
+            return false;
+        if (mail == null) {
+            if (other.mail != null)
+                return false;
+        } else if (!mail.equals(other.mail))
+            return false;
+        if (ideas == null) {
+            if (other.ideas != null)
+                return false;
+        } else if (!ideas.equals(other.ideas))
+            return false;
+        return true;
+    }
+
+    @Override
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((UserId == null) ? 0 : UserId.hashCode());
+        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
         result = prime * result + ((password == null) ? 0 : password.hashCode());
         result = prime * result + ((role == null) ? 0 : role.hashCode());
         result = prime * result + ((state == null) ? 0 : state.hashCode());
         result = prime * result + ((profile == null) ? 0 : profile.hashCode());
         result = prime * result + ((mail == null) ? 0 : mail.hashCode());
+        result = prime * result + ((ideas == null) ? 0 : ideas.hashCode());
         return result;
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (!(obj instanceof User))
-            return false;
-        User other = (User) obj;
-        return Objects.equals(UserId, other.UserId) &&
-                Objects.equals(name, other.name) &&
-                Objects.equals(password, other.password) &&
-                Objects.equals(role, other.role) &&
-                Objects.equals(state, other.state) &&
-                Objects.equals(profile, other.profile) &&
-                Objects.equals(mail, other.mail);
-
-    }
-
-    @Override
     public String toString() {
-        return "User [UserId = " + UserId + ", name = " + name + ", password = " + password + ", role = " + role
+        return "User [UserId = " + userId + ", name = " + name + ", password = " + password + ", role = " + role
                 + ", state = "
                 + state + ", profile = " + profile + "mail = " + mail + "]";
     }
