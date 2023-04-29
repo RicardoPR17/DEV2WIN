@@ -4,30 +4,32 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://java.sun.com/jsf/core">
 
-    <h:head>
+    <h:head>  
     </h:head>
 
     <h:body>
-        <h:form id="userMod_form">
-            <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
-            <h:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User"/>
-            <br></br>
-            <br></br>
-            <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/><br></br>
-            <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/><br></br>
-            <h:outputLabel value="State: #{adminBean.getUserToModState()}"/><br></br>
-            <h:outputLabel value="Profile: #{adminBean.getUserToModProfile()}"/><br></br>
-            <br></br>
+        <div class="card">
+            <h:form id="userMod_form">
+                <p:panel header="Users of Idea Bank" style="margin-bottom:10px;">
+                    <h:panelGrid columns="2" cellpadding="5">
+                        <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
+                        <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User" styleClass="ui-button-outlined ui-button-info" />
+                        <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/>
+                        <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/>
+                        <h:outputLabel value="State: #{adminBean.getUserToModState()}"/>
+                        <h:outputLabel value="Profile: #{adminBean.getUserToModProfile()}"/>
+                        <p:divider /><p:divider />
+                        <h:outputLabel for="role" value="New Role: "/>
+                        <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">
+                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                            <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
+                        </p:selectOneMenu>
 
-            <h:outputLabel for="role" value="New Role: "/>
-            <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">
-                <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
-                <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
-            </p:selectOneMenu>
-            <br></br>
-
-            <h:commandButton actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User"/>
-        </h:form>
+                        <p:commandButton icon="pi pi-bookmark" actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User" styleClass="ui-button-outlined ui-button-success"/>
+                    </h:panelGrid>
+                </p:panel>
+            </h:form>
+        </div>
     </h:body>
 </html>
