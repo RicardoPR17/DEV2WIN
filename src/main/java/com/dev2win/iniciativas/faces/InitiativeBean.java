@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
@@ -99,11 +98,10 @@ public class InitiativeBean {
             User userOwner = userService.getUserByMail(userName);
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
-            this.selectedInitiative.setState(StateInitiative.Created);
+            this.selectedInitiative.setState(State.Open);
             initiativeService.addInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
-        }
-        else {
+        } else {
             initiativeService.updateInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Updated"));
         }
@@ -111,7 +109,6 @@ public class InitiativeBean {
         PrimeFaces.current().executeScript("PF('manageIdeaDialog').hide()");
         PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
     }
-
 
     public void deleteInitiative() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
