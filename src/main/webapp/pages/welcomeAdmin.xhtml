@@ -5,13 +5,36 @@
       xmlns:p="http://primefaces.org/ui"
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
-<h:head>
-    <link rel="stylesheet" type="text/css" href="styles/welcome.css"/>
-</h:head>
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="styles/welcome.css"/>
+    </h:head>
 
-<h:body>
-    <section class="hi-section">
-        <h2>Bienvenido Adminitrador</h2>
-    </section>
-</h:body>
+    <h:body>
+
+        <section class="hi-section">
+            <h2>Welcome Administrator</h2>
+        </section>
+
+        <h:form>
+            <p:growl id="messages" showDetail="true"/>
+
+            <p:toolbar>
+                <p:toolbarGroup>
+                    <p:commandButton type="button" value="Edit Users" onclick="window.location.href='userModification.xhtml'" icon="pi pi-user-edit" styleClass="mr-2" />
+                    <p:commandButton type="button" value="Edit Initiatives" icon="pi pi-pencil" styleClass="ui-button-help mr-2" />
+                </p:toolbarGroup>
+
+            </p:toolbar>
+        </h:form>
+
+        <p:card style="width: 25rem; margin-bottom: 2em">
+            <span style="font-weight: bold">Configure</span>
+
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Inventore sed consequuntur error repudiandae numquam deserunt
+                quisquam repellat libero asperiores earum nam nobis, culpa ratione quam perferendis esse, cupiditate neque quas!</p>
+
+        </p:card>
+
+
+    </h:body>
 </html>
