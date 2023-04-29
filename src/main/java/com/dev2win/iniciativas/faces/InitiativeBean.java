@@ -1,17 +1,20 @@
 package com.dev2win.iniciativas.faces;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.ideas.StateInitiative;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
-//import com.sun.org.apache.xml.internal.security.Init;
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -29,6 +32,8 @@ public class InitiativeBean {
     private String keyword2;
     private String keyword3;
     private String userName;
+
+    private Initiative selectedInitiative;
 
     public InitiativeBean() {
     }
@@ -73,22 +78,45 @@ public class InitiativeBean {
         this.userName = userName;
     }
 
-    public void add(String userName) {
-        try {
-            // Creamos la iniciativa y la agregamos a la BD mediante el servicio.
-            User userOwner = userService.getUserByMail(userName);
-            initiativeService
-                    .addInitiative(new Initiative(description, "Created", keyword1, keyword2, keyword3, userOwner));
-            // Redirigimos a una página de éxito
-            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-            ec.redirect(ec.getRequestContextPath() + "../pages/initiativeSuccess.xhtml");
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     public List<Initiative> getAll() {
         return initiativeService.getAllInitiatives();
+    }
+
+    public Initiative getSelectedInitiative() {
+        return selectedInitiative;
+    }
+
+    public void setSelectedInitiative(Initiative selectedInitiative) {
+        this.selectedInitiative = selectedInitiative;
+    }
+
+    public void newInitiative() {
+        this.selectedInitiative = new Initiative();
+    }
+
+    public void saveInitiative(String userName) {
+        if (this.selectedInitiative.getUser() == null) {
+            User userOwner = userService.getUserByMail(userName);
+            this.selectedInitiative.setUser(userOwner);
+            this.selectedInitiative.setDate(LocalDate.now());
+            this.selectedInitiative.setState(StateInitiative.Created);
+            initiativeService.addInitiative(this.selectedInitiative);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
+        }
+        else {
+            initiativeService.updateInitiative(this.selectedInitiative);
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Updated"));
+        }
+
+        PrimeFaces.current().executeScript("PF('manageIdeaDialog').hide()");
+        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+    }
+
+
+    public void deleteInitiative() {
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
+        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        initiativeService.deleteInitiative(this.selectedInitiative.getInitiativeId());
     }
 
 }
