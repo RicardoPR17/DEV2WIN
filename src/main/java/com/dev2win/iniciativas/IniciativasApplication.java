@@ -40,7 +40,9 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo",Profile.Estudiante, "prueba2@mail.escuelaing.edu.co");
         userService.addUser(user);
+        userService.addUser(user2);
         return srb;
     }
 
