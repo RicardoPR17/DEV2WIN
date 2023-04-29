@@ -45,8 +45,14 @@
                         </div>
                     </f:facet>
                     <!-- Columnas -->
-                    <p:column headerText="Initiative Code" sortBy="#{initiative.initiativeId}">
-                        <h:outputText value="#{initiative.initiativeId}" />
+                    <p:column headerText="Creation Date" sortBy="#{initiative.date}">
+                        <h:outputText value="#{initiative.date}" />
+                    </p:column>
+                    <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
+                        <h:outputText value="#{initiative.getUser().profile}" />
+                    </p:column>
+                    <p:column headerText="Name Proposer" sortBy="#{initiative.getUser().name}">
+                        <h:outputText value="#{initiative.getUser().name}" />
                     </p:column>
                     <p:column headerText="Description" sortBy="#{initiative.description}">
                         <h:outputText value="#{initiative.description}" />
@@ -57,9 +63,6 @@
                     </p:column>
                     <p:column headerText="State" sortBy="#{initiative.state}">
                         <h:outputText value="#{initiative.state}" />
-                    </p:column>
-                    <p:column headerText="Creation Date" sortBy="#{initiative.date}">
-                        <h:outputText value="#{initiative.date}" />
                     </p:column>
                     <p:column exportable="false">
                         <!-- Editar iniciativa -->
