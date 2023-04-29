@@ -19,50 +19,27 @@ import com.dev2win.iniciativas.data.users.*;
 @SpringBootApplication
 public class IniciativasApplication {
 
-        @Autowired
-        UserService userService;
-        @Autowired
-        InitiativeService initiativeService;
+    @Autowired
+    UserService userService;
 
-        public static void main(String[] args) {
-                SpringApplication.run(IniciativasApplication.class, args);
-        }
+    public static void main(String[] args) {
+        SpringApplication.run(IniciativasApplication.class, args);
+    }
 
-        // @Bean
-        // public CommandLineRunner run() throws Exception {
-        //     return (args) -> {
-        //         System.out.println("Deleting users and initiatives on DB...\n");
-        //         initiativeService.getAllInitiatives().forEach(
-        //                         initiative -> initiativeService.deleteInitiative(initiative.getInitiativeId()));
-        //         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+    @Bean
+    ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
+        // spring boot only works if this is set
+        servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-        //         // System.out.println(userService.getUserByProfile("Estudiante"));
+        // registration
+        ServletRegistrationBean srb = new ServletRegistrationBean();
+        srb.setServlet(new FacesServlet());
+        srb.setUrlMappings(Arrays.asList("*.xhtml"));
+        srb.setLoadOnStartup(1);
 
-        //         User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",
-        //                         Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
-
-        //         userService.addUser(user);
-        //         initiativeService
-        //                         .addInitiative(new Initiative("description", "status", null, null, null, user));
-        //         initiativeService.addInitiative(
-        //                         new Initiative("description", "revision", null, null, null, user));
-        //     };
-        // }
-
-        @Bean
-        ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
-            // spring boot only works if this is set
-            servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
-
-            // registration
-            ServletRegistrationBean srb = new ServletRegistrationBean();
-            srb.setServlet(new FacesServlet());
-            srb.setUrlMappings(Arrays.asList("*.xhtml"));
-            srb.setLoadOnStartup(1);
-
-            User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
-            userService.addUser(user);
-            return srb;
-        }
+        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
+        userService.addUser(user);
+        return srb;
+    }
 
 }

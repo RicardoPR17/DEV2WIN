@@ -51,11 +51,10 @@ public class LoginBean {
                 // enviar a pagina de bienvenida general
                 // eso depende del rol (administrador, proponente...)
                 ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
-                ec.redirect(ec.getRequestContextPath() + "../pages/welcome.xhtml");
+                ec.redirect(ec.getRequestContextPath() + "../pages/newInitiative.xhtml");
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
     }
-
 }
