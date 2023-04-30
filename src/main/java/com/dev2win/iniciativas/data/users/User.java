@@ -2,7 +2,6 @@ package com.dev2win.iniciativas.data.users;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -85,7 +84,7 @@ public class User {
     public void setProfile(String profile) {
         this.profile = profile;
     }
-    
+
     public String getMail() {
         return mail;
     }

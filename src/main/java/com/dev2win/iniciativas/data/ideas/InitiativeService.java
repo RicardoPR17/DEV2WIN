@@ -3,10 +3,7 @@ package com.dev2win.iniciativas.data.ideas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 public class InitiativeService {
@@ -41,7 +38,7 @@ public class InitiativeService {
     public List<Initiative> getByKeyword(String word) {
         return initiativeRepository.findByKeyword(word);
     }
-    
+
     public void deleteAll() {
         initiativeRepository.deleteAll();
     }
