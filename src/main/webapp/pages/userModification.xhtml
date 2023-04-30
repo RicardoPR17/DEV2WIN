@@ -21,7 +21,8 @@
                 <p:panel header="Modify an User" style="margin-bottom:5px;">
                     <h:panelGrid columns="2" cellpadding="5" style="margin: auto; text-align: center">
                         <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
-                        <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User" styleClass="ui-button-outlined ui-button-info" />
+                        <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" 
+                        value="Search User" styleClass="ui-button-outlined ui-button-info" icon="pi pi-search"/>
                         <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/>
                         <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/>
                         <h:outputLabel value="State: #{adminBean.getUserToModState()}"/>
@@ -33,10 +34,10 @@
                             <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
                             <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
                         </p:selectOneMenu>
-
-                        <p:commandButton icon="pi pi-pencil" actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User" styleClass="ui-button-outlined ui-button-success"/>
+     
                     </h:panelGrid>
-                    <p:commandButton icon="pi pi-bookmark" actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User" styleClass="ui-button-outlined ui-button-success"/>
+                    <p:commandButton icon="pi pi-user-edit" actionListener="#{adminBean.modifyUserRole(userName.value)}" 
+                    value="Update User" styleClass="ui-button-outlined ui-button-success"/>
                 </p:panel>
             </h:form>
         </div>
