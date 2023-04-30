@@ -31,7 +31,7 @@ public class InitiativeBean {
     private String keyword2;
     private String keyword3;
     private String userName;
-
+    private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
 
     public InitiativeBean() {
@@ -75,6 +75,14 @@ public class InitiativeBean {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }   
+
+    public List<Initiative> getSelectedInitiatives() {
+        return selectedInitiatives;
+    }
+
+    public void setSelectedInitiatives(List<Initiative> selectedInitiatives) {
+        this.selectedInitiatives = selectedInitiatives;
     }
 
     public List<Initiative> getAll() {
@@ -98,7 +106,7 @@ public class InitiativeBean {
             User userOwner = userService.getUserByMail(userName);
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
-            this.selectedInitiative.setState(State.Open);
+            this.selectedInitiative.setState(State.Open.getValue());
             initiativeService.addInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
         } else {
@@ -114,6 +122,19 @@ public class InitiativeBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
         PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
         initiativeService.deleteInitiative(this.selectedInitiative.getInitiativeId());
+    }
+
+    public String getUpdateButtonMessage() {
+        if (hasSelectedInitiatives()) {
+            int size = this.selectedInitiatives.size();
+            return size > 1 ? size + " initiatives selected" : "1 initiative selected";
+        }
+
+        return "Update";
+    }
+
+    public boolean hasSelectedInitiatives() {
+        return this.selectedInitiatives != null && !this.selectedInitiatives.isEmpty();
     }
 
 }
