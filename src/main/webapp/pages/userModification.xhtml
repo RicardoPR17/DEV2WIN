@@ -4,14 +4,22 @@
     xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://java.sun.com/jsf/core">
 
-    <h:head>  
+    <h:head>
+        <link rel="stylesheet" type="text/css" href="css/userModification.css"/>
     </h:head>
 
     <h:body>
-        <div class="card">
+        <div class="ImgContainer">
+            <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img"/>
+        </div>
+        <div class="Title">
+            <h2>Users of Idea Bank</h2>
+        </div>
+
+        <div class="user_mod">
             <h:form id="userMod_form">
-                <p:panel header="Users of Idea Bank" style="margin-bottom:10px;">
-                    <h:panelGrid columns="2" cellpadding="5">
+                <p:panel header="Modify an User" style="margin-bottom:5px;">
+                    <h:panelGrid columns="2" cellpadding="5" style="margin: auto; text-align: center">
                         <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
                         <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User" styleClass="ui-button-outlined ui-button-info" />
                         <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/>
@@ -25,9 +33,8 @@
                             <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
                             <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
                         </p:selectOneMenu>
-
-                        <p:commandButton icon="pi pi-bookmark" actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User" styleClass="ui-button-outlined ui-button-success"/>
                     </h:panelGrid>
+                    <p:commandButton icon="pi pi-bookmark" actionListener="#{adminBean.modifyUserRole(userName.value)}" value="Update User" styleClass="ui-button-outlined ui-button-success"/>
                 </p:panel>
             </h:form>
         </div>

@@ -20,11 +20,15 @@
                     <p:growl id="messages" show-detail="true" />
                     <p:inputText value="#{loginBean.userName}" placeholder="Username" styleClass="nombre"/>
                     <p:password value="#{loginBean.password}" placeholder="Password" styleClass="contrasena"/>
-                    <p:commandButton actionListener="#{loginBean.createUserAccount}" value="Create Account" icon="pi pi-user-plus" 
-                        update=":dialogs:create-account-content" oncomplete="PF('createAccountDialog').show()">
-                        <p:resetInput target=":dialogs:create-account-content" />
-                    </p:commandButton>
-                    <p:commandButton actionListener="#{loginBean.login}" value="Sign In" icon="pi pi-user" />
+                    <div class="sign">
+                        <p:commandButton actionListener="#{loginBean.login}" value="Sign In" icon="pi pi-user"/>
+                    </div>
+                    <div class="create">
+                        <p:commandButton actionListener="#{loginBean.createUserAccount}" value="Create Account" icon="pi pi-user-plus" 
+                            update=":dialogs:create-account-content" oncomplete="PF('createAccountDialog').show()">
+                            <p:resetInput target=":dialogs:create-account-content" />
+                        </p:commandButton>
+                    </div>
                 </h:form>
 
                 <h:form id="dialogs">
@@ -66,7 +70,6 @@
                 </h:form>
             </section>
             
-            <br></br>
             <br></br>
             <br></br>
             <br></br>
