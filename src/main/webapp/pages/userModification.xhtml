@@ -13,19 +13,21 @@
             <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img"/>
         </div>
         <div class="Title">
-            <h2>Modify an user</h2>
+            <h3>Users of Idea Bank</h3>
         </div>
 
-        <div class="card">
+        <div class="user_mod">
             <h:form id="userMod_form">
-                <p:panel header="" style="margin-bottom:10px;">
+                <p:panel header="Modify an user" style="margin-bottom:5px;">
                     <h:panelGrid columns="2" cellpadding="5">
+                        <div class="user_data">
                         <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
                         <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" value="Search User" styleClass="ui-button-outlined ui-button-info" />
                         <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/>
                         <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/>
                         <h:outputLabel value="State: #{adminBean.getUserToModState()}"/>
                         <h:outputLabel value="Profile: #{adminBean.getUserToModProfile()}"/>
+                        </div>
                         <p:divider /><p:divider />
                         <h:outputLabel for="role" value="New Role: "/>
                         <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">

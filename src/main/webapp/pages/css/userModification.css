@@ -19,7 +19,7 @@ h2 {
     align-items: center;
     margin-top: 5px;
     font-size: 10hv;
-    color: #180a0a;
+    color: #000000;
     text-align: center;
     font-weight: 750;
 }
@@ -29,8 +29,8 @@ h2 {
 }
 
 .ImgContainer{
-    float:left; 
-    display:inline;
+    float: left;
+    display: inline;
     width: 20%;
     margin-top: 1%;
     margin-left: 2%;
@@ -39,10 +39,12 @@ h2 {
 
 .Title{
     float:left; 
-    display:inline; 
-    width: 25%;
+    display:inline;
+    width: 60%;
     margin-top: 2%;
+    margin-bottom: 5%;
     left: 0;
+    color: #d3d3d3;
 }
 
 .initiative-section{
@@ -96,3 +98,13 @@ h2 {
     margin-bottom: 5%;
 }
 
+.user_mod {
+    float: left;
+    display: inline;
+    width: 70%;
+    margin-left: 15%;
+}
+
+.user_data {
+    float: center;
+}
