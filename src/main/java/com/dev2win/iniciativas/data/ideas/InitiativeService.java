@@ -31,21 +31,18 @@ public class InitiativeService {
     }
 
     public Initiative updateInitiative(Initiative initiative) {
-        if(initiativeRepository.existsById(initiative.getInitiativeId())) {
-			return initiativeRepository.save(initiative);
-		}
-	
-		return null;
+        if (initiativeRepository.existsById(initiative.getInitiativeId())) {
+            return initiativeRepository.save(initiative);
+        }
+
+        return null;
     }
 
     public List<Initiative> getByKeyword(String word) {
-        List<Initiative> listOne = initiativeRepository.findByKeyword1(word);
-        List<Initiative> listTwo = initiativeRepository.findByKeyword2(word);
-        List<Initiative> listThree = initiativeRepository.findByKeyword3(word);
-        return Stream.of(listOne, listTwo, listThree).flatMap(Collection::stream).collect(Collectors.toList());
+        return initiativeRepository.findByKeyword(word);
     }
     
-    public void deleteAll() { 
-        initiativeRepository.deleteAll(); 
+    public void deleteAll() {
+        initiativeRepository.deleteAll();
     }
 }

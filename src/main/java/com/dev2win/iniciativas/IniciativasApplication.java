@@ -20,7 +20,6 @@ import com.dev2win.iniciativas.data.users.*;
 @SpringBootApplication
 public class IniciativasApplication {
 
-
     @Autowired
     UserService userService;
 
@@ -39,8 +38,12 @@ public class IniciativasApplication {
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
-        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
-        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo",Profile.Estudiante, "prueba2@mail.escuelaing.edu.co");
+        userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+
+        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
+                "prueba@mail.escuelaing.edu.co");
+        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo", Profile.Estudiante,
+                "prueba2@mail.escuelaing.edu.co");
         userService.addUser(user);
         userService.addUser(user2);
         return srb;
