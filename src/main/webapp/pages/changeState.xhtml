@@ -7,39 +7,21 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
-        <link rel="stylesheet" type="text/css" href="css/newInitiative.css"/>
+        
     </h:head>
 
     <h:body>
-
-        <div class="ImgContainer">
-            <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img"/>
-        </div>
-        <div class="Title">
-            <h3>Idea Bank</h3>
-        </div>
-
         <!-- Vista iniciativas -->
         <div class="view-initiatives">
             <h:form id="initiatives-menu">
                 <p:growl id="messages" show-detail="true" />
-                <!-- Boton de agregar iniciativa -->
-                <p:toolbar styleClass="toolbar-crud">
-                    <p:toolbarGroup>
-                        <p:commandButton value="New Idea" icon="pi pi-plus" actionListener="#{initiativeBean.newInitiative}"
-                            update=":dialogs:manage-ideas-content" oncomplete="PF('manageIdeaDialog').show()"
-                            styleClass="ui-button-success" style="margin-right: .5rem">
-                            <p:resetInput target=":dialogs:manage-ideas-content" />
-                        </p:commandButton>
-                    </p:toolbarGroup>
-                </p:toolbar>
                 <!-- Tabla para consultar iniciativas -->
                 <p:dataTable id="initiatives-list" var="initiative" value="#{initiativeBean.getAll()}" reflow="true"
                     rowKey="#{initative.initiativeId}" paginator="true" rows="10" paginatorPosition="bottom"
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                     <f:facet name="header">
                         <div class="initiatives-list-header">
-                            <span style="font-weight: bold">MY INITIATIVES</span>
+                            <span style="font-weight: bold">INITIATIVES OF BANK</span>
                             <span class="filter-container ui-input-icon-left">
                         </span>
                         </div>
@@ -72,11 +54,6 @@
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                             <p:resetInput target=":dialogs:manage-ideas-content" />
                         </p:commandButton>
-                        <!-- Boton borar iniciativa -->
-                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                            process="@this" oncomplete="PF('deleteInitiativeDialog').show()">
-                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -84,29 +61,19 @@
 
         <!-- Dialogos -->
         <h:form id="dialogs">
-            <p:dialog header="Idea Details" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
+            <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
             responsive="true">
                 <p:outputPanel id="manage-ideas-content" class="ui-fluid">
                     <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
                         <div class="field">
-                            <p:outputLabel for="description">Description</p:outputLabel>
-                            <p:inputTextarea id="description" required="true" 
-                            value="#{initiativeBean.selectedInitiative.description}" />
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-1">Keyword 1</p:outputLabel>
-                            <p:inputText id="keyword-1" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword1}"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-2">Keyword 2</p:outputLabel>
-                            <p:inputText id="keyword-2" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword2}"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-3">Keyword 3</p:outputLabel>
-                            <p:inputText id="keyword-3" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword3}"/>
+                            <p:outputLabel for="state">State</p:outputLabel>
+                            <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
+                                layout="responsive" columns="2">
+                                <f:selectItem itemLabel="Open" itemValue="Open" />
+                                <f:selectItem itemLabel="Closed" itemValue="Closed" />
+                                <f:selectItem itemLabel="Revision" itemValue="Revision" />
+                                <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
+                            </p:selectOneRadio>
                         </div>
                     </p:outputPanel>
                 </p:outputPanel>
@@ -118,15 +85,6 @@
                         class="ui-button-secondary" type="button" />
                 </f:facet>
             </p:dialog>
-            <!-- Dialogo para borrar iniciativa -->
-            <p:confirmDialog widgetVar="deleteInitiativeDialog" showEffect="fade" width="300"
-                message="Delete the initiative?" header="Confirm" severity="warn">
-                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{initiativeBean.deleteInitiative}"
-                    process="@this" oncomplete="PF('deleteInitiativeDialog').hide()" />
-                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                    onclick="PF('deleteInitiativeDialog').hide()" />
-            </p:confirmDialog>
         </h:form>
-
     </h:body>
 </html>
