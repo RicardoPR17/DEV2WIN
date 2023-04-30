@@ -60,8 +60,6 @@ public class LoginBean {
 
     public void createUserAccount() {
         this.newUser = new User();
-        this.userName = "";
-        this.password = "";
     }
 
     public void createAccount() {
@@ -104,14 +102,14 @@ public class LoginBean {
     public void login() {
         // Verificar que se ingresó un nombre de usuario y una contraseña
         if (password == null || userName == null) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "Please enter your username and password"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", "Error"));
             return;
         }
         // Buscar al usuario por correo electrónico
         User userToLogin = userService.getUserByMail(userName);
         // Si el usuario no existe o la contraseña es incorrecta, mostrar un mensaje de error y salir temprano
         if (userToLogin == null || !password.equals(userToLogin.getPassword())) {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "The username or password are incorrect"));
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username or password are incorrect", "Error"));
             PrimeFaces.current().ajax().update("login-form:messages");
             return;
         }
