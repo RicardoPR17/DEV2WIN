@@ -137,4 +137,17 @@ public class InitiativeBean {
         return this.selectedInitiatives != null && !this.selectedInitiatives.isEmpty();
     }
 
+    public void isYourInitiative(String userName, String dialogType) {
+        if (this.selectedInitiative.getUser().getMail().equals(userName)) {
+            if (dialogType.equals("delete")) {
+                PrimeFaces.current().executeScript("PF('deleteInitiativeDialog').show()");
+            } else if (dialogType.equals("edit")) {
+                PrimeFaces.current().executeScript("PF('manageIdeaDialog').show()");
+            }
+        } else {
+            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
+            PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        }
+    }
+
 }

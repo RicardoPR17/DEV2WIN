@@ -127,7 +127,7 @@ public class LoginBean {
         if (user.getRole().equals("Administrador")) {
             return "../pages/welcomeAdmin.xhtml";
         } else {
-            return "../pages/newInitiative.xhtml";
+            return "../pages/welcomeProponent.xhtml";
         }
     }
     
