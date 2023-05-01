@@ -72,8 +72,8 @@ public class Initiative {
         return state;
     }
 
-    public void setState(State state) {
-        this.state = state.getValue();
+    public void setState(String state) {
+        this.state = state;
     }
 
     public String getKeyword1() {

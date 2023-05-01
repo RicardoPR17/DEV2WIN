@@ -4,7 +4,6 @@ public enum State {
     Open("Open"),
     Closed("Closed"),
     Revision("Revision"),
-    Supported("Supported"),
     Aproved("Aproved");
 
     private String value;
@@ -15,5 +14,16 @@ public enum State {
 
     public String getValue() {
         return value;
+    }
+
+    public static State findByValue(String state) {
+        State response = null;
+        for (State r : State.values()) {
+            if (r.getValue().equalsIgnoreCase(state)) {
+                response = r;
+                break;
+            }
+        }
+        return response;
     }
 }

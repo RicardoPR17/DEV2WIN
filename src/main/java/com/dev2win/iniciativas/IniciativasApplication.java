@@ -6,20 +6,15 @@ import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import com.dev2win.iniciativas.data.ideas.Initiative;
-import com.dev2win.iniciativas.data.ideas.InitiativeService;
-import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
 public class IniciativasApplication {
-
 
     @Autowired
     UserService userService;
@@ -39,8 +34,12 @@ public class IniciativasApplication {
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
-        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo",Profile.Estudiante, "prueba@mail.escuelaing.edu.co");
-        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo",Profile.Estudiante, "prueba2@mail.escuelaing.edu.co");
+        userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+
+        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
+                "prueba@mail.escuelaing.edu.co");
+        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo", Profile.Estudiante,
+                "prueba2@mail.escuelaing.edu.co");
         userService.addUser(user);
         userService.addUser(user2);
         return srb;

@@ -7,7 +7,7 @@
       xmlns:ui="http://java.sun.com/jsf/facelets">
 
     <h:head>
-        <link rel="stylesheet" type="text/css" href="css/newInitiative.css"/>
+        <link rel="stylesheet" type="text/css" href="css/welcomeProponent.css"/>
     </h:head>
 
     <h:body>
@@ -19,6 +19,10 @@
             <h3>Idea Bank</h3>
         </div>
 
+        <section class="hi-section">
+            <h2>Welcome Proponent</h2>
+        </section>
+        
         <!-- Vista iniciativas -->
         <div class="view-initiatives">
             <h:form id="initiatives-menu">
@@ -39,14 +43,20 @@
                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
                     <f:facet name="header">
                         <div class="initiatives-list-header">
-                            <span style="font-weight: bold">MY INITIATIVES</span>
+                            <span style="font-weight: bold">BANK INITIATIVES</span>
                             <span class="filter-container ui-input-icon-left">
                         </span>
                         </div>
                     </f:facet>
                     <!-- Columnas -->
-                    <p:column headerText="Initiative Code" sortBy="#{initiative.initiativeId}">
-                        <h:outputText value="#{initiative.initiativeId}" />
+                    <p:column headerText="Creation Date" sortBy="#{initiative.date}">
+                        <h:outputText value="#{initiative.date}" />
+                    </p:column>
+                    <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
+                        <h:outputText value="#{initiative.getUser().profile}" />
+                    </p:column>
+                    <p:column headerText="Name Proposer" sortBy="#{initiative.getUser().name}">
+                        <h:outputText value="#{initiative.getUser().name}" />
                     </p:column>
                     <p:column headerText="Description" sortBy="#{initiative.description}">
                         <h:outputText value="#{initiative.description}" />
@@ -58,20 +68,17 @@
                     <p:column headerText="State" sortBy="#{initiative.state}">
                         <h:outputText value="#{initiative.state}" />
                     </p:column>
-                    <p:column headerText="Creation Date" sortBy="#{initiative.date}">
-                        <h:outputText value="#{initiative.date}" />
-                    </p:column>
                     <p:column exportable="false">
                         <!-- Editar iniciativa -->
                         <p:commandButton icon="pi pi-pencil"  update=":dialogs:manage-ideas-content"
-                            oncomplete="PF('manageIdeaDialog').show()" style="margin-right: .5rem"
+                            actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'edit')}" style="margin-right: .5rem"
                             styleClass="edit-button rounded-button ui-button-success" process="@this">
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                             <p:resetInput target=":dialogs:manage-ideas-content" />
                         </p:commandButton>
                         <!-- Boton borar iniciativa -->
                         <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                            process="@this" oncomplete="PF('deleteInitiativeDialog').show()">
+                            actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         </p:commandButton>
                     </p:column>
