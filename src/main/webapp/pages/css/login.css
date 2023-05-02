@@ -1,1 +1,153 @@
-/* Poner login bonito OwO */
+html {
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden;
+    overflow-y: hidden;
+}
+
+body {
+    background: linear-gradient(225deg, #000000, #231c50);
+    background-repeat: no-repeat;
+    font-family: Helvetica;
+}
+
+h2 {
+  text-align: center;
+  font-size: 28px;
+  margin-bottom: 30px;
+  color: #fff;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 2em;
+    color: #fff;
+    text-align: center;
+}
+
+.leftPage {
+    display: flex;
+    justify-content: center; /* Centra horizontalmente */
+    align-items: center; /* Centra verticalmente */
+    flex-direction: column;
+    width: 100%;
+    height: 99vh;
+}
+
+.title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+}
+
+.loginContainer {
+    width: 400px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+}
+
+.loginSection {
+    background-color: #1c1642;
+    border: 2px groove #2e2469;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 1px #ccc;
+}
+
+.nombre {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.contrasena {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+.buttonsContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 40px;
+}
+
+.buttonsContainer button {
+    width: 45%;
+}
+
+.sponsor {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5%;
+}
+
+.teamImage {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2%;
+}
+
+.rightPage {
+    margin-left: 60%;
+    right: 0;
+    background: #dfdee6;
+    border: 2px groove #2e2469;
+    margin-top: -1.5%;
+    top: 0;
+}
+
+.menuImage {
+    margin-top: -1.5%;
+    margin-left: 1%;
+}
+
+/* Create Accout Dialog */
+.ui-dialog-create-account {
+    position: fixed;
+    background-color: #fff;
+    border-radius: 10px;
+}
+
+.ui-dialog-create-account .field {
+    margin-top: 1em;
+}
+
+.ui-dialog-create-account .ui-inputfield {
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    background-color: #f2f2f2;
+}
+
+.ui-dialog-create-account .ui-selectonemenu {
+    background-color: #f2f2f2;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.buttonsAccountContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.buttonsAccountContainer button {
+    width: 50%;
+}
+  

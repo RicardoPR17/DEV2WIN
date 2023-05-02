@@ -11,32 +11,37 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
-import com.dev2win.iniciativas.data.usuarios.Usuario;
-import com.dev2win.iniciativas.data.usuarios.UsuarioService;
+import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
 public class IniciativasApplication {
 
     @Autowired
-    UsuarioService usuarioService;
+    UserService userService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
     }
 
     @Bean
-    ServletRegistrationBean jsfServletRegistration (ServletContext servletContext) {
-        //spring boot only works if this is set
+    ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
+        // spring boot only works if this is set
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
-        //registration
+        // registration
         ServletRegistrationBean srb = new ServletRegistrationBean();
         srb.setServlet(new FacesServlet());
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
-        //adduser
-        usuarioService.addUsuario(new Usuario("prueba", "contrasena", "dev", "desarrollo", "estudiante"));
+        userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+
+        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
+                "prueba@mail.escuelaing.edu.co");
+        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo", Profile.Estudiante,
+                "prueba2@mail.escuelaing.edu.co");
+        userService.addUser(user);
+        userService.addUser(user2);
         return srb;
     }
 
