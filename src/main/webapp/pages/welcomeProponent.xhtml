@@ -81,6 +81,20 @@
                             actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         </p:commandButton>
+                        <!-- Dar like a iniciativa -->
+                        <h:panelGroup id="like-btn">
+                            <p:commandButton icon="pi pi-heart" rendered="#{initiativeBean.isLiked(loginBean.userName)}"
+                                actionListener="#{initiativeBean.like(loginBean.userName)}" update="unlike-btn" process="@this" >
+                                <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                            </p:commandButton>
+                        </h:panelGroup>
+                        <!-- Quitar like a iniciativa -->
+                        <h:panelGroup id="unlike-btn">
+                            <p:commandButton icon="pi pi-heart-fill" rendered="#{initiativeBean.notLiked(loginBean.userName)}"
+                                             actionListener="#{initiativeBean.unlike(loginBean.userName)}" update="like-btn" process="@this" >
+                                <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                            </p:commandButton>
+                        </h:panelGroup>
                     </p:column>
                 </p:dataTable>
             </h:form>

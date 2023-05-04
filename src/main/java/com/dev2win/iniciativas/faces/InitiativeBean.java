@@ -150,4 +150,12 @@ public class InitiativeBean {
         }
     }
 
+    public boolean isLiked(String userName) { return false; }
+
+    public boolean notLiked(String userName) { return true; }
+
+    public void like(String userName) {}
+
+    public void unlike(String userName) {}
+
 }
