@@ -10,6 +10,8 @@ import javax.faces.context.FacesContext;
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.ideas.State;
+import com.dev2win.iniciativas.data.likes.Upvote;
+import com.dev2win.iniciativas.data.likes.UpvoteService;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
@@ -26,6 +28,8 @@ public class InitiativeBean {
     InitiativeService initiativeService;
     @Autowired
     UserService userService;
+    @Autowired
+    UpvoteService upvoteService;
     private String description;
     private String keyword1;
     private String keyword2;
@@ -150,12 +154,31 @@ public class InitiativeBean {
         }
     }
 
-    public boolean isLiked(String userName) { return false; }
+    public boolean isUpvoted(String userName) {
+        User user = userService.getUserByMail(userName);
+        return upvoteService.isUpvoted(selectedInitiative, user);
+    }
 
-    public boolean notLiked(String userName) { return true; }
+    public boolean notUpvoted(String userName) {
+        return !isUpvoted(userName);
+    }
 
-    public void like(String userName) {}
+    public void upvote(String userName) {
+        Upvote newUpvote = new Upvote(selectedInitiative, userService.getUserByMail(userName));
+        upvoteService.addUpvote(newUpvote);
+    }
 
-    public void unlike(String userName) {}
+    public void downvote(String userName) {
+        List<Upvote> upvotes = upvoteService.getUpvote(selectedInitiative, userService.getUserByMail(userName));
+        Upvote upvote = upvotes.get(0);
+        upvoteService.delete(upvote);
+    }
+
+    public void changeVote(String userName) {
+        if (isUpvoted(userName))
+            downvote(userName);
+        else
+            upvote(userName);
+    }
 
 }

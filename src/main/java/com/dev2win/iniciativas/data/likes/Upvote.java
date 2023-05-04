@@ -1,8 +1,6 @@
 package com.dev2win.iniciativas.data.likes;
 
-import java.time.LocalDate;
 import java.util.Objects;
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,37 +10,35 @@ import javax.persistence.ManyToOne;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.users.User;
-
-public class Like {
+@Entity
+public class Upvote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long likeId;
+    private Long upvoteId;
 
     @ManyToOne
     @JoinColumn(name = "initiative_id")
     private Initiative initiative;
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
 
-    public Like(Long likeId, Initiative initiative, User user) {
-        this.likeId = likeId;
+    public Upvote(Initiative initiative, User user) {
         this.initiative = initiative;
         this.user = user;
     }
 
-    public Like() {
+    public Upvote() {
 
     }
 
-    public Long getLikeId() {
-        return likeId;
+    public Long getUpvoteId() {
+        return upvoteId;
     }
 
-    public void setLikeId(Long likeId) {
-        this.likeId = likeId;
+    public void setUpvoteId(Long likeId) {
+        this.upvoteId = likeId;
     }
 
     public Initiative getInitiative() {
@@ -65,19 +61,19 @@ public class Like {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Like like = (Like) o;
-        return likeId.equals(like.likeId);
+        Upvote upvote = (Upvote) o;
+        return upvoteId.equals(upvote.upvoteId);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(likeId);
+        return Objects.hash(upvoteId);
     }
 
     @Override
     public String toString() {
         return "Like{" +
-                "likeId=" + likeId +
+                "likeId=" + upvoteId +
                 ", initiative=" + initiative +
                 ", user=" + user +
                 '}';
