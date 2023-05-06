@@ -37,6 +37,8 @@ public class InitiativeBean {
     private String userName;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+    private boolean upvoteFill = false;
+
 
     public InitiativeBean() {
     }
@@ -105,6 +107,14 @@ public class InitiativeBean {
         this.selectedInitiative = new Initiative();
     }
 
+    public boolean isUpvoteFill() {
+        return upvoteFill;
+    }
+
+    public void setUpvoteFill(boolean upvoteFill) {
+        this.upvoteFill = upvoteFill;
+    }
+
     public void saveInitiative(String userName) {
         if (this.selectedInitiative.getUser() == null) {
             User userOwner = userService.getUserByMail(userName);
@@ -156,7 +166,7 @@ public class InitiativeBean {
 
     public boolean isUpvoted(String userName) {
         User user = userService.getUserByMail(userName);
-        return upvoteService.isUpvoted(selectedInitiative, user);
+        return upvoteService.getUpvote(this.selectedInitiative, user).size() > 0;
     }
 
     public boolean notUpvoted(String userName) {
@@ -175,10 +185,21 @@ public class InitiativeBean {
     }
 
     public void changeVote(String userName) {
-        if (isUpvoted(userName))
-            downvote(userName);
-        else
-            upvote(userName);
+        User user = userService.getUserByMail(userName);
+        if (this.selectedInitiative != null) {
+            upvoteFill = !upvoteFill;
+            if (isUpvoted(userName)) { 
+                Upvote upvote = upvoteService.getUpvote(this.selectedInitiative, user).get(0);
+                upvoteService.delete(upvote);
+            } else {
+                Upvote newUpvote = new Upvote(this.selectedInitiative, user);
+                upvoteService.addUpvote(newUpvote);
+            }
+        }
+    }
+
+    public String upvoteIcon() {
+        return upvoteFill ?  "pi pi-heart-fill" : "pi pi-heart";
     }
 
 }

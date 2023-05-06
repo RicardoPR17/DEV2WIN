@@ -16,7 +16,8 @@ public interface UpvoteRepository extends JpaRepository<Upvote, Long> {
     @Query("SELECT u FROM Upvote u WHERE u.user=:userId")
     List<Upvote> findByUser(@Param("userId") Long userId);
 
-    @Query("SELECT u FROM Upvote u WHERE u.initiative=:initiativeId AND u.user=:userId")
+    @Query("SELECT u FROM Upvote u WHERE u.initiative.initiativeId=:initiativeId AND u.user.userId=:userId")
     List<Upvote> findUpvote(@Param("initiativeId") Long initiativeId, @Param("userId") Long userId);
+
 
 }

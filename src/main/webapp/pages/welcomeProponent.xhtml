@@ -83,10 +83,16 @@
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         </p:commandButton>
                         <!-- Dar upvote a iniciativa -->
-                        <p:commandButton icon="pi pi-star" oncomplete="PF('upvoteInitiativeDialog').show()" process="@this">
+                        <!-- <p:commandButton id="upvote-button" icon="#{initiativeBean.upvoteIcon()}"
+                            actionListener="#{initiativeBean.changeVote(loginBean.userName)}" process="@this"
+                            update=":initiatives-menu:initiatives-list:upvote-button">
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                            <!-- <p:resetInput target=":dialogs:manage-upvote-content" /> -->
-                        </p:commandButton>
+                            <p:ajax update="@form" process="@form" />
+                        </p:commandButton> -->
+                        <p:selectBooleanButton onLabel="Unlike" offLabel="Like"
+                            onIcon="pi pi-heart-fill" offIcon="pi pi-heart"
+                            value="#{initiativeBean.upvoteFill}" valueChangeListener="#{initiativeBean.changeVote(loginBean.userName)}"
+                            onclick="PF('upvoteInitiativeDialog').hide()" />
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -137,14 +143,13 @@
                     onclick="PF('deleteInitiativeDialog').hide()" />
             </p:confirmDialog>
             <!-- Dialogo para votar iniciativa -->
-            <p:confirmDialog widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
+            <!-- <p:confirmDialog widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
                 message="Do you want to change your vote?" header="Initiative vote">
-                <p:selectBooleanButton onLabel="Unlike" offLabel="Like" 
-                    onIcon="pi pi-heart-fill"
-                    offIcon="pi pi-heart"
-                    value="#{true}" valueChangeListener="#{initiativeBean.changeVote(loginBean.userName)}"
+                <p:selectBooleanButton onLabel="Unlike" offLabel="Like"
+                    onIcon="pi pi-heart-fill" offIcon="pi pi-heart"
+                    value="#{true}" actionListener="#{initiativeBean.changeVote(loginBean.userName)}"
                     onclick="PF('upvoteInitiativeDialog').hide()" />
-            </p:confirmDialog>
+            </p:confirmDialog> -->
         </h:form>
 
     </h:body>
