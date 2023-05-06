@@ -95,14 +95,8 @@ public class InitiativeBean {
         this.selectedInitiatives = selectedInitiatives;
     }
 
-    /*
-     * public List<Initiative> getAll() {
-     * return initiativeService.getAllInitiatives();
-     * }
-     */
-
-    public List<Initiative> getOrderByState() {
-        return initiativeService.getInitiativesOrderedByState();
+    public List<Initiative> getAll() {
+        return initiativeService.getAllInitiatives();
     }
 
     public Initiative getSelectedInitiative() {

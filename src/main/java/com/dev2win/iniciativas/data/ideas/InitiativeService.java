@@ -34,14 +34,6 @@ public class InitiativeService {
         return null;
     }
 
-    public List<Initiative> getByKeyword(String word) {
-        return initiativeRepository.findByKeyword(word);
-    }
-
-    public List<Initiative> getByState(String state) {
-        return initiativeRepository.findByState(state);
-    }
-
     public void deleteAll() {
         initiativeRepository.deleteAll();
     }
