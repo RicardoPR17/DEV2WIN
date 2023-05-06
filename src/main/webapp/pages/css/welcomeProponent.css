@@ -9,7 +9,7 @@ html {
 body {
     background: linear-gradient(45deg, #000000, #231c50);
     background-repeat: no-repeat;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
 }
 
 h3 {
@@ -27,7 +27,7 @@ h2 {
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    font-size: 5hv;
+    font-size: 5vh;
     color: #fff;
     text-align: center;
     font-weight: normal;
@@ -51,7 +51,14 @@ h2 {
     display:inline; 
     width: 25%;
     margin-top: 2%;
+    margin-right: 40%;
     left: 0;
+}
+
+.hi-section{
+    float:left; 
+    display:inline; 
+    margin-left: 15%;
 }
 
 .initiative-section{
@@ -67,30 +74,15 @@ h2 {
 }
 
 .toolbar-crud {
-    margin-bottom: 5%;
+    margin-bottom: 2%;
 }
 
 .Options{
     float:left; 
-    display:inline; 
+    display:inline;
     width: 100%;
     margin-top: 0.5%;
     margin-bottom: 3%;
-}
-
-.KeyWord1{
-    width: 14%;
-    margin-right: 0.5%;
-}
-
-.KeyWord2{
-    width: 14%;
-    margin-right: 0.5%;
-}
-
-.KeyWord3{
-    width: 14%;
-    margin-right: 0.5%;
 }
 
 .Publish{
