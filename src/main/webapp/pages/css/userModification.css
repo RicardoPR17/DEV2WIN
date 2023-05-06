@@ -8,9 +8,9 @@ html {
 }
 
 body {
-    background: linear-gradient(45deg, #1f1d1d, #2f1c50);
+    background: linear-gradient(45deg, #000000, #231c50);
     background-repeat: no-repeat;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
 }
 
 h2 {
