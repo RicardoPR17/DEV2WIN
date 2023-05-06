@@ -64,7 +64,8 @@
                     filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
                     <h:outputText value="#{initiative.getKeywords()}" />
                 </p:column>
-                <p:column headerText="State" sortBy="#{initiative.state}">
+                <p:column headerText="State" sortBy="#{initiative.state}" filterBy="#{initiative.getState()}"
+                    filterMatchMode="contains">
                     <h:outputText value="#{initiative.state}" />
                 </p:column>
                 <p:column exportable="false">
