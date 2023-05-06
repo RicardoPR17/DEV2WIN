@@ -1,9 +1,9 @@
 package com.dev2win.iniciativas.data.users;
 
 public enum Profile {
-    Estudiante("Estudiante"),
-    Profesor("Profesor"),
-    Directivo("Directivo");
+    ESTUDIANTE("Estudiante"),
+    PROFESOR("Profesor"),
+    DIRECTIVO("Directivo");
 
     private String value;
 

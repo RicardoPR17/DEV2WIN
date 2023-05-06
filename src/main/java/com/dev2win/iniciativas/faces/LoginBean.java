@@ -76,7 +76,7 @@ public class LoginBean {
                 return;
             }
     
-            this.newUser.setRole(Role.Proponente.getValue());
+            this.newUser.setRole(Role.PROPONENTE.getValue());
             this.newUser.setState("desarrollo");
             userService.addUser(this.newUser);
     

@@ -32,7 +32,7 @@ public class InitiativeBean {
     private String keyword2;
     private String keyword3;
     private String userName;
-    private List<Initiative> initiatives = new ArrayList<>();;
+    private List<Initiative> initiatives = new ArrayList<>();
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
 
@@ -120,7 +120,7 @@ public class InitiativeBean {
             User userOwner = userService.getUserByMail(userName);
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
-            this.selectedInitiative.setState(State.Open.getValue());
+            this.selectedInitiative.setState(State.OPEN.getValue());
             initiativeService.addInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
         } else {
