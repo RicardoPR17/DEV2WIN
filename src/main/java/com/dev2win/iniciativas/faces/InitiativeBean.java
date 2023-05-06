@@ -1,6 +1,7 @@
 package com.dev2win.iniciativas.faces;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
@@ -31,6 +32,7 @@ public class InitiativeBean {
     private String keyword2;
     private String keyword3;
     private String userName;
+    private List<Initiative> initiatives = new ArrayList<>();;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
 
@@ -75,7 +77,15 @@ public class InitiativeBean {
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }   
+    }
+
+    public List<Initiative> getInitiatives() {
+        return initiatives;
+    }
+
+    public void setInitiatives(List<Initiative> initiatives) {
+        this.initiatives = initiatives;
+    }
 
     public List<Initiative> getSelectedInitiatives() {
         return selectedInitiatives;
@@ -85,8 +95,14 @@ public class InitiativeBean {
         this.selectedInitiatives = selectedInitiatives;
     }
 
-    public List<Initiative> getAll() {
-        return initiativeService.getAllInitiatives();
+    /*
+     * public List<Initiative> getAll() {
+     * return initiativeService.getAllInitiatives();
+     * }
+     */
+
+    public List<Initiative> getOrderByState() {
+        return initiativeService.getInitiativesOrderedByState();
     }
 
     public Initiative getSelectedInitiative() {
@@ -95,6 +111,10 @@ public class InitiativeBean {
 
     public void setSelectedInitiative(Initiative selectedInitiative) {
         this.selectedInitiative = selectedInitiative;
+    }
+
+    public void onDatabaseLoaded() {
+        this.initiatives = initiativeService.getAllInitiatives();
     }
 
     public void newInitiative() {
@@ -145,7 +165,8 @@ public class InitiativeBean {
                 PrimeFaces.current().executeScript("PF('manageIdeaDialog').show()");
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
+            FacesContext.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
             PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
         }
     }
