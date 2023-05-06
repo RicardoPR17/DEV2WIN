@@ -4,13 +4,12 @@ html {
     padding: 0px;
     margin: 0px;
     overflow-x: hidden;
-    overflow-y: hidden;
 }
 
 body {
     background: linear-gradient(45deg, #000000, #231c50);
     background-repeat: no-repeat;
-    font-family: Helvetica;
+    font-family: Helvetica, sans-serif;
 }
 
 h3 {
@@ -28,7 +27,7 @@ h2 {
     justify-content: center;
     align-items: center;
     margin-top: 5px;
-    font-size: 5hv;
+    font-size: 5vh;
     color: #fff;
     text-align: center;
     font-weight: normal;
