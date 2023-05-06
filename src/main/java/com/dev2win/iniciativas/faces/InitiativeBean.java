@@ -37,7 +37,6 @@ public class InitiativeBean {
     private String userName;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
-    private boolean upvoteFill = false;
 
 
     public InitiativeBean() {
@@ -107,14 +106,6 @@ public class InitiativeBean {
         this.selectedInitiative = new Initiative();
     }
 
-    public boolean isUpvoteFill() {
-        return upvoteFill;
-    }
-
-    public void setUpvoteFill(boolean upvoteFill) {
-        this.upvoteFill = upvoteFill;
-    }
-
     public void saveInitiative(String userName) {
         if (this.selectedInitiative.getUser() == null) {
             User userOwner = userService.getUserByMail(userName);
@@ -164,31 +155,15 @@ public class InitiativeBean {
         }
     }
 
-    public boolean isUpvoted(String userName) {
+    public boolean isUpvoted(String userName, Initiative initiative) {
         User user = userService.getUserByMail(userName);
-        return upvoteService.getUpvote(this.selectedInitiative, user).size() > 0;
-    }
-
-    public boolean notUpvoted(String userName) {
-        return !isUpvoted(userName);
-    }
-
-    public void upvote(String userName) {
-        Upvote newUpvote = new Upvote(selectedInitiative, userService.getUserByMail(userName));
-        upvoteService.addUpvote(newUpvote);
-    }
-
-    public void downvote(String userName) {
-        List<Upvote> upvotes = upvoteService.getUpvote(selectedInitiative, userService.getUserByMail(userName));
-        Upvote upvote = upvotes.get(0);
-        upvoteService.delete(upvote);
+        return !upvoteService.getUpvote(initiative, user).isEmpty();
     }
 
     public void changeVote(String userName) {
         User user = userService.getUserByMail(userName);
         if (this.selectedInitiative != null) {
-            upvoteFill = !upvoteFill;
-            if (isUpvoted(userName)) { 
+            if (isUpvoted(userName, this.selectedInitiative)) { 
                 Upvote upvote = upvoteService.getUpvote(this.selectedInitiative, user).get(0);
                 upvoteService.delete(upvote);
             } else {
@@ -196,10 +171,7 @@ public class InitiativeBean {
                 upvoteService.addUpvote(newUpvote);
             }
         }
-    }
-
-    public String upvoteIcon() {
-        return upvoteFill ?  "pi pi-heart-fill" : "pi pi-heart";
+        PrimeFaces.current().ajax().update("upvote-button");
     }
 
 }

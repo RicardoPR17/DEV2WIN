@@ -83,16 +83,10 @@
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         </p:commandButton>
                         <!-- Dar upvote a iniciativa -->
-                        <!-- <p:commandButton id="upvote-button" icon="#{initiativeBean.upvoteIcon()}"
-                            actionListener="#{initiativeBean.changeVote(loginBean.userName)}" process="@this"
-                            update=":initiatives-menu:initiatives-list:upvote-button">
+                        <p:commandButton id="upvote-button" actionListener="#{initiativeBean.changeVote(loginBean.userName)}" 
+                            process="@this"  styleClass="rounded-button" icon="pi pi-heart-fill">
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                            <p:ajax update="@form" process="@form" />
-                        </p:commandButton> -->
-                        <p:selectBooleanButton onLabel="Unlike" offLabel="Like"
-                            onIcon="pi pi-heart-fill" offIcon="pi pi-heart"
-                            value="#{initiativeBean.upvoteFill}" valueChangeListener="#{initiativeBean.changeVote(loginBean.userName)}"
-                            onclick="PF('upvoteInitiativeDialog').hide()" />
+                        </p:commandButton>
                     </p:column>
                 </p:dataTable>
             </h:form>
