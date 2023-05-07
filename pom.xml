@@ -12,7 +12,7 @@
 
     <properties>
         <java.version>1.8</java.version>
-        <sonar.organization>ricardopr17</sonar.organization>
+        <sonar.organization>ricardopr17-1</sonar.organization>
         <sonar.host.url>https://sonarcloud.io</sonar.host.url>
     </properties>
 
