@@ -126,6 +126,7 @@ public class InitiativeBean {
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
             this.selectedInitiative.setState(State.Open.getValue());
+            this.selectedInitiative.setNumberLikes("0");
             initiativeService.addInitiative(this.selectedInitiative);
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
         } else {
@@ -170,15 +171,35 @@ public class InitiativeBean {
         }
     }
 
-    public boolean isUpvoted(String userName, Initiative initiative) {
+    public void upvoteInitiative() {
+        if (this.selectedInitiative != null) {
+            PrimeFaces.current().executeScript("PF('upvoteInitiativeDialog').show()");
+            PrimeFaces.current().ajax().update("dialogs:upvote-content");
+        }
+    }
+
+    public boolean isUpvoted(String userName) {
         User user = userService.getUserByMail(userName);
-        return !upvoteService.getUpvote(initiative, user).isEmpty();
+        if (this.selectedInitiative != null) {
+            if (!upvoteService.getUpvote(this.selectedInitiative, user).isEmpty()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public String upvoteMessage(String userName) {
+        String message = "Do you want to upvote this initiative?";
+        if (isUpvoted(userName)) {
+            message = "Do you want to remove your upvote?";
+        }
+        return message;
     }
 
     public void changeVote(String userName) {
         User user = userService.getUserByMail(userName);
         if (this.selectedInitiative != null) {
-            if (isUpvoted(userName, this.selectedInitiative)) { 
+            if (isUpvoted(userName)) { 
                 Upvote upvote = upvoteService.getUpvote(this.selectedInitiative, user).get(0);
                 upvoteService.delete(upvote);
             } else {
@@ -186,7 +207,10 @@ public class InitiativeBean {
                 upvoteService.addUpvote(newUpvote);
             }
         }
-        PrimeFaces.current().ajax().update("upvote-button");
+        String counts = Integer.toString(upvoteService.getInitiativeUpvoteCount(this.selectedInitiative));
+        this.selectedInitiative.setNumberLikes(counts);
+        initiativeService.updateInitiative(this.selectedInitiative);
+        PrimeFaces.current().ajax().update("initiatives-menu:initiatives-list");
     }
 
 }

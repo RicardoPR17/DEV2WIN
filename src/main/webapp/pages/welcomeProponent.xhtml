@@ -44,52 +44,56 @@
                 <f:facet name="header">
                     <div class="initiatives-list-header">
                         <span style="font-weight: bold">BANK INITIATIVES</span>
-                        <span class="filter-container ui-input-icon-left">
-                        </span>
-                        </div>
-                    </f:facet>
-                    <!-- Columnas -->
-                    <p:column headerText="Creation Date" sortBy="#{initiative.date}">
-                        <h:outputText value="#{initiative.date}" />
-                    </p:column>
-                    <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
-                        <h:outputText value="#{initiative.getUser().profile}" />
-                    </p:column>
-                    <p:column headerText="Name Proposer" sortBy="#{initiative.getUser().name}">
-                        <h:outputText value="#{initiative.getUser().name}" />
-                    </p:column>
-                    <p:column headerText="Description" sortBy="#{initiative.description}">
-                        <h:outputText value="#{initiative.description}" />
-                    </p:column>
-                    <p:column headerText="Keywords" sortBy="#{initiative.getKeywords()}"
-                              filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
-                        <h:outputText value="#{initiative.getKeywords()}" />
-                    </p:column>
-                    <p:column headerText="State" sortBy="#{initiative.state}">
-                        <h:outputText value="#{initiative.state}" />
-                    </p:column>
-                    <p:column exportable="false">
-                        <!-- Editar iniciativa -->
-                        <p:commandButton icon="pi pi-pencil"  update=":dialogs:manage-ideas-content"
-                            actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'edit')}" style="margin-right: .5rem"
-                            styleClass="edit-button rounded-button ui-button-success" process="@this">
-                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                            <p:resetInput target=":dialogs:manage-ideas-content" />
-                        </p:commandButton>
-                        <!-- Boton borar iniciativa -->
-                        <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                            actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
-                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                        </p:commandButton>
-                        <!-- Dar upvote a iniciativa -->
-                        <p:commandButton id="upvote-button" actionListener="#{initiativeBean.changeVote(loginBean.userName)}" 
-                            process="@this"  styleClass="rounded-button" icon="pi pi-heart-fill">
-                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                        </p:commandButton>
-                    </p:column>
-                </p:dataTable>
-            </h:form>
-        </div>
+                        <span class="filter-container ui-input-icon-left"></span>
+                    </div>
+                </f:facet>
+                <!-- Columnas -->
+                <p:column headerText="Creation Date" sortBy="#{initiative.date}">
+                    <h:outputText value="#{initiative.date}" />
+                </p:column>
+                <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
+                    <h:outputText value="#{initiative.getUser().profile}" />
+                </p:column>
+                <p:column headerText="Name Proposer" sortBy="#{initiative.getUser().name}">
+                    <h:outputText value="#{initiative.getUser().name}" />
+                </p:column>
+                <p:column headerText="Description" sortBy="#{initiative.description}">
+                    <h:outputText value="#{initiative.description}" />
+                </p:column>
+                <p:column headerText="Keywords" sortBy="#{initiative.getKeywords()}"
+                    filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
+                    <h:outputText value="#{initiative.getKeywords()}" />
+                </p:column>
+                <p:column headerText="State" sortBy="#{initiative.state}" filterBy="#{initiative.getState()}"
+                    filterMatchMode="contains">
+                    <h:outputText value="#{initiative.state}" />
+                </p:column>
+                <p:column headerText="Likes">
+                    <!-- Dar upvote a iniciativa -->
+                    <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
+                        value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this"
+                        process="@this"  styleClass="rounded-button" >
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
+                    </p:commandButton>
+                </p:column>
+                <p:column headerText="Actions" exportable="false">
+                    <!-- Editar iniciativa -->
+                    <p:commandButton icon="pi pi-pencil"  update=":dialogs:manage-ideas-content"
+                        actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'edit')}" style="margin-right: .5rem"
+                        styleClass="edit-button rounded-button ui-button-success" process="@this">
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        <p:resetInput target=":dialogs:manage-ideas-content" />
+                    </p:commandButton>
+                    <!-- Boton borar iniciativa -->
+                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
+                        actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                    </p:commandButton>
+                </p:column>
+            </p:dataTable>
+        </h:form>
+    </div>
 
     <!-- Dialogos -->
     <h:form id="dialogs">
@@ -99,50 +103,50 @@
                     <div class="field">
                         <p:outputLabel for="description">Description</p:outputLabel>
                         <p:inputTextarea id="description" required="true"
-                            value="#{initiativeBean.selectedInitiative.description}" />
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-1">Keyword 1</p:outputLabel>
-                            <p:inputText id="keyword-1" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword1}"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-2">Keyword 2</p:outputLabel>
-                            <p:inputText id="keyword-2" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword2}"/>
-                        </div>
-                        <div class="field">
-                            <p:outputLabel for="keyword-3">Keyword 3</p:outputLabel>
-                            <p:inputText id="keyword-3" required="true"
-                            value="#{initiativeBean.selectedInitiative.keyword3}"/>
-                        </div>
-                    </p:outputPanel>
+                        value="#{initiativeBean.selectedInitiative.description}" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-1">Keyword 1</p:outputLabel>
+                        <p:inputText id="keyword-1" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword1}"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-2">Keyword 2</p:outputLabel>
+                        <p:inputText id="keyword-2" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword2}"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-3">Keyword 3</p:outputLabel>
+                        <p:inputText id="keyword-3" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword3}"/>
+                    </div>
                 </p:outputPanel>
-                <!-- Boton para publicar o cancelar iniciativa -->
-                <f:facet name="footer">
-                    <p:commandButton value="Publish" icon="pi pi-check" actionListener="#{initiativeBean.saveInitiative(loginBean.userName)}"
-                        update="manage-ideas-content" process="manage-ideas-content @this" styleClass="Publish"/>
-                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageIdeaDialog').hide()"
-                        class="ui-button-secondary" type="button" />
-                </f:facet>
-            </p:dialog>
-            <!-- Dialogo para borrar iniciativa -->
-            <p:confirmDialog widgetVar="deleteInitiativeDialog" showEffect="fade" width="300"
-                message="Delete the initiative?" header="Confirm" severity="warn">
-                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{initiativeBean.deleteInitiative}"
-                    process="@this" oncomplete="PF('deleteInitiativeDialog').hide()" />
-                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                    onclick="PF('deleteInitiativeDialog').hide()" />
-            </p:confirmDialog>
-            <!-- Dialogo para votar iniciativa -->
-            <!-- <p:confirmDialog widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
-                message="Do you want to change your vote?" header="Initiative vote">
-                <p:selectBooleanButton onLabel="Unlike" offLabel="Like"
-                    onIcon="pi pi-heart-fill" offIcon="pi pi-heart"
-                    value="#{true}" actionListener="#{initiativeBean.changeVote(loginBean.userName)}"
-                    onclick="PF('upvoteInitiativeDialog').hide()" />
-            </p:confirmDialog> -->
-        </h:form>
+            </p:outputPanel>
+            <!-- Boton para publicar o cancelar iniciativa -->
+            <f:facet name="footer">
+                <p:commandButton value="Publish" icon="pi pi-check" actionListener="#{initiativeBean.saveInitiative(loginBean.userName)}"
+                    update="manage-ideas-content" process="manage-ideas-content @this" styleClass="Publish"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageIdeaDialog').hide()"
+                    class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
+        <!-- Dialogo para borrar iniciativa -->
+        <p:confirmDialog widgetVar="deleteInitiativeDialog" showEffect="fade" width="300"
+            message="Delete the initiative?" header="Confirm" severity="warn">
+            <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{initiativeBean.deleteInitiative}"
+                process="@this" oncomplete="PF('deleteInitiativeDialog').hide()" />
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                onclick="PF('deleteInitiativeDialog').hide()" />
+        </p:confirmDialog>
+        <!-- Dialogo para votar iniciativa -->
+        <p:confirmDialog id="upvote-content" widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
+            message="#{initiativeBean.upvoteMessage(loginBean.userName)}" header="Initiative vote" >
+            <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
+                actionListener="#{initiativeBean.changeVote(loginBean.userName)}"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                onclick="PF('upvoteInitiativeDialog').hide()" />
+        </p:confirmDialog>
+    </h:form>
 
 </h:body>
 
