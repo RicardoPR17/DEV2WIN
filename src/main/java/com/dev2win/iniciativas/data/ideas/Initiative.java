@@ -1,6 +1,8 @@
 package com.dev2win.iniciativas.data.ideas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.dev2win.iniciativas.data.likes.Upvote;
 import com.dev2win.iniciativas.data.users.User;
 
 @Entity
@@ -22,6 +26,7 @@ public class Initiative {
     @Column(name = "registration_date")
     private LocalDate date;
     private String state;
+    private String numberLikes;
     private String keyword1;
     private String keyword2;
     private String keyword3;
@@ -29,6 +34,9 @@ public class Initiative {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "initiative")
+    List<Upvote> upvotes = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
         this.description = description;
@@ -38,6 +46,7 @@ public class Initiative {
         this.keyword2 = keyword2;
         this.keyword3 = keyword3;
         this.user = user;
+        this.numberLikes = "0";
     }
 
     public Initiative() {
@@ -102,6 +111,14 @@ public class Initiative {
 
     public String getKeywords() {
         return keyword1 + "; " + keyword2 + "; " + keyword3;
+    }
+
+    public String getNumberLikes() {
+        return numberLikes;
+    }
+
+    public void setNumberLikes(String numberLikes) {
+        this.numberLikes = numberLikes;
     }
 
     @Override

@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
+import com.dev2win.iniciativas.data.likes.Upvote;
 
 @Entity
 public class User {
@@ -24,6 +25,8 @@ public class User {
     private String mail;
     @OneToMany(mappedBy = "user")
     List<Initiative> ideas = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Upvote> upvotes = new ArrayList<>();
 
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
