@@ -17,13 +17,17 @@ public class UpvoteService {
         this.upvoteRepository = upvoteRepository;
     }
 
-    public Upvote addUpvote(Upvote upvote) { return upvoteRepository.save(upvote); }
+    public Upvote addUpvote(Upvote upvote) { 
+        return upvoteRepository.save(upvote); 
+    }
 
     public List<Upvote> getInitiativeUpvotes(Initiative initiative) {
         return upvoteRepository.findByInitiative(initiative.getInitiativeId());
     }
 
-    public int getInitiativeUpvoteCount(Initiative initiative) { return getInitiativeUpvotes(initiative).size(); }
+    public int getInitiativeUpvoteCount(Initiative initiative) { 
+        return getInitiativeUpvotes(initiative).size(); 
+    }
 
     public List<Upvote> getUserUpvotes(User user) {
         return upvoteRepository.findByUser(user.getUserId());
@@ -37,6 +41,8 @@ public class UpvoteService {
         return upvoteRepository.findUpvote(initiative.getInitiativeId(), user.getUserId());
     }
 
-    public void delete(Upvote upvote) { upvoteRepository.delete(upvote); }
+    public void delete(Upvote upvote) { 
+        upvoteRepository.delete(upvote); 
+    }
 
 }
