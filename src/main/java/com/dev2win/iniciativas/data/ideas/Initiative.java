@@ -26,6 +26,7 @@ public class Initiative {
     @Column(name = "registration_date")
     private LocalDate date;
     private String state;
+    private String numberLikes;
     private String keyword1;
     private String keyword2;
     private String keyword3;
@@ -45,6 +46,7 @@ public class Initiative {
         this.keyword2 = keyword2;
         this.keyword3 = keyword3;
         this.user = user;
+        this.numberLikes = "0";
     }
 
     public Initiative() {
@@ -109,6 +111,14 @@ public class Initiative {
 
     public String getKeywords() {
         return keyword1 + "; " + keyword2 + "; " + keyword3;
+    }
+
+    public String getNumberLikes() {
+        return numberLikes;
+    }
+
+    public void setNumberLikes(String numberLikes) {
+        this.numberLikes = numberLikes;
     }
 
     @Override
