@@ -20,6 +20,9 @@ public class AdminBean {
     User userToMod;
     String newRole;
 
+    /**
+     * Empty contructor
+     */
     public AdminBean() {
     }
 
