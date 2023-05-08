@@ -75,6 +75,15 @@
                     filterMatchMode="contains">
                     <h:outputText value="#{initiative.state}" />
                 </p:column>
+                <p:column headerText="Likes">
+                    <!-- Dar upvote a iniciativa -->
+                    <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
+                                     value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this"
+                                     process="@this"  styleClass="rounded-button" >
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
+                    </p:commandButton>
+                </p:column>
                 <p:column exportable="false">
                     <!-- Editar iniciativa -->
                     <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-ideas-content"
@@ -130,6 +139,14 @@
                 process="@this" oncomplete="PF('deleteInitiativeDialog').hide()" />
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                 onclick="PF('deleteInitiativeDialog').hide()" />
+        </p:confirmDialog>
+        <!-- Dialogo para votar iniciativa -->
+        <p:confirmDialog id="upvote-content" widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
+                         message="#{initiativeBean.upvoteMessage(loginBean.userName)}" header="Initiative vote" >
+            <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
+                             actionListener="#{initiativeBean.changeVote(loginBean.userName)}"/>
+            <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                             onclick="PF('upvoteInitiativeDialog').hide()" />
         </p:confirmDialog>
 
         <p:dialog header="In Work" showEffect="fade" modal="true" responsive="true" widgetVar="inWorkDialog" />
