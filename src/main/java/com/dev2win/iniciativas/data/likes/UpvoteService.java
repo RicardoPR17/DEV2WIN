@@ -21,22 +21,29 @@ public class UpvoteService {
         return upvoteRepository.save(upvote); 
     }
 
+    //Recibe una iniciativa pasada por parámetro y devuelve una lista con todos sus likes
     public List<Upvote> getInitiativeUpvotes(Initiative initiative) {
         return upvoteRepository.findByInitiative(initiative.getInitiativeId());
     }
 
+    //Recibe una iniciativa pasada por parámetro y devuelve la cantidad de likes que tiene
     public int getInitiativeUpvoteCount(Initiative initiative) { 
         return getInitiativeUpvotes(initiative).size(); 
     }
 
+    //Recibe un usuario por parámetro y devuelve una lista con todos los likes que ha dado a iniciativas
     public List<Upvote> getUserUpvotes(User user) {
         return upvoteRepository.findByUser(user.getUserId());
     }
 
+    //Recibe una iniciativa y un usuario como parámetros, y devuelve True si ese usuario votó
+    //por esa iniciativa - devuelve False de lo contrario
     public boolean isUpvoted(Initiative initiative, User user) {
         return upvoteRepository.findUpvote(initiative.getInitiativeId(), user.getUserId()).size() > 0;
     }
 
+    //Recibe una iniciativa y un usuario como parámetros y devuelve una lista de likes
+    //que debería tener un único elemento si ese usuario votó por ella, o estar vacía de lo contrario
     public List<Upvote> getUpvote(Initiative initiative, User user) {
         return upvoteRepository.findUpvote(initiative.getInitiativeId(), user.getUserId());
     }

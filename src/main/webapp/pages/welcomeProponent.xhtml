@@ -85,7 +85,7 @@
                         <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         <p:resetInput target=":dialogs:manage-ideas-content" />
                     </p:commandButton>
-                    <!-- Boton borar iniciativa -->
+                    <!-- Boton borrar iniciativa -->
                     <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
                         actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
                         <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
