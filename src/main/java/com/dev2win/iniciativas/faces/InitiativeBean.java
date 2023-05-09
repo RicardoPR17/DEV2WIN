@@ -7,6 +7,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 
+import com.dev2win.iniciativas.data.comments.Comment;
+import com.dev2win.iniciativas.data.comments.CommentService;
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.ideas.State;
@@ -26,6 +28,9 @@ public class InitiativeBean {
     InitiativeService initiativeService;
     @Autowired
     UserService userService;
+    @Autowired
+    CommentService commentService;
+
     private String description;
     private String keyword1;
     private String keyword2;
@@ -33,6 +38,8 @@ public class InitiativeBean {
     private String userName;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+    private Comment comment;
+    private String commentary;
 
     public InitiativeBean() {
     }
@@ -43,6 +50,14 @@ public class InitiativeBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getCommentary() {
+        return commentary;
+    }
+
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
     }
 
     public String getKeyword1() {
@@ -101,6 +116,10 @@ public class InitiativeBean {
         this.selectedInitiative = new Initiative();
     }
 
+    public void newComment() {
+        this.comment = new Comment();
+    }
+
     public void saveInitiative(String userName) {
         if (this.selectedInitiative.getUser() == null) {
             User userOwner = userService.getUserByMail(userName);
@@ -148,6 +167,18 @@ public class InitiativeBean {
             FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
             PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
         }
+    }
+
+    public void saveComment(String userName) {
+        User userOpinion = userService.getUserByMail(userName);
+        this.comment.setCommentary(commentary);
+        this.comment.setInitiative(selectedInitiative);
+        this.comment.setUser(userOpinion);
+        commentService.addComment(comment);
+        setCommentary("");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Comment Added"));
+        PrimeFaces.current().executeScript("PF('manageCommentDialog').hide()");
+        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
     }
 
 }

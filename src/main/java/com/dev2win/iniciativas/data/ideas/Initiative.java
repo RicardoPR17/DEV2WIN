@@ -1,6 +1,8 @@
 package com.dev2win.iniciativas.data.ideas;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +11,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.dev2win.iniciativas.data.comments.Comment;
 import com.dev2win.iniciativas.data.users.User;
 
 @Entity
@@ -29,6 +33,9 @@ public class Initiative {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @OneToMany(mappedBy = "initiative")
+    private List<Comment> comments = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
         this.description = description;
@@ -104,6 +111,22 @@ public class Initiative {
         return keyword1 + "; " + keyword2 + "; " + keyword3;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -165,14 +188,6 @@ public class Initiative {
         return true;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         return "Initiative [initiativeId = " + initiativeId + ", description = " + description + ", date = " + date
@@ -182,4 +197,5 @@ public class Initiative {
                 + user
                 + "]";
     }
+
 }
