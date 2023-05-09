@@ -35,7 +35,12 @@ public class InitiativeBean {
     private List<Initiative> initiatives = new ArrayList<>();
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+    private static final String INITIATIVES_MENU_MESSAGES = "initiatives-menu:messages";
+    private static final String INITIATIVES_MENU_INITIATIVES_LIST = "initiatives-menu:initiatives-list";
 
+    /**
+     * Empty contructor
+     */
     public InitiativeBean() {
     }
 
@@ -129,12 +134,12 @@ public class InitiativeBean {
         }
 
         PrimeFaces.current().executeScript("PF('manageIdeaDialog').hide()");
-        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        PrimeFaces.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
     }
 
     public void deleteInitiative() {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
-        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        PrimeFaces.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         initiativeService.deleteInitiative(this.selectedInitiative.getInitiativeId());
     }
 
@@ -161,7 +166,7 @@ public class InitiativeBean {
         } else {
             FacesContext.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
-            PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+            PrimeFaces.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         }
     }
 
