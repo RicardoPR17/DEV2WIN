@@ -38,7 +38,7 @@ class LoginBeanTest {
     void setup() {
         // this starts only the first time of we execute with class test
         MockitoAnnotations.initMocks(this);
-        user = new User("Jorge", "Pass", Role.Administrador, "", Profile.Directivo, "juuseche@gmail.com");
+        user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
         when(userService.getUserByMail("juusechec@gmail.com")).thenReturn(user);
         Mocks mocks = new Mocks();
