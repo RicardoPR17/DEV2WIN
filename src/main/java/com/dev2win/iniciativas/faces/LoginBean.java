@@ -7,6 +7,9 @@ import java.util.regex.Pattern;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -73,46 +76,46 @@ public class LoginBean {
         try {
             if (!isValidEmail(this.newUser.getMail())) {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", "Error"));
-                primeFacesWrapper.current().ajax().update("login-form:messages");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", ERROR));
+                primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
                 return;
             }
-
+    
             if (userService.getUserByMail(this.newUser.getMail()) != null) {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
-                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", "Error"));
-                primeFacesWrapper.current().ajax().update("login-form:messages");
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", ERROR));
+                primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
                 return;
             }
-
+    
             this.newUser.setRole(Role.PROPONENTE.getValue());
             this.newUser.setState("desarrollo");
             userService.addUser(this.newUser);
-
+    
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Account created successfully"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             primeFacesWrapper.current().executeScript("PF('createAccountDialog').hide()");
-
+    
         } catch (Exception e) {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-                    "An error occurred while creating the account", "Error"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+                    "An error occurred while creating the account", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             e.printStackTrace();
         }
     }
-
+    
     public boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
         Matcher matcher = pattern.matcher(email);
         return matcher.find();
     }
-
+    
     public Boolean login() {
         // Verificar que se ingresó un nombre de usuario y una contraseña
         if (password == null || userName == null) {
             facesContextWrapper.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", "Error"));
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", ERROR));
             return false;
         }
         // Buscar al usuario por correo electrónico
@@ -121,8 +124,8 @@ public class LoginBean {
         // error y salir temprano
         if (userToLogin == null || !password.equals(userToLogin.getPassword())) {
             facesContextWrapper.getCurrentInstance().addMessage(null,
-                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username or password are incorrect", "Error"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username or password are incorrect", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             return false;
         }
         // Si el usuario está autenticado, redirigirlo a la página correspondiente
@@ -135,7 +138,7 @@ public class LoginBean {
         }
         return true;
     }
-
+    
     private String getRedirectPath(User user) {
         if (user.getRole().equals("Administrador")) {
             return "../pages/welcomeAdmin.xhtml";
@@ -143,5 +146,5 @@ public class LoginBean {
             return "../pages/welcomeProponent.xhtml";
         }
     }
-
+    
 }
