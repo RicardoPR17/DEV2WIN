@@ -31,7 +31,7 @@ class UserServiceTest {
     void setup() {
         // this starts only the first time of we execute with class test
         MockitoAnnotations.initMocks(this);
-        user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "jorge.useche@gmail.com");
+        user = new User("Jorge", "Pass", Role.Administrador, "", Profile.Directivo, "jorge.useche@gmail.com");
         user.setUserId(1L);
         when(userRepository.save(user)).thenReturn(user);
     }
