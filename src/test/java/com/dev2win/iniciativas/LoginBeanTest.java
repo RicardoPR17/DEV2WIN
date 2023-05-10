@@ -17,6 +17,11 @@ import org.mockito.junit.MockitoJUnitRunner;
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
 
+import java.util.Iterator;
+import java.util.List;
+
+import javax.faces.application.FacesMessage;
+
 @RunWith(MockitoJUnitRunner.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class LoginBeanTest {
@@ -33,6 +38,7 @@ class LoginBeanTest {
     private LoginBean loginBean;
 
     private User user;
+    private User user2;
 
     @BeforeAll
     void setup() {
@@ -40,6 +46,7 @@ class LoginBeanTest {
         MockitoAnnotations.initMocks(this);
         user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
+        user2 = user;
         when(userService.getUserByMail("juusechec@gmail.com")).thenReturn(user);
         Mocks mocks = new Mocks();
         when(facesContextWrapper.getCurrentInstance()).thenReturn(mocks.facesContextMock);
@@ -65,6 +72,36 @@ class LoginBeanTest {
         loginBean.setPassword("Pass");
         Boolean loginResult = loginBean.login();
         assertFalse(loginResult);
+    }
+
+    @Test
+    void shouldPassCorrectEmail(){
+        String okEmail = "prueba@mail.escuelaing.edu.co";
+        Boolean validate = loginBean.isValidEmail(okEmail);
+        assertTrue(validate);
+    }
+
+    @Test
+    void shouldNotPassIncorrectEmail(){
+        String nOkEmail = "prueba mail escuelaing edu co";
+        Boolean validate = loginBean.isValidEmail(nOkEmail);
+        assertFalse(validate);
+    }
+
+    @Test
+    void shouldAllowRegister() {
+        loginBean.setNewUser(user);
+        Boolean validate = loginBean.createAccount();
+        assertTrue(validate);
+    }
+
+    @Test
+    void shouldNotAllowDoubleRegister() {
+        loginBean.setNewUser(user);
+        loginBean.createAccount();
+        loginBean.setNewUser(user2);
+        Boolean validate = loginBean.createAccount();
+        assertFalse(validate);
     }
 
 }
