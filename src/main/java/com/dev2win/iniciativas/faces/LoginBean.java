@@ -73,11 +73,13 @@ public class LoginBean {
     }
 
     public Boolean createAccount() {
+        Boolean flag = true;
         try {
             if (!isValidEmail(this.newUser.getMail())) {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", ERROR));
                 primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
+                flag = false;
                 return false;
             }
     
@@ -85,6 +87,7 @@ public class LoginBean {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", ERROR));
                 primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
+                flag = false;
                 return false;
             }
     
@@ -101,8 +104,9 @@ public class LoginBean {
                     "An error occurred while creating the account", ERROR));
             primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             e.printStackTrace();
+        }finally{
+            return flag;
         }
-        return true;
     }
     
     public boolean isValidEmail(String email) {
