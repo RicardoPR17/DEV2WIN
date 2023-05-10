@@ -72,20 +72,20 @@ public class LoginBean {
         this.newUser = new User();
     }
 
-    public void createAccount() {
+    public Boolean createAccount() {
         try {
             if (!isValidEmail(this.newUser.getMail())) {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", ERROR));
                 primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
-                return;
+                return false;
             }
     
             if (userService.getUserByMail(this.newUser.getMail()) != null) {
                 facesContextWrapper.getCurrentInstance().addMessage(null,
                         new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", ERROR));
                 primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
-                return;
+                return false;
             }
     
             this.newUser.setRole(Role.PROPONENTE.getValue());
@@ -95,13 +95,14 @@ public class LoginBean {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Account created successfully"));
             primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             primeFacesWrapper.current().executeScript("PF('createAccountDialog').hide()");
-    
+            
         } catch (Exception e) {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
                     "An error occurred while creating the account", ERROR));
             primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             e.printStackTrace();
         }
+        return true;
     }
     
     public boolean isValidEmail(String email) {
