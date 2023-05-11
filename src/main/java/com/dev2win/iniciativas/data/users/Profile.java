@@ -14,4 +14,15 @@ public enum Profile {
     public String getValue() {
         return value;
     }
+
+    public static Profile findByValue(String role) {
+        Profile response = null;
+        for (Profile p : Profile.values()) {
+            if (p.getValue().equalsIgnoreCase(role)) {
+                response = p;
+                break;
+            }
+        }
+        return response;
+    }
 }
