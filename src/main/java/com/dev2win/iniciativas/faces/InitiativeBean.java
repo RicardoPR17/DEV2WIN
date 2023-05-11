@@ -39,8 +39,8 @@ public class InitiativeBean {
     private List<Initiative> initiatives = new ArrayList<>();;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
-    private boolean loggedUserInitiatives;
-
+    private boolean loggedUserInitiatives = false;
+    
     public boolean isLoggedUserInitiatives() {
         return loggedUserInitiatives;
     }
