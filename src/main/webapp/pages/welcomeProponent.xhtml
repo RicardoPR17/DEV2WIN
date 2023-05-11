@@ -36,10 +36,9 @@
                         <p:resetInput target=":dialogs:manage-ideas-content" />
                     </p:commandButton>
                 </p:toolbarGroup>
-                <!-- Mostrar las iniciativas del usuario logueado -->
                 <p:toolbarGroup>
                     <p:selectBooleanCheckbox itemLabel="My Initiatives" value="#{initiativeBean.loggedUserInitiatives}">
-                        <p:ajax update="messages" actionListener="#{initiativeBean.changeLoggedInitiatives(loginBean.userName)}"/>
+                        <p:ajax update="messages" actionListener="#{initiativeBean.changeLoggedInitiativesView(loginBean.userName)}"/>
                     </p:selectBooleanCheckbox>
                 </p:toolbarGroup>
             </p:toolbar>
