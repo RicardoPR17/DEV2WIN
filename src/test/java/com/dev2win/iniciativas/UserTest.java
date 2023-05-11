@@ -2,6 +2,8 @@ package com.dev2win.iniciativas;
 
 import static org.junit.Assert.assertEquals;
 
+import java.util.ArrayList;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.TestInstance;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -9,6 +11,8 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.dev2win.iniciativas.data.ideas.Initiative;
+import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.Profile;
 import com.dev2win.iniciativas.data.users.Role;
 import com.dev2win.iniciativas.data.users.User;
@@ -16,13 +20,6 @@ import com.dev2win.iniciativas.data.users.User;
 @RunWith(MockitoJUnitRunner.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class UserTest {
-    @Test
-    void shouldGiveUserId() {
-        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
-        Long id = 7L;
-        user.setUserId(id);
-        assertEquals(id, user.getUserId());
-    }
 
     @ParameterizedTest
     @ValueSource(longs = { 5L, 17L, 8L, 10L })
@@ -35,8 +32,7 @@ class UserTest {
     @Test
     void shouldGiveUserName() {
         User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
-        String username = user.getName();
-        assertEquals("Pepe", username);
+        assertEquals("Pepe", user.getName());
     }
 
     @ParameterizedTest
@@ -61,6 +57,32 @@ class UserTest {
     }
 
     @Test
+    void shouldGiveUserRole() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
+        assertEquals(Role.PROPONENTE.getValue(), user.getRole());
+    }
+
+    @Test
+    void shouldSetUserRole() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
+        user.setRole("Administrador");
+        assertEquals(Role.ADMINISTRADOR.getValue(), user.getRole());
+    }
+
+    @Test
+    void shouldGiveUserProfile() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
+        assertEquals(Profile.ESTUDIANTE.getValue(), user.getProfile());
+    }
+
+    @Test
+    void shouldSetUserProfile() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
+        user.setProfile("Directivo");
+        assertEquals(Profile.DIRECTIVO.getValue(), user.getProfile());
+    }
+
+    @Test
     void shouldGiveUserEmail() {
         User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
         assertEquals("test@test.com", user.getMail());
@@ -72,5 +94,15 @@ class UserTest {
         User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
         user.setMail(input);
         assertEquals(input, user.getMail());
+    }
+
+    @Test
+    void shouldSetInitiative() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
+        Initiative initiative = new Initiative("Hacer renunines antes de las 7", State.OPEN, "", "", "", user);
+        ArrayList<Initiative> InitiativeArray = new ArrayList<>();
+        InitiativeArray.add(initiative);
+        user.setIdeas(InitiativeArray);
+        assertEquals(InitiativeArray, user.getIdeas());
     }
 }
