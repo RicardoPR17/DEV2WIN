@@ -221,7 +221,7 @@ public class InitiativeBean {
         PrimeFaces.current().ajax().update("initiatives-menu:initiatives-list");
     }
 
-    public void changeLoggedInitiatives(String userName) {
+    public void changeLoggedInitiativesView(String userName){
         loggedUserInitiatives = !loggedUserInitiatives;
         if (loggedUserInitiatives) {
             User user = userService.getUserByMail(userName);
