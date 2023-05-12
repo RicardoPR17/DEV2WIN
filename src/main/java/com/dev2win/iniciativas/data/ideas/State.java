@@ -3,7 +3,7 @@ package com.dev2win.iniciativas.data.ideas;
 public enum State {
     Open("Open"),
     Closed("Closed"),
-    Revision("Revision"),
+    Review("Review"),
     Aproved("Aproved");
 
     private String value;
