@@ -1,0 +1,59 @@
+html {
+    height: 100vh;
+}
+
+body {
+    background: linear-gradient(45deg, #000000, #231c50);
+    background-repeat: no-repeat;
+    font-family: Helvetica;
+}
+
+h3 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 4vw;
+    color: #fff;
+    text-align: center;
+}
+
+h2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 5px;
+    font-size: 5hv;
+    color: #fff;
+    text-align: center;
+    font-weight: normal;
+}
+
+.Img{
+    height: 100px;
+}
+
+.ImgContainer{
+    float:left; 
+    display:inline;
+    width: 20%;
+    margin-top: 1%;
+    margin-left: 2%;
+    left: 0;
+}
+
+.Title{
+    float:left; 
+    display:inline; 
+    width: 25%;
+    margin-top: 2%;
+    left: 0;
+}
+
+.viewIni{
+    float:left; 
+    display:inline; 
+    width: 70%;
+    margin-left: 14.5%;
+    margin-bottom: 5%;
+}
