@@ -307,8 +307,10 @@ public class Mocks {
 
             @Override
             public PrimeRequestContext getRequestContext(){
-                return null;
+                return new PrimeRequestContext(facesContextMock);
             }
+
+            
 
             
         };
