@@ -70,6 +70,12 @@ class UserTest {
     }
 
     @Test
+    void shouldGiveUserState() {
+        User user = new User("Pepe", "1234", Role.PROPONENTE, "desarrollo", Profile.ESTUDIANTE, "test@test.com");
+        assertEquals("desarrollo", user.getState());
+    }
+
+    @Test
     void shouldGiveUserProfile() {
         User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
         assertEquals(Profile.ESTUDIANTE.getValue(), user.getProfile());
