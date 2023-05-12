@@ -51,7 +51,8 @@ class InitiativeBeanTest {
         MockitoAnnotations.initMocks(this);
         user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
-        selectedInitiative = new Initiative("Test Initiative", State.APROVED, "keyword1", "keyword2", "keyword3", user);
+        selectedInitiative = new Initiative("Test Initiative", State.APROVED, "keyword1", "keyword2", "keyword3", null);
+        selectedInitiative.setInitiativeId(11L);
         initiatives.add(selectedInitiative);
         userEmail = user.getMail();
 
@@ -70,10 +71,36 @@ class InitiativeBeanTest {
         userService.deleteAll();
     }
 
+
+    @Test
+    void shouldSaveInitiative(){
+        initiativeBean.setSelectedInitiative(selectedInitiative);
+        int result = initiativeBean.saveInitiative(userEmail);
+        assertEquals(1, result);
+    }
+
+    @Test
+    void shouldUpdateInitiative(){
+        initiativeBean.setSelectedInitiative(selectedInitiative);
+        selectedInitiative.setUser(user);
+        int result = initiativeBean.saveInitiative(userEmail);
+        assertEquals(0, result);
+    }
+
+    // En resivision
+    // @Test
+    // void shouldDeleteInitiative(){
+    //     initiativeService.deleteAll();
+    //     initiativeBean.setSelectedInitiative(selectedInitiative);
+    //     initiativeBean.deleteInitiative();
+    //     Boolean result = initiativeService.getAllInitiatives().isEmpty();
+    //     assertTrue(result);
+    // }
+
     @Test
     void shouldDetectSelectedInitiative(){
         initiativeBean.setSelectedInitiative(selectedInitiative);
-        assertEquals(selectedInitiative, initiativeBean.getSelectedInitiative());    
+        assertEquals(selectedInitiative, initiativeBean.getSelectedInitiative());
     }
 
     @Test
@@ -82,8 +109,17 @@ class InitiativeBeanTest {
         assertTrue(initiativeBean.hasSelectedInitiatives());
     }
 
-    @Test
-    void shouldSaveInitiative(){
-        
-    }
+    // Pendiente
+    // @Test
+    // void UserShouldEditItsInitiativesOnly(){
+
+    // }
+
+    // Pendiente
+    // @Test
+    // void shouldGetAndSetInitiativeDescription(){
+    //     String sample = "Daniel PO";
+    //     initiativeBean.setDescription(sample);
+
+    // }
 }
