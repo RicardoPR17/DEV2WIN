@@ -1,10 +1,12 @@
 package com.dev2win.iniciativas.faces;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 
 import com.dev2win.iniciativas.data.comments.Comment;
@@ -50,6 +52,30 @@ public class InitiativeBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDateInitiative() {
+        return selectedInitiative.getDateText();
+    }
+
+    public String getKeysWordsInitiative() {
+        return selectedInitiative.getKeywords();
+    }
+
+    public String getStateInitiative() {
+        return selectedInitiative.getState();
+    }
+
+    public String getNameUserInitiative() {
+        return selectedInitiative.getUser().getName();
+    }
+
+    public String getMailUserInitiative() {
+        return selectedInitiative.getUser().getMail();
+    }
+
+    public String getDescriptionInitiative() {
+        return selectedInitiative.getDescription();
     }
 
     public String getCommentary() {
@@ -102,6 +128,10 @@ public class InitiativeBean {
 
     public List<Initiative> getAll() {
         return initiativeService.getAllInitiatives();
+    }
+
+    public List<Comment> getAllComments() {
+        return commentService.getCommentsOfInitiative(selectedInitiative.getInitiativeId());
     }
 
     public Initiative getSelectedInitiative() {
@@ -178,7 +208,18 @@ public class InitiativeBean {
         setCommentary("");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Comment Added"));
         PrimeFaces.current().executeScript("PF('manageCommentDialog').hide()");
-        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        PrimeFaces.current().ajax().update("comments-menu:messages", "comments-menu:comments-list");
+    }
+
+    public String redirectToNewPage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        try {
+            externalContext.redirect("viewInitiatives.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

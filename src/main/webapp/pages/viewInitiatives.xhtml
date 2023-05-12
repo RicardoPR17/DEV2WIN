@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+
+    </h:head>
+
+    <h:body>
+      <div class="viewIni">
+        <h:form id="comments-menu">
+          <p:growl id="messages" show-detail="true" />
+          <p:panel header="Initiative Details" style="margin-bottom:5px;">
+            <h:panelGrid columns="1" cellpadding="5">
+              <h:outputLabel value="Proponent: #{initiativeBean.getNameUserInitiative()}"/>
+              <h:outputLabel value="Contact: #{initiativeBean.getMailUserInitiative()}"/>
+              <h:outputLabel value="Registration Date: #{initiativeBean.getDateInitiative()}"/>
+              <h:outputLabel value="Description: #{initiativeBean.getDescriptionInitiative()}"/>
+              <h:outputLabel value="Keys Words: #{initiativeBean.getKeysWordsInitiative()}"/>
+              <h:outputLabel value="State: #{initiativeBean.getStateInitiative()}"/>
+            </h:panelGrid>
+            <p:divider /><p:divider />
+            <p:commandButton class="rounded-button" icon="pi pi-comments" value="Add Comment" actionListener="#{initiativeBean.newComment}"
+              update=":dialogComment:manage-comment-content" oncomplete="PF('manageCommentDialog').show()">
+              <p:resetInput target=":dialogComment:manage-comment-content" />
+            </p:commandButton>
+            <p:divider /><p:divider />
+            <p:dataTable id="comments-list" var="comment" value="#{initiativeBean.getAllComments()}" reflow="true" rowKey="#{comment.commentId}" paginator="true" rows="10" paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+              <f:facet name="header">
+                <div class="comments-list-header">
+                  <span style="font-weight: bold">Comments on the proposal</span>
+                  <span class="filter-container ui-input-icon-left">
+                  </span>
+                </div>
+              </f:facet>
+              <!-- Columnas -->
+              <p:column headerText="Comment Date">
+                <h:outputText value="#{comment.date}" />
+              </p:column>
+              <p:column headerText="Participant Name">
+                <h:outputText value="#{comment.getUser().name}" />
+              </p:column>
+              <p:column headerText="Participant profile">
+                <h:outputText value="#{comment.getUser().getProfile()}" />
+              </p:column>
+              <p:column headerText="Description">
+                <h:outputText value="#{comment.commentary}" />
+              </p:column>
+
+            </p:dataTable>
+
+          </p:panel>
+
+        </h:form>
+      </div>
+        <!--Formulario de comentarios-->
+        <h:form id="dialogComment">
+          <p:dialog header="What's on your mind?" showEffect="fade" modal="true" widgetVar="manageCommentDialog" responsive="true">
+              <p:outputPanel id="manage-comment-content" class="ui-fluid">
+                  <div class="field">
+                      <p:outputLabel for="commentary">Comment</p:outputLabel>
+                      <p:inputTextarea id="commentary" required="true" value="#{initiativeBean.commentary}" />
+                  </div>
+              </p:outputPanel>
+              <f:facet name="footer">
+                  <p:commandButton value="Comment" icon="pi pi-check" actionListener="#{initiativeBean.saveComment(loginBean.userName)}"
+                      update="manage-comment-content" process="manage-comment-content @this" />
+                  <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageCommentDialog').hide()"
+                      class="ui-button-secondary" type="button" />
+              </f:facet>
+          </p:dialog>
+      </h:form>
+    </h:body>
+</html>

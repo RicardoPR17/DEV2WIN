@@ -1,8 +1,11 @@
 package com.dev2win.iniciativas.data.ideas;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,6 +72,11 @@ public class Initiative {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getDateText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("es", "ES"));
+        return date.format(formatter);
     }
 
     public void setDate(LocalDate date) {

@@ -81,11 +81,11 @@
                             actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
                             <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                         </p:commandButton>
-                        <!-- Boton comentar iniciativa -->
-                        <p:commandButton class="rounded-button" icon="pi pi-comments" actionListener="#{initiativeBean.newComment}"
-                            update=":dialogComment:manage-comment-content" oncomplete="PF('manageCommentDialog').show()">
-                            <p:resetInput target=":dialogComment:manage-comment-content" />
-                        </p:commandButton>
+                        <!--Boton para ver detalles de Iniciativa-->
+                        <p:commandButton class="rounded-button ui-button-help" icon="pi pi-eye" 
+                            actionListener="#{initiativeBean.redirectToNewPage()}" process="@this" >
+                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        </p:commandButton>     
                     </p:column>
                 </p:dataTable>
             </h:form>
@@ -136,23 +136,5 @@
                     onclick="PF('deleteInitiativeDialog').hide()" />
             </p:confirmDialog>
         </h:form>
-        <!--Formulario de comentarios-->
-        <h:form id="dialogComment">
-            <p:dialog header="What's on your mind?" showEffect="fade" modal="true" widgetVar="manageCommentDialog" responsive="true">
-                <p:outputPanel id="manage-comment-content" class="ui-fluid">
-                    <div class="field">
-                        <p:outputLabel for="commentary">Comment</p:outputLabel>
-                        <p:inputTextarea id="commentary" required="true" value="#{initiativeBean.commentary}" />
-                    </div>
-                </p:outputPanel>
-                <f:facet name="footer">
-                    <p:commandButton value="Comment" icon="pi pi-check" actionListener="#{initiativeBean.saveComment(loginBean.userName)}"
-                        update="manage-comment-content" process="manage-comment-content @this" />
-                    <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageCommentDialog').hide()"
-                        class="ui-button-secondary" type="button" />
-                </f:facet>
-            </p:dialog>
-        </h:form>
-
     </h:body>
 </html>
