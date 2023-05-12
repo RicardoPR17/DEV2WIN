@@ -15,13 +15,7 @@ import org.mockito.MockitoAnnotations;
 import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.junit.Assert.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.when;
-
-import java.util.Iterator;
-import java.util.List;
-
-import javax.faces.application.FacesMessage;
 
 @RunWith(MockitoJUnitRunner.class)
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
@@ -39,7 +33,7 @@ class LoginBeanTest {
     private LoginBean loginBean;
 
     private User user;
-    private User user2;
+    private String userEmail;
 
     @BeforeAll
     void setup() {
@@ -47,9 +41,8 @@ class LoginBeanTest {
         MockitoAnnotations.initMocks(this);
         user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
-        user2 = user;
-        when(userService.getUserByMail("juusechec@gmail.com")).thenReturn(user);
-        when(userService.getUserByMail("juusechec@gmail.com")).thenReturn(user2);
+        userEmail = user.getMail();
+        when(userService.getUserByMail(userEmail)).thenReturn(user);
         Mocks mocks = new Mocks();
         when(facesContextWrapper.getCurrentInstance()).thenReturn(mocks.facesContextMock);
         when(primeFacesWrapper.current()).thenReturn(mocks.primeFaces);
@@ -57,7 +50,7 @@ class LoginBeanTest {
 
     @BeforeEach
     void initUseCase() {
-        // Ponga aquí lo que quieres que se inicie cada vez que ejecute un test
+        userService.deleteAll();
     }
 
     @Test
@@ -97,20 +90,32 @@ class LoginBeanTest {
         assertTrue(validate);
     }
 
-    // @Test
-    // void shouldNotAllowDoubleRegister() {
-    //     loginBean.setNewUser(user);
-    //     loginBean.createAccount();
-    //     loginBean.setNewUser(user2);
-    //     Boolean validate = loginBean.createAccount();
-    //     assertFalse(validate);
-    // }
+    @Test
+    void shouldNotAllowDoubleRegister() {
+        loginBean.setNewUser(user);
+        loginBean.createAccount();
+        Boolean validate = loginBean.createAccount();
+        assertFalse(validate);
+    }
 
-    // @Test
-    // void shouldFailWhenNoUserInstanceExistsWhileCreatingAccount(){
-    //     loginBean.setNewUser(null);
-    //     loginBean.createAccount();
-    //     assertThrows();
-    // }
+    @Test
+    void shouldSetAndGetUserName(){
+        String test = "Rick";
+        loginBean.setUserName(test);
+        assertEquals(test, loginBean.getUserName());
+    }
+
+    @Test
+    void shouldSetAndGetUserPassword(){
+        String test = "angie123";
+        loginBean.setPassword(test);
+        assertEquals(test, loginBean.getPassword());
+    }
+
+    @Test
+    void shouldSetAndGetUserInstance(){
+        loginBean.setNewUser(user);
+        assertEquals(user, loginBean.getNewUser());
+    }
 
 }
