@@ -36,10 +36,10 @@ public class IniciativasApplication {
 
         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
 
-        User user = new User("prueba", "contrasena", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
-                "prueba@mail.escuelaing.edu.co");
-        User user2 = new User("prueba2", "contrasena2", Role.PROPONENTE, "desarrollo", Profile.ESTUDIANTE,
-                "prueba2@mail.escuelaing.edu.co");
+        User user = new User("prueba", "1234", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
+                "ricardo@dev2win.com");
+        User user2 = new User("prueba2", "1234", Role.PROPONENTE, "desarrollo", Profile.ESTUDIANTE,
+                "angie@dev2win.com");
         userService.addUser(user);
         userService.addUser(user2);
         return srb;

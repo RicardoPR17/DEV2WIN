@@ -37,12 +37,13 @@ public class Initiative {
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    User user;
 
     @OneToMany(mappedBy = "initiative")
     List<Upvote> upvotes = new ArrayList<>();
-  
-    private List<Comment> comments = new ArrayList<>();
+
+    @OneToMany(mappedBy = "initiative")
+    List<Comment> comments = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
         this.description = description;
@@ -80,7 +81,8 @@ public class Initiative {
     }
 
     public String getDateText() {
-        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL).withLocale(new Locale("es", "ES"));
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                .withLocale(new Locale("es", "ES"));
         return date.format(formatter);
     }
 
@@ -139,7 +141,7 @@ public class Initiative {
     public void setComments(List<Comment> comments) {
         this.comments = comments;
     }
-  
+
     public String getNumberLikes() {
         return numberLikes;
     }

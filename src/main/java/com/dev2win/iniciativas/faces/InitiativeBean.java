@@ -193,7 +193,7 @@ public class InitiativeBean {
     public void newComment() {
         this.comment = new Comment();
     }
-  
+
     public int saveInitiative(String userName) {
         int flag = -1;
         if (this.selectedInitiative.getUser() == null) {
@@ -311,8 +311,8 @@ public class InitiativeBean {
         commentService.addComment(comment);
         setCommentary("");
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Comment Added"));
-        PrimeFaces.current().executeScript("PF('manageCommentDialog').hide()");
-        PrimeFaces.current().ajax().update("comments-menu:messages", "comments-menu:comments-list");
+        primeFacesWrapper.current().executeScript("PF('manageCommentDialog').hide()");
+        primeFacesWrapper.current().ajax().update("comments-menu:messages", "comments-menu:comments-list");
     }
 
     public String redirectToNewPage() {

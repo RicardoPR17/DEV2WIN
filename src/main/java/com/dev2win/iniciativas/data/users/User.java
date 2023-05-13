@@ -28,8 +28,8 @@ public class User {
     List<Initiative> ideas = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     List<Upvote> upvotes = new ArrayList<>();
-
-    private List<Comment> comments = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Comment> comments = new ArrayList<>();
 
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
@@ -117,8 +117,10 @@ public class User {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
         User user = (User) o;
         return userId.equals(user.userId);
     }

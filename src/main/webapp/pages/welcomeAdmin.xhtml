@@ -78,9 +78,10 @@
                 <p:column headerText="Likes">
                     <!-- Dar upvote a iniciativa -->
                     <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
-                                     value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this"
-                                     process="@this"  styleClass="rounded-button" >
-                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this" process="@this"
+                        styleClass="rounded-button">
+                        <f:setPropertyActionListener value="#{initiative}"
+                            target="#{initiativeBean.selectedInitiative}" />
                         <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
                     </p:commandButton>
                 </p:column>
@@ -108,19 +109,18 @@
     <h:form id="dialogs">
         <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
             responsive="true">
-                <p:outputPanel id="manage-ideas-content" class="ui-fluid">
-                    <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
-                        <div class="field">
-                            <p:outputLabel for="state">State</p:outputLabel>
-                            <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
-                                layout="responsive" columns="2">
-                                <f:selectItem itemLabel="Open" itemValue="Open" />
-                                <f:selectItem itemLabel="Closed" itemValue="Closed" />
-                                <f:selectItem itemLabel="Review" itemValue="Review" />
-                                <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
-                            </p:selectOneRadio>
-                        </div>
-                    </p:outputPanel>
+            <p:outputPanel id="manage-ideas-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
+                    <div class="field">
+                        <p:outputLabel for="state">State</p:outputLabel>
+                        <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
+                            layout="responsive" columns="2">
+                            <f:selectItem itemLabel="Open" itemValue="Open" />
+                            <f:selectItem itemLabel="Closed" itemValue="Closed" />
+                            <f:selectItem itemLabel="Review" itemValue="Review" />
+                            <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
+                        </p:selectOneRadio>
+                    </div>
                 </p:outputPanel>
             </p:outputPanel>
             <!-- Boton para publicar o cancelar iniciativa -->
@@ -143,11 +143,12 @@
         </p:confirmDialog>
         <!-- Dialogo para votar iniciativa -->
         <p:confirmDialog id="upvote-content" widgetVar="upvoteInitiativeDialog" showEffect="fade" width="300"
-                         message="#{initiativeBean.upvoteMessage(loginBean.userName)}" header="Initiative vote" >
-            <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
-                             actionListener="#{initiativeBean.changeVote(loginBean.userName)}"/>
+            message="#{initiativeBean.upvoteMessage(loginBean.userName)}" header="Initiative vote">
+            <p:commandButton value="Yes" icon="pi pi-check" process="@this"
+                oncomplete="PF('upvoteInitiativeDialog').hide()"
+                actionListener="#{initiativeBean.changeVote(loginBean.userName)}" />
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
-                             onclick="PF('upvoteInitiativeDialog').hide()" />
+                onclick="PF('upvoteInitiativeDialog').hide()" />
         </p:confirmDialog>
 
         <p:dialog header="In Work" showEffect="fade" modal="true" responsive="true" widgetVar="inWorkDialog" />
