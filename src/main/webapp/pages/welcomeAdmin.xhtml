@@ -29,7 +29,7 @@
     <p:toolbar styleClass="toolbar-crud">
         <p:toolbarGroup>
             <p:commandButton value="New Idea" icon="pi pi-plus" actionListener="#{initiativeBean.newInitiative}"
-                update=":dialogs:manage-ideas-content" oncomplete="PF('inWorkDialog').show()"
+                update=":dialogs:manage-ideas-content" oncomplete="PF('manageIdeaDialog').show()"
                 styleClass="ui-button-success" style="margin-right: .5rem">
                 <p:resetInput target=":dialogs:manage-ideas-content" />
             </p:commandButton>
@@ -109,8 +109,29 @@
     <h:form id="dialogs">
         <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
             responsive="true">
+            <!-- Boton para editar la iniciativa -->
             <p:outputPanel id="manage-ideas-content" class="ui-fluid">
                 <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
+                    <div class="field">
+                        <p:outputLabel for="description">Description</p:outputLabel>
+                        <p:inputTextarea id="description" required="true"
+                        value="#{initiativeBean.selectedInitiative.description}" />
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-1">Keyword 1</p:outputLabel>
+                        <p:inputText id="keyword-1" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword1}"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-2">Keyword 2</p:outputLabel>
+                        <p:inputText id="keyword-2" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword2}"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="keyword-3">Keyword 3</p:outputLabel>
+                        <p:inputText id="keyword-3" required="true"
+                        value="#{initiativeBean.selectedInitiative.keyword3}"/>
+                    </div>
                     <div class="field">
                         <p:outputLabel for="state">State</p:outputLabel>
                         <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
