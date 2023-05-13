@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.dev2win.iniciativas.data.ideas.Initiative;
+import com.dev2win.iniciativas.data.likes.Upvote;
 
 @Entity
 public class User {
@@ -24,6 +25,8 @@ public class User {
     private String mail;
     @OneToMany(mappedBy = "user")
     List<Initiative> ideas = new ArrayList<>();
+    @OneToMany(mappedBy = "user")
+    List<Upvote> upvotes = new ArrayList<>();
 
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
@@ -102,55 +105,11 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        User other = (User) obj;
-        if (userId == null) {
-            if (other.userId != null)
-                return false;
-        } else if (!userId.equals(other.userId))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (password == null) {
-            if (other.password != null)
-                return false;
-        } else if (!password.equals(other.password))
-            return false;
-        if (role == null) {
-            if (other.role != null)
-                return false;
-        } else if (!role.equals(other.role))
-            return false;
-        if (state == null) {
-            if (other.state != null)
-                return false;
-        } else if (!state.equals(other.state))
-            return false;
-        if (profile == null) {
-            if (other.profile != null)
-                return false;
-        } else if (!profile.equals(other.profile))
-            return false;
-        if (mail == null) {
-            if (other.mail != null)
-                return false;
-        } else if (!mail.equals(other.mail))
-            return false;
-        if (ideas == null) {
-            if (other.ideas != null)
-                return false;
-        } else if (!ideas.equals(other.ideas))
-            return false;
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return userId.equals(user.userId);
     }
 
     @Override
