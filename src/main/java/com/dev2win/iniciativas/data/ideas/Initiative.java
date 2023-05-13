@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,10 +40,10 @@ public class Initiative {
     @JoinColumn(name = "user_id")
     User user;
 
-    @OneToMany(mappedBy = "initiative")
+    @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
     List<Upvote> upvotes = new ArrayList<>();
 
-    @OneToMany(mappedBy = "initiative")
+    @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
     List<Comment> comments = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
