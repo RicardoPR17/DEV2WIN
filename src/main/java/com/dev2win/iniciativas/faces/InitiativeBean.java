@@ -50,7 +50,7 @@ public class InitiativeBean {
     private static final String INITIATIVES_MENU_INITIATIVES_LIST = "initiatives-menu:initiatives-list";
 
     private boolean loggedUserInitiatives = false;
-    
+
     public boolean isLoggedUserInitiatives() {
         return loggedUserInitiatives;
     }
@@ -201,8 +201,8 @@ public class InitiativeBean {
 
     public void upvoteInitiative() {
         if (this.selectedInitiative != null) {
-            PrimeFaces.current().executeScript("PF('upvoteInitiativeDialog').show()");
-            PrimeFaces.current().ajax().update("dialogs:upvote-content");
+            primeFacesWrapper.current().executeScript("PF('upvoteInitiativeDialog').show()");
+            primeFacesWrapper.current().ajax().update("dialogs:upvote-content");
         }
     }
 
@@ -227,7 +227,7 @@ public class InitiativeBean {
     public void changeVote(String userName) {
         User user = userService.getUserByMail(userName);
         if (this.selectedInitiative != null) {
-            if (isUpvoted(userName)) { 
+            if (isUpvoted(userName)) {
                 Upvote upvote = upvoteService.getUpvote(this.selectedInitiative, user).get(0);
                 upvoteService.delete(upvote);
             } else {
@@ -238,16 +238,14 @@ public class InitiativeBean {
         String counts = Integer.toString(upvoteService.getInitiativeUpvoteCount(this.selectedInitiative));
         this.selectedInitiative.setNumberLikes(counts);
         initiativeService.updateInitiative(this.selectedInitiative);
-        PrimeFaces.current().ajax().update("initiatives-menu:initiatives-list");
+        primeFacesWrapper.current().ajax().update("initiatives-menu:initiatives-list");
     }
 
-    public void changeLoggedInitiativesView(String userName){
+    public void changeLoggedInitiativesView(String userName) {
         loggedUserInitiatives = !loggedUserInitiatives;
         if (loggedUserInitiatives) {
             User user = userService.getUserByMail(userName);
-            initiatives = initiativeService.getUserInitiatives(user);
-        }
-        else {
+        } else {
             initiatives = initiativeService.getAllInitiatives();
         }
     }
