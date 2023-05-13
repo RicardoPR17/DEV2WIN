@@ -6,8 +6,6 @@ import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
-
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.ideas.State;
@@ -16,7 +14,6 @@ import com.dev2win.iniciativas.data.likes.UpvoteService;
 import com.dev2win.iniciativas.data.users.User;
 import com.dev2win.iniciativas.data.users.UserService;
 
-import org.primefaces.PrimeFaces;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
@@ -27,18 +24,31 @@ import org.springframework.web.context.annotation.SessionScope;
 public class InitiativeBean {
     @Autowired
     InitiativeService initiativeService;
+
     @Autowired
     UserService userService;
+
+    @Autowired
+    FacesContextWrapper facesContextWrapper;
+
+    @Autowired
+    PrimeFacesWrapper primeFacesWrapper;
+
     @Autowired
     UpvoteService upvoteService;
+
     private String description;
     private String keyword1;
     private String keyword2;
     private String keyword3;
     private String userName;
-    private List<Initiative> initiatives = new ArrayList<>();;
+    private List<Initiative> initiatives = new ArrayList<>();
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+
+    private static final String INITIATIVES_MENU_MESSAGES = "initiatives-menu:messages";
+    private static final String INITIATIVES_MENU_INITIATIVES_LIST = "initiatives-menu:initiatives-list";
+
     private boolean loggedUserInitiatives = false;
     
     public boolean isLoggedUserInitiatives() {
@@ -49,6 +59,9 @@ public class InitiativeBean {
         this.loggedUserInitiatives = loggedUserInitiatives;
     }
 
+    /**
+     * Empty contructor
+     */
     public InitiativeBean() {
     }
 
@@ -128,27 +141,34 @@ public class InitiativeBean {
         this.selectedInitiative = new Initiative();
     }
 
-    public void saveInitiative(String userName) {
+    public int saveInitiative(String userName) {
+        int flag = -1;
         if (this.selectedInitiative.getUser() == null) {
             User userOwner = userService.getUserByMail(userName);
             this.selectedInitiative.setUser(userOwner);
             this.selectedInitiative.setDate(LocalDate.now());
-            this.selectedInitiative.setState(State.Open.getValue());
+
+            this.selectedInitiative.setState(State.OPEN.getValue());
+
             this.selectedInitiative.setNumberLikes("0");
+
             initiativeService.addInitiative(this.selectedInitiative);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
+            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Added"));
+            flag = 1;
         } else {
             initiativeService.updateInitiative(this.selectedInitiative);
-            FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Updated"));
+            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Updated"));
+            flag = 0;
         }
 
-        PrimeFaces.current().executeScript("PF('manageIdeaDialog').hide()");
-        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        primeFacesWrapper.current().executeScript("PF('manageIdeaDialog').hide()");
+        primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
+        return flag;
     }
 
     public void deleteInitiative() {
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
-        PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+        facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
+        primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         initiativeService.deleteInitiative(this.selectedInitiative.getInitiativeId());
     }
 
@@ -168,14 +188,14 @@ public class InitiativeBean {
     public void isYourInitiative(String userName, String dialogType) {
         if (this.selectedInitiative.getUser().getMail().equals(userName)) {
             if (dialogType.equals("delete")) {
-                PrimeFaces.current().executeScript("PF('deleteInitiativeDialog').show()");
+                primeFacesWrapper.current().executeScript("PF('deleteInitiativeDialog').show()");
             } else if (dialogType.equals("edit")) {
-                PrimeFaces.current().executeScript("PF('manageIdeaDialog').show()");
+                primeFacesWrapper.current().executeScript("PF('manageIdeaDialog').show()");
             }
         } else {
-            FacesContext.getCurrentInstance().addMessage(null,
+            facesContextWrapper.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Is not your initiative", "Error"));
-            PrimeFaces.current().ajax().update("initiatives-menu:messages", "initiatives-menu:initiatives-list");
+            primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         }
     }
 

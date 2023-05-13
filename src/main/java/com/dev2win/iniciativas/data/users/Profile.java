@@ -1,9 +1,9 @@
 package com.dev2win.iniciativas.data.users;
 
 public enum Profile {
-    Estudiante("Estudiante"),
-    Profesor("Profesor"),
-    Directivo("Directivo");
+    ESTUDIANTE("Estudiante"),
+    PROFESOR("Profesor"),
+    DIRECTIVO("Directivo");
 
     private String value;
 
@@ -13,5 +13,16 @@ public enum Profile {
 
     public String getValue() {
         return value;
+    }
+
+    public static Profile findByValue(String role) {
+        Profile response = null;
+        for (Profile p : Profile.values()) {
+            if (p.getValue().equalsIgnoreCase(role)) {
+                response = p;
+                break;
+            }
+        }
+        return response;
     }
 }

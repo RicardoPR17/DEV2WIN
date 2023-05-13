@@ -36,9 +36,9 @@ public class IniciativasApplication {
 
         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
 
-        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
+        User user = new User("prueba", "contrasena", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
                 "prueba@mail.escuelaing.edu.co");
-        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo", Profile.Estudiante,
+        User user2 = new User("prueba2", "contrasena2", Role.PROPONENTE, "desarrollo", Profile.ESTUDIANTE,
                 "prueba2@mail.escuelaing.edu.co");
         userService.addUser(user);
         userService.addUser(user2);
