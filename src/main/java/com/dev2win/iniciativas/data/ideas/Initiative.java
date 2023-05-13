@@ -17,6 +17,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import com.dev2win.iniciativas.data.comments.Comment;
+import com.dev2win.iniciativas.data.likes.Upvote;
 import com.dev2win.iniciativas.data.users.User;
 
 @Entity
@@ -29,6 +30,7 @@ public class Initiative {
     @Column(name = "registration_date")
     private LocalDate date;
     private String state;
+    private String numberLikes;
     private String keyword1;
     private String keyword2;
     private String keyword3;
@@ -38,6 +40,8 @@ public class Initiative {
     private User user;
 
     @OneToMany(mappedBy = "initiative")
+    List<Upvote> upvotes = new ArrayList<>();
+  
     private List<Comment> comments = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
@@ -48,6 +52,7 @@ public class Initiative {
         this.keyword2 = keyword2;
         this.keyword3 = keyword3;
         this.user = user;
+        this.numberLikes = "0";
     }
 
     public Initiative() {
@@ -133,6 +138,14 @@ public class Initiative {
 
     public void setComments(List<Comment> comments) {
         this.comments = comments;
+    }
+  
+    public String getNumberLikes() {
+        return numberLikes;
+    }
+
+    public void setNumberLikes(String numberLikes) {
+        this.numberLikes = numberLikes;
     }
 
     @Override

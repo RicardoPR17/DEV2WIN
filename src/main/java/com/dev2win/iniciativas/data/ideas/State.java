@@ -1,10 +1,10 @@
 package com.dev2win.iniciativas.data.ideas;
 
 public enum State {
-    Open("Open"),
-    Closed("Closed"),
-    Review("Review"),
-    Aproved("Aproved");
+    OPEN("Open"),
+    CLOSED("Closed"),
+    REVIEW("Review"),
+    APROVED("Aproved");
 
     private String value;
 
