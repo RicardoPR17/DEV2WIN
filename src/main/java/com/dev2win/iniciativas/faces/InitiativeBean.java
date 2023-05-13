@@ -39,7 +39,15 @@ public class InitiativeBean {
     private List<Initiative> initiatives = new ArrayList<>();;
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+    private boolean loggedUserInitiatives = false;
+    
+    public boolean isLoggedUserInitiatives() {
+        return loggedUserInitiatives;
+    }
 
+    public void setLoggedUserInitiatives(boolean loggedUserInitiatives) {
+        this.loggedUserInitiatives = loggedUserInitiatives;
+    }
 
     public InitiativeBean() {
     }
@@ -211,6 +219,17 @@ public class InitiativeBean {
         this.selectedInitiative.setNumberLikes(counts);
         initiativeService.updateInitiative(this.selectedInitiative);
         PrimeFaces.current().ajax().update("initiatives-menu:initiatives-list");
+    }
+
+    public void changeLoggedInitiativesView(String userName){
+        loggedUserInitiatives = !loggedUserInitiatives;
+        if (loggedUserInitiatives) {
+            User user = userService.getUserByMail(userName);
+            initiatives = initiativeService.getUserInitiatives(user);
+        }
+        else {
+            initiatives = initiativeService.getAllInitiatives();
+        }
     }
 
 }
