@@ -85,7 +85,7 @@
                         <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
                     </p:commandButton>
                 </p:column>
-                <p:column exportable="false">
+                <p:column headerText="Actions" exportable="false">
                     <!-- Editar iniciativa -->
                     <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-ideas-content"
                         oncomplete="PF('manageIdeaDialog').show()" style="margin-right: .5rem"
@@ -99,6 +99,11 @@
                         oncomplete="PF('deleteInitiativeDialog').show()" process="@this">
                         <f:setPropertyActionListener value="#{initiative}"
                             target="#{initiativeBean.selectedInitiative}" />
+                    </p:commandButton>
+                    <!--Boton para ver detalles de Iniciativa-->
+                    <p:commandButton class="rounded-button ui-button-help" icon="pi pi-eye" 
+                        actionListener="#{initiativeBean.redirectToNewPage()}" process="@this" >
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                     </p:commandButton>
                 </p:column>
             </p:dataTable>

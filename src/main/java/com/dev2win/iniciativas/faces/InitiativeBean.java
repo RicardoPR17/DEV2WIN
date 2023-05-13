@@ -326,4 +326,23 @@ public class InitiativeBean {
         return null;
     }
 
+    public void backPage(String userName) {
+        try {
+            ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
+            User userToLogin = userService.getUserByMail(userName);
+            String redirectPath = getRedirectPath(userToLogin);
+            ec.redirect(ec.getRequestContextPath() + redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String getRedirectPath(User user) {
+        if (user.getRole().equals("Administrador")) {
+            return "../pages/welcomeAdmin.xhtml";
+        } else {
+            return "../pages/welcomeProponent.xhtml";
+        }
+    }
+
 }

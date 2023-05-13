@@ -114,6 +114,7 @@ public class LoginBean {
         if (password == null || userName == null) {
             facesContextWrapper.getCurrentInstance().addMessage(null,
                     new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             return false;
         }
         // Buscar al usuario por correo electrónico

@@ -96,7 +96,7 @@
           </p:dialog>
           <p:confirmDialog widgetVar="returnDialog" showEffect="fade" width="300"
                 message="Do you want to go back to the previous page?" header="Confirm" severity="warn">
-                <p:commandButton value="Yes" icon="pi pi-check" onclick="window.location.href='welcomeProponent.xhtml'"
+                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{initiativeBean.backPage(loginBean.userName)}"
                     process="@this" oncomplete="PF('returnDialog').hide()" />
                 <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                     onclick="PF('returnDialog').hide()" />
