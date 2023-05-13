@@ -1,8 +1,8 @@
 package com.dev2win.iniciativas.data.users;
 
 public enum Role {
-    Proponente("Proponente"),
-    Administrador("Administrador");
+    PROPONENTE("Proponente"),
+    ADMINISTRADOR("Administrador");
 
     private String value;
 

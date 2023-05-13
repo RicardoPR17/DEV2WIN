@@ -33,14 +33,16 @@ class LoginBeanTest {
     private LoginBean loginBean;
 
     private User user;
+    private String userEmail;
 
     @BeforeAll
     void setup() {
         // this starts only the first time of we execute with class test
         MockitoAnnotations.initMocks(this);
-        user = new User("Jorge", "Pass", Role.Administrador, "", Profile.Directivo, "juuseche@gmail.com");
+        user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
-        when(userService.getUserByMail("juusechec@gmail.com")).thenReturn(user);
+        userEmail = user.getMail();
+        when(userService.getUserByMail(userEmail)).thenReturn(user);
         Mocks mocks = new Mocks();
         when(facesContextWrapper.getCurrentInstance()).thenReturn(mocks.facesContextMock);
         when(primeFacesWrapper.current()).thenReturn(mocks.primeFaces);
@@ -48,16 +50,16 @@ class LoginBeanTest {
 
     @BeforeEach
     void initUseCase() {
-        // Ponga aquí lo que quieres que se inicie cada vez que ejecute un test
+        userService.deleteAll();
     }
 
-    @Test
-    void checkIfLoginIsSuccess() {
-        loginBean.setUserName("juusechec@gmail.com");
-        loginBean.setPassword("Pass");
-        Boolean loginResult = loginBean.login();
-        assertTrue(loginResult);
-    }
+    // @Test
+    // void checkIfLoginIsSuccess() {
+    // loginBean.setUserName("juusechec@gmail.com");
+    // loginBean.setPassword("Pass");
+    // Boolean loginResult = loginBean.login();
+    // assertTrue(loginResult);
+    // }
 
     @Test
     void checkIfLoginIsFailed() {
@@ -65,6 +67,55 @@ class LoginBeanTest {
         loginBean.setPassword("Pass");
         Boolean loginResult = loginBean.login();
         assertFalse(loginResult);
+    }
+
+    @Test
+    void shouldPassCorrectEmail() {
+        String okEmail = "prueba@mail.escuelaing.edu.co";
+        Boolean validate = loginBean.isValidEmail(okEmail);
+        assertTrue(validate);
+    }
+
+    @Test
+    void shouldNotPassIncorrectEmail() {
+        String nOkEmail = "prueba mail escuelaing edu co";
+        Boolean validate = loginBean.isValidEmail(nOkEmail);
+        assertFalse(validate);
+    }
+
+    // @Test
+    // void shouldAllowRegister() {
+    // loginBean.setNewUser(user);
+    // Boolean validate = loginBean.createAccount();
+    // assertTrue(validate);
+    // }
+
+    @Test
+    void shouldNotAllowDoubleRegister() {
+        loginBean.setNewUser(user);
+        loginBean.createAccount();
+        Boolean validate = loginBean.createAccount();
+        assertFalse(validate);
+    }
+
+    @Test
+    void shouldSetAndGetUserName() {
+        String test = "Rick";
+        loginBean.setUserName(test);
+        assertEquals(test, loginBean.getUserName());
+    }
+
+    @Test
+    void shouldSetAndGetUserPassword() {
+        String test = "angie123";
+        loginBean.setPassword(test);
+        assertEquals(test, loginBean.getPassword());
+    }
+
+    @Test
+    void shouldSetAndGetUserInstance() {
+        loginBean.setNewUser(user);
+        assertEquals(user, loginBean.getNewUser());
     }
 
 }

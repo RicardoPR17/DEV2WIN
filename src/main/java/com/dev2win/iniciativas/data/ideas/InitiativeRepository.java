@@ -9,6 +9,8 @@ import java.util.List;
 
 @Repository
 public interface InitiativeRepository extends JpaRepository<Initiative, Long> {
-    @Query("SELECT i FROM Initiative i WHERE i.keyword1=:keyword OR i.keyword2=:keyword OR i.keyword3=:keyword")
-    List<Initiative> findByKeyword(@Param("keyword") String keyword);
+
+    @Query("SELECT i FROM Initiative i WHERE i.user=:userId")
+    List<Initiative> findByUser(@Param("userId") Long userId);
+
 }

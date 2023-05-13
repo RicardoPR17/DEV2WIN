@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <h:head>
+      <link rel="stylesheet" type="text/css" href="css/viewInitiatives.css"/>
+    </h:head>
+
+    <div class="ImgContainer">
+      <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img"/>
+    </div>
+    <div class="Title">
+        <h3>Idea Bank</h3>
+    </div>
+
+    <section class="hi-section">
+        <h2>Initiative Details</h2>
+    </section>
+
+    <h:body>
+      <div class="viewIni">
+        <h:form id="comments-menu">
+          <p:growl id="messages" show-detail="true" />
+          <p:panel header="Initiative Details" style="margin-bottom:5px;">
+            
+            <h:panelGrid columns="1" cellpadding="5">
+              <h:outputLabel value="Proponent: #{initiativeBean.getNameUserInitiative()}"/>
+              <h:outputLabel value="Contact: #{initiativeBean.getMailUserInitiative()}"/>
+              <h:outputLabel value="Registration Date: #{initiativeBean.getDateInitiative()}"/>
+              <h:outputLabel value="Description: #{initiativeBean.getDescriptionInitiative()}"/>
+              <h:outputLabel value="Keys Words: #{initiativeBean.getKeysWordsInitiative()}"/>
+              <h:outputLabel value="State: #{initiativeBean.getStateInitiative()}"/>
+              
+            </h:panelGrid>
+            <p:divider />
+            <p:toolbar>
+              <p:toolbarGroup>
+                <p:commandButton class="rounded-button" icon="pi pi-comments" value="Add Comment" actionListener="#{initiativeBean.newComment}"
+                update=":dialogComment:manage-comment-content" oncomplete="PF('manageCommentDialog').show()">
+                  <p:resetInput target=":dialogComment:manage-comment-content" />
+                </p:commandButton>
+              </p:toolbarGroup>
+              <p:toolbarGroup align="right">
+                <p:commandButton value="Return" icon="pi pi-caret-left" styleClass="rounded-button ui-button-help"
+                oncomplete="PF('returnDialog').show()">
+                </p:commandButton>
+              </p:toolbarGroup>
+            </p:toolbar>
+            <p:dataTable id="comments-list" var="comment" value="#{initiativeBean.getAllComments()}" reflow="true" rowKey="#{comment.commentId}" paginator="true" rows="10" paginatorPosition="bottom"
+            paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+              <f:facet name="header">
+                <div class="comments-list-header">
+                  <span style="font-weight: bold">Comments on the proposal</span>
+                  <span class="filter-container ui-input-icon-left">
+                  </span>
+                </div>
+              </f:facet>
+              <!-- Columnas -->
+              <p:column headerText="Comment Date">
+                <h:outputText value="#{comment.date}" />
+              </p:column>
+              <p:column headerText="Participant Name">
+                <h:outputText value="#{comment.getUser().name}" />
+              </p:column>
+              <p:column headerText="Participant profile">
+                <h:outputText value="#{comment.getUser().getProfile()}" />
+              </p:column>
+              <p:column headerText="Description">
+                <h:outputText value="#{comment.commentary}" />
+              </p:column>
+
+            </p:dataTable>
+
+          </p:panel>
+
+        </h:form>
+      </div>
+        <!--Formulario de comentarios-->
+        <h:form id="dialogComment">
+          <p:dialog header="What's on your mind?" showEffect="fade" modal="true" widgetVar="manageCommentDialog" responsive="true">
+              <p:outputPanel id="manage-comment-content" class="ui-fluid">
+                  <div class="field">
+                      <p:outputLabel for="commentary">Comment</p:outputLabel>
+                      <p:inputTextarea id="commentary" required="true" value="#{initiativeBean.commentary}" />
+                  </div>
+              </p:outputPanel>
+              <f:facet name="footer">
+                  <p:commandButton value="Comment" icon="pi pi-check" actionListener="#{initiativeBean.saveComment(loginBean.userName)}"
+                      update="manage-comment-content" process="manage-comment-content @this" />
+                  <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageCommentDialog').hide()"
+                      class="ui-button-secondary" type="button" />
+              </f:facet>
+          </p:dialog>
+          <p:confirmDialog widgetVar="returnDialog" showEffect="fade" width="300"
+                message="Do you want to go back to the previous page?" header="Confirm" severity="warn">
+                <p:commandButton value="Yes" icon="pi pi-check" actionListener="#{initiativeBean.backPage(loginBean.userName)}"
+                    process="@this" oncomplete="PF('returnDialog').hide()" />
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                    onclick="PF('returnDialog').hide()" />
+            </p:confirmDialog>
+      </h:form>
+    </h:body>
+</html>

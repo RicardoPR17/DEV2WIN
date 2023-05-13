@@ -24,22 +24,22 @@ public class IniciativasApplication {
     }
 
     @Bean
-    ServletRegistrationBean jsfServletRegistration(ServletContext servletContext) {
+    ServletRegistrationBean<FacesServlet> jsfServletRegistration(ServletContext servletContext) {
         // spring boot only works if this is set
         servletContext.setInitParameter("com.sun.faces.forceLoadConfiguration", Boolean.TRUE.toString());
 
         // registration
-        ServletRegistrationBean srb = new ServletRegistrationBean();
+        ServletRegistrationBean<FacesServlet> srb = new ServletRegistrationBean<>();
         srb.setServlet(new FacesServlet());
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
 
-        User user = new User("prueba", "contrasena", Role.Administrador, "desarrollo", Profile.Estudiante,
-                "prueba@mail.escuelaing.edu.co");
-        User user2 = new User("prueba2", "contrasena2", Role.Proponente, "desarrollo", Profile.Estudiante,
-                "prueba2@mail.escuelaing.edu.co");
+        User user = new User("prueba", "1234", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
+                "ricardo@dev2win.com");
+        User user2 = new User("prueba2", "1234", Role.PROPONENTE, "desarrollo", Profile.ESTUDIANTE,
+                "angie@dev2win.com");
         userService.addUser(user);
         userService.addUser(user2);
         return srb;

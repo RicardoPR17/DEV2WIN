@@ -1,6 +1,7 @@
 package com.dev2win.iniciativas;
 
 import org.primefaces.PrimeFaces;
+import org.primefaces.context.PrimeRequestContext;
 
 import javax.faces.application.Application;
 import javax.faces.application.FacesMessage;
@@ -303,6 +304,15 @@ public class Mocks {
                     }
                 };
             }
+
+            @Override
+            public PrimeRequestContext getRequestContext(){
+                return new PrimeRequestContext(facesContextMock);
+            }
+
+            
+
+            
         };
     }
 }

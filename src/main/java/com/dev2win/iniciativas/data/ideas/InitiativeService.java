@@ -1,5 +1,6 @@
 package com.dev2win.iniciativas.data.ideas;
 
+import com.dev2win.iniciativas.data.users.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -34,11 +35,11 @@ public class InitiativeService {
         return null;
     }
 
-    public List<Initiative> getByKeyword(String word) {
-        return initiativeRepository.findByKeyword(word);
-    }
-
     public void deleteAll() {
         initiativeRepository.deleteAll();
+    }
+
+    public List<Initiative> getUserInitiatives(User user) {
+        return initiativeRepository.findByUser(user.getUserId());
     }
 }

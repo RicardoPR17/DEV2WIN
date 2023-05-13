@@ -1,7 +1,13 @@
 package com.dev2win.iniciativas.data.ideas;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +15,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
+import com.dev2win.iniciativas.data.comments.Comment;
+import com.dev2win.iniciativas.data.likes.Upvote;
 import com.dev2win.iniciativas.data.users.User;
 
 @Entity
@@ -22,13 +31,20 @@ public class Initiative {
     @Column(name = "registration_date")
     private LocalDate date;
     private String state;
+    private String numberLikes;
     private String keyword1;
     private String keyword2;
     private String keyword3;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    User user;
+
+    @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
+    List<Upvote> upvotes = new ArrayList<>();
+
+    @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
+    List<Comment> comments = new ArrayList<>();
 
     public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
         this.description = description;
@@ -38,6 +54,7 @@ public class Initiative {
         this.keyword2 = keyword2;
         this.keyword3 = keyword3;
         this.user = user;
+        this.numberLikes = "0";
     }
 
     public Initiative() {
@@ -62,6 +79,12 @@ public class Initiative {
 
     public LocalDate getDate() {
         return date;
+    }
+
+    public String getDateText() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofLocalizedDate(FormatStyle.FULL)
+                .withLocale(new Locale("es", "ES"));
+        return date.format(formatter);
     }
 
     public void setDate(LocalDate date) {
@@ -102,6 +125,30 @@ public class Initiative {
 
     public String getKeywords() {
         return keyword1 + "; " + keyword2 + "; " + keyword3;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
+
+    public String getNumberLikes() {
+        return numberLikes;
+    }
+
+    public void setNumberLikes(String numberLikes) {
+        this.numberLikes = numberLikes;
     }
 
     @Override
@@ -165,14 +212,6 @@ public class Initiative {
         return true;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     @Override
     public String toString() {
         return "Initiative [initiativeId = " + initiativeId + ", description = " + description + ", date = " + date
@@ -182,4 +221,5 @@ public class Initiative {
                 + user
                 + "]";
     }
+
 }

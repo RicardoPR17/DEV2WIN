@@ -31,9 +31,13 @@ public class LoginBean {
 
     private String userName;
     private String password;
-
+    private static final String LOGIN_FORM_MESSAGES = "login-form:messages";
+    private static final String ERROR = "Error";
     private User newUser;
 
+    /**
+     * Empty contructor
+     */
     public LoginBean() {
     }
 
@@ -65,33 +69,37 @@ public class LoginBean {
         this.newUser = new User();
     }
 
-    public void createAccount() {
+    public Boolean createAccount() {
+        String userEmail = this.newUser.getMail();
         try {
-            if (!isValidEmail(this.newUser.getMail())) {
-                facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", "Error"));
-                primeFacesWrapper.current().ajax().update("login-form:messages");
-                return;
+            if (!isValidEmail(userEmail)) {
+                facesContextWrapper.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Not valid email", ERROR));
+                primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
+                return false;
             }
     
-            if (userService.getUserByMail(this.newUser.getMail()) != null) {
-                facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", "Error"));
-                primeFacesWrapper.current().ajax().update("login-form:messages");
-                return;
+            if (userService.getUserByMail(userEmail) != null) {
+                facesContextWrapper.getCurrentInstance().addMessage(null,
+                        new FacesMessage(FacesMessage.SEVERITY_ERROR, "Account already exists", ERROR));
+                primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
+                return false;
             }
-    
-            this.newUser.setRole(Role.Proponente.getValue());
+            this.newUser.setRole(Role.PROPONENTE.getValue());
             this.newUser.setState("desarrollo");
             userService.addUser(this.newUser);
     
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Account created successfully"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             primeFacesWrapper.current().executeScript("PF('createAccountDialog').hide()");
-    
+            
         } catch (Exception e) {
-            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "An error occurred while creating the account", "Error"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+                    "An error occurred while creating the account", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             e.printStackTrace();
         }
+        return true;
     }
     
     public boolean isValidEmail(String email) {
@@ -101,19 +109,22 @@ public class LoginBean {
         return matcher.find();
     }
     
-    
     public Boolean login() {
         // Verificar que se ingresó un nombre de usuario y una contraseña
         if (password == null || userName == null) {
-            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", "Error"));
+            facesContextWrapper.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "Please enter your username and password", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             return false;
         }
         // Buscar al usuario por correo electrónico
         User userToLogin = userService.getUserByMail(userName);
-        // Si el usuario no existe o la contraseña es incorrecta, mostrar un mensaje de error y salir temprano
+        // Si el usuario no existe o la contraseña es incorrecta, mostrar un mensaje de
+        // error y salir temprano
         if (userToLogin == null || !password.equals(userToLogin.getPassword())) {
-            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username or password are incorrect", "Error"));
-            primeFacesWrapper.current().ajax().update("login-form:messages");
+            facesContextWrapper.getCurrentInstance().addMessage(null,
+                    new FacesMessage(FacesMessage.SEVERITY_ERROR, "The username or password are incorrect", ERROR));
+            primeFacesWrapper.current().ajax().update(LOGIN_FORM_MESSAGES);
             return false;
         }
         // Si el usuario está autenticado, redirigirlo a la página correspondiente
