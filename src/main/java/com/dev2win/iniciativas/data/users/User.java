@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.dev2win.iniciativas.data.comments.Comment;
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.likes.Upvote;
 
@@ -27,6 +28,8 @@ public class User {
     List<Initiative> ideas = new ArrayList<>();
     @OneToMany(mappedBy = "user")
     List<Upvote> upvotes = new ArrayList<>();
+
+    private List<Comment> comments = new ArrayList<>();
 
     public User(String name, String password, Role role, String state, Profile profile, String mail) {
         this.name = name;
@@ -102,6 +105,14 @@ public class User {
 
     public void setIdeas(List<Initiative> ideas) {
         this.ideas = ideas;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     @Override

@@ -1,11 +1,19 @@
 package com.dev2win.iniciativas.faces;
 
+import java.io.IOException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
+
+import com.dev2win.iniciativas.data.comments.Comment;
+import com.dev2win.iniciativas.data.comments.CommentService;
+
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.ideas.State;
@@ -29,6 +37,9 @@ public class InitiativeBean {
     UserService userService;
 
     @Autowired
+    CommentService commentService;
+
+    @Autowired
     FacesContextWrapper facesContextWrapper;
 
     @Autowired
@@ -45,6 +56,8 @@ public class InitiativeBean {
     private List<Initiative> initiatives = new ArrayList<>();
     private List<Initiative> selectedInitiatives;
     private Initiative selectedInitiative;
+    private Comment comment;
+    private String commentary;
 
     private static final String INITIATIVES_MENU_MESSAGES = "initiatives-menu:messages";
     private static final String INITIATIVES_MENU_INITIATIVES_LIST = "initiatives-menu:initiatives-list";
@@ -71,6 +84,38 @@ public class InitiativeBean {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getDateInitiative() {
+        return selectedInitiative.getDateText();
+    }
+
+    public String getKeysWordsInitiative() {
+        return selectedInitiative.getKeywords();
+    }
+
+    public String getStateInitiative() {
+        return selectedInitiative.getState();
+    }
+
+    public String getNameUserInitiative() {
+        return selectedInitiative.getUser().getName();
+    }
+
+    public String getMailUserInitiative() {
+        return selectedInitiative.getUser().getMail();
+    }
+
+    public String getDescriptionInitiative() {
+        return selectedInitiative.getDescription();
+    }
+
+    public String getCommentary() {
+        return commentary;
+    }
+
+    public void setCommentary(String commentary) {
+        this.commentary = commentary;
     }
 
     public String getKeyword1() {
@@ -125,6 +170,10 @@ public class InitiativeBean {
         return initiativeService.getAllInitiatives();
     }
 
+    public List<Comment> getAllComments() {
+        return commentService.getCommentsOfInitiative(selectedInitiative.getInitiativeId());
+    }
+
     public Initiative getSelectedInitiative() {
         return selectedInitiative;
     }
@@ -141,6 +190,10 @@ public class InitiativeBean {
         this.selectedInitiative = new Initiative();
     }
 
+    public void newComment() {
+        this.comment = new Comment();
+    }
+  
     public int saveInitiative(String userName) {
         int flag = -1;
         if (this.selectedInitiative.getUser() == null) {
@@ -248,6 +301,29 @@ public class InitiativeBean {
         } else {
             initiatives = initiativeService.getAllInitiatives();
         }
+    }
+
+    public void saveComment(String userName) {
+        User userOpinion = userService.getUserByMail(userName);
+        this.comment.setCommentary(commentary);
+        this.comment.setInitiative(selectedInitiative);
+        this.comment.setUser(userOpinion);
+        commentService.addComment(comment);
+        setCommentary("");
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Comment Added"));
+        PrimeFaces.current().executeScript("PF('manageCommentDialog').hide()");
+        PrimeFaces.current().ajax().update("comments-menu:messages", "comments-menu:comments-list");
+    }
+
+    public String redirectToNewPage() {
+        FacesContext context = FacesContext.getCurrentInstance();
+        ExternalContext externalContext = context.getExternalContext();
+        try {
+            externalContext.redirect("viewInitiatives.xhtml");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

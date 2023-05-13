@@ -95,6 +95,11 @@
                         actionListener="#{initiativeBean.isYourInitiative(loginBean.userName, 'delete')}" process="@this" >
                         <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
                     </p:commandButton>
+                    <!--Boton para ver detalles de Iniciativa-->
+                    <p:commandButton class="rounded-button ui-button-help" icon="pi pi-eye" 
+                        actionListener="#{initiativeBean.redirectToNewPage()}" process="@this" >
+                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                    </p:commandButton> 
                 </p:column>
             </p:dataTable>
         </h:form>
@@ -154,5 +159,4 @@
     </h:form>
 
 </h:body>
-
 </html>
