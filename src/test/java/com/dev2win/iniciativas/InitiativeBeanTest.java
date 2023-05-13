@@ -87,16 +87,6 @@ class InitiativeBeanTest {
         assertEquals(0, result);
     }
 
-    // En resivision
-    // @Test
-    // void shouldDeleteInitiative(){
-    //     initiativeService.deleteAll();
-    //     initiativeBean.setSelectedInitiative(selectedInitiative);
-    //     initiativeBean.deleteInitiative();
-    //     Boolean result = initiativeService.getAllInitiatives().isEmpty();
-    //     assertTrue(result);
-    // }
-
     @Test
     void shouldDetectSelectedInitiative(){
         initiativeBean.setSelectedInitiative(selectedInitiative);
@@ -109,17 +99,32 @@ class InitiativeBeanTest {
         assertTrue(initiativeBean.hasSelectedInitiatives());
     }
 
-    // Pendiente
-    // @Test
-    // void UserShouldEditItsInitiativesOnly(){
+    @Test
+    void shouldGetAndSetInitiativeDescription(){
+        String sample = "Daniel PO";
+        initiativeBean.setDescription(sample);
+        assertEquals(sample, initiativeBean.getDescription());
+    }
 
-    // }
+    @Test
+    void shouldGetAndSetUserName(){
+        String sample = "Jessica Scrum team";
+        initiativeBean.setUserName(sample);
+        assertEquals(sample, initiativeBean.getUserName());
+    }
 
-    // Pendiente
-    // @Test
-    // void shouldGetAndSetInitiativeDescription(){
-    //     String sample = "Daniel PO";
-    //     initiativeBean.setDescription(sample);
+    @Test
+    void shouldGetAndSetKeywords(){
+        String sample1 = "Ricardo Scrum team";
+        String sample2 = "Nicolas Scrum team";
+        String sample3 = "Angie Scrum team";
+        initiativeBean.setKeyword1(sample1);
+        initiativeBean.setKeyword2(sample2);
+        initiativeBean.setKeyword3(sample3);
+        assertEquals(sample1, initiativeBean.getKeyword1());
+        assertEquals(sample2, initiativeBean.getKeyword2());
+        assertEquals(sample3, initiativeBean.getKeyword3());
+    }
 
-    // }
+
 }
