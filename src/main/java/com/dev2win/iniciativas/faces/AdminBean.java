@@ -1,6 +1,10 @@
 package com.dev2win.iniciativas.faces;
 
-import javax.annotation.ManagedBean;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.application.FacesMessage;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,14 +15,24 @@ import com.dev2win.iniciativas.data.users.Role;
 import com.dev2win.iniciativas.data.users.UserService;
 
 @Component
-@ManagedBean
+@ManagedBean(name = "adminBean")
 @SessionScope
 public class AdminBean {
     @Autowired
     UserService userService;
 
-    User userToMod;
-    String newRole;
+    @Autowired
+    PrimeFacesWrapper primeFacesWrapper;
+
+    @Autowired
+    FacesContextWrapper facesContextWrapper;
+
+    private String newRole = "";
+    private List<User> users = new ArrayList<>();
+    private List<User> selectedUsers = new ArrayList<>();
+    private static final String USER_MOD_FORM_USER_LIST = "user-mod-form:users-list";
+    private static final String USER_MOD_FORM_MESSAGES = "user-mod-form:messages";
+    private static final String ERROR = "Error";
 
     /**
      * Empty contructor
@@ -26,69 +40,66 @@ public class AdminBean {
     public AdminBean() {
     }
 
-    public User getUserToMod() {
-        return userToMod;
-    }
-
-    public void setUserToMod(User userToMod) {
-        this.userToMod = userToMod;
-    }
-
-    public String getnewRole() {
+    public String getNewRole() {
         return newRole;
     }
 
-    public void setnewRole(String newRole) {
+    public void setNewRole(String newRole) {
         this.newRole = newRole;
     }
 
-    public void searchUser(String userName) {
-        setUserToMod(userService.getUserByName(userName));
-    }
-
-    public String getUserToModName() {
-        if (userToMod != null) {
-            return userToMod.getName();
+    public void modifyUserRole() {
+        if (this.newRole == null || this.newRole.isEmpty()) {
+            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
+            "Please select a role", ERROR));
+            primeFacesWrapper.current().ajax().update(USER_MOD_FORM_MESSAGES);
+            return;
         }
-        return "";
-    }
-
-    public String getUserToModRole() {
-        if (userToMod != null) {
-            return userToMod.getRole();
-        }
-        return "";
-    }
-
-    public String getUserToModState() {
-        if (userToMod != null) {
-            return userToMod.getState();
-        }
-        return "";
-    }
-
-    public String getUserToModProfile() {
-        if (userToMod != null) {
-            return userToMod.getProfile();
-        }
-        return "";
-    }
-
-    public void modifyUserRole(String userName) {
         try {
-            // Get the user given his name and setting his new role
-            searchUser(userName);
-            userToMod.setRole(Role.findByValue(newRole).getValue());
-            userService.updateUsuario(userToMod);
+            for (User user : selectedUsers) {
+                user.setRole(Role.findByValue(newRole).getValue());
+                userService.updateUsuario(user);
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            clear();
+            facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Users Updated"));
+            primeFacesWrapper.current().ajax().update(USER_MOD_FORM_USER_LIST, USER_MOD_FORM_MESSAGES);
         }
     }
 
-    public void clear() {
-        setUserToMod(null);
-        setnewRole(null);
+    public List<User> getUsers() {
+        return users;
     }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
+    }
+
+    public List<User> getSelectedUsers() {
+        return selectedUsers;
+    }
+
+    public void setSelectedUsers(List<User> selectedUsers) {
+        this.selectedUsers = selectedUsers;
+    }
+
+    public void onDatabaseLoaded() {
+        this.users = userService.getAllUsers();
+    }
+
+    public String getUpdateButtonMessage() {
+        String message = "Update";
+        if (hasSelectedUsers()) {
+            int size = this.selectedUsers.size();
+            return size > 1 ? message + " " + size + " users selected" : message + " 1 user selected";
+        }
+        return message;
+    }
+
+    public boolean hasSelectedUsers() {
+        return this.selectedUsers != null && !this.selectedUsers.isEmpty();
+    }
+
+    
 }
