@@ -65,6 +65,14 @@ public class LoginBean {
         this.newUser = newUser;
     }
 
+    public String getCurrentUserName(String userMail) {
+        return userService.getUserByMail(userMail).getName();
+    }
+
+    public String getCurrentUserRole(String userMail) {
+        return userService.getUserByMail(userMail).getRole();
+    }
+
     public void createUserAccount() {
         this.newUser = new User();
     }
@@ -129,8 +137,21 @@ public class LoginBean {
         }
         // Si el usuario está autenticado, redirigirlo a la página correspondiente
         try {
+            password = null;
             ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
             String redirectPath = getRedirectPath(userToLogin);
+            ec.redirect(ec.getRequestContextPath() + redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public Boolean logout() {
+        userName = null;
+        try {
+            ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
+            String redirectPath = "../pages/login.xhtml";
             ec.redirect(ec.getRequestContextPath() + redirectPath);
         } catch (IOException e) {
             e.printStackTrace();

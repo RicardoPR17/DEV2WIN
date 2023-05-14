@@ -5,44 +5,148 @@
     xmlns:f="http://java.sun.com/jsf/core"
     lang="en">
 
+    <f:metadata>
+        <f:event type="preRenderView" listener="#{adminBean.onDatabaseLoaded()}" />
+    </f:metadata>
     <h:head>
         <title>User Modification</title>
         <link rel="stylesheet" type="text/css" href="css/userModification.css"/>
     </h:head>
 
     <h:body>
-        <title>User Modification</title>
-        <div class="ImgContainer">
-            <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img" alt="Logo_ECI"/>
-        </div>
-        <div class="Title">
-            <h2>Users of Idea Bank</h2>
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h2>
+                    <i class="pi pi-prime"></i><span>DEV2WIN</span>
+                </h2>
+            </div>
+    
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <p:commandLink styleClass="link" actionListener="#{initiativeBean.backPage(loginBean.userName)}" process="@this">
+                            <i class="pi pi-home"></i>
+                            <span>Dashboard</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link active">
+                            <i class="pi pi-users"></i>
+                            <span>Users</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link">
+                            <i class="pi pi-comments"></i>
+                            <span>Comments</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link" >
+                            <i class="pi pi-chart-bar"></i>
+                            <span>Charts</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link" oncomplete="PF('logoutDialog').show()">
+                            <i class="pi pi-sign-out"></i>
+                            <span>Sing out</span>
+                        </p:commandLink>
+                    </li>
+                </ul>
+                <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="eci-image" alt="Logo_ECI" />
+            </div>
         </div>
 
-        <div class="user_mod">
-            <h:form id="userMod_form">
-                <p:panel header="Modify an User" style="margin-bottom:5px;">
-                    <h:panelGrid columns="2" cellpadding="5" style="margin: auto; text-align: center">
-                        <p:inputText placeholder="User to search" binding="#{userName}" required="true"/>
-                        <p:commandButton update="userMod_form" actionListener="#{adminBean.searchUser(userName.value)}" 
-                        value="Search User" styleClass="ui-button-outlined ui-button-info" icon="pi pi-search"/>
-                        <h:outputLabel value="Name: #{adminBean.getUserToModName()}"/>
-                        <h:outputLabel value="Role: #{adminBean.getUserToModRole()}"/>
-                        <h:outputLabel value="State: #{adminBean.getUserToModState()}"/>
-                        <h:outputLabel value="Profile: #{adminBean.getUserToModProfile()}"/>
-                        <p:divider /><p:divider />
-                        <h:outputLabel for="role" value="New Role: "/>
-                        <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">
-                            <f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true"/>
-                            <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
-                            <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
-                        </p:selectOneMenu>
-     
-                    </h:panelGrid>
-                    <p:commandButton icon="pi pi-user-edit" actionListener="#{adminBean.modifyUserRole(userName.value)}" 
-                    value="Update User" styleClass="ui-button-outlined ui-button-success"/>
-                </p:panel>
-            </h:form>
+        <div class="main-content">
+            <header>
+                <img src="https://user-images.githubusercontent.com/4140058/233420265-c256dc29-a77d-4e69-86f2-9835850dcb53.png" 
+                class="team-image" alt="TeamLogo"/>
+                <h1>Idea Bank</h1>
+                <div class="user-wrapper">
+                    <div class="user-description">
+                        <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
+                        <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                    </div>
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
+                </div>
+            </header>
+
+            <div class="user-mod">
+                <h:form id="user-mod-form" styleClass="card-usermod">
+                    <p:growl id="messages" show-detail="true" /> 
+
+                    <p:toolbar styleClass="toolbar-users">
+                        <p:toolbarGroup>
+                            <p:commandButton id="edit-users-button" value="#{adminBean.updateButtonMessage}"
+                                icon="pi pi-user-edit" oncomplete="PF('editDialog').show()" process="@this"
+                                styleClass="rounded-button ui-button-success" disabled="#{!adminBean.hasSelectedUsers()}">
+                            </p:commandButton>
+                        </p:toolbarGroup>
+                    </p:toolbar>
+
+                    <p:dataTable id="users-list" reflow="true" widgetVar="tableUsers" var="user" value="#{adminBean.users}" 
+                    rowKey="#{user.userId}" paginator="true" rows="10" paginatorPosition="bottom" selection="#{adminBean.selectedUsers}"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                        <f:facet name="header" styleClass="header-datatable">
+                            <div class="users-list-header">
+                                <span style="font-weight: bold">Users of Idea Bank</span>
+                            </div>
+                        </f:facet>
+
+                        <p:ajax event="rowSelect" update=":user-mod-form:edit-users-button" />
+                        <p:ajax event="rowUnselect" update=":user-mod-form:edit-users-button" />
+                        <p:ajax event="rowSelectCheckbox" update=":user-mod-form:edit-users-button" />
+                        <p:ajax event="rowUnselectCheckbox" update=":user-mod-form:edit-users-button" />
+                        <p:ajax event="toggleSelect" update=":user-mod-form:edit-users-button" />
+
+                        <p:column selectionMode="multiple" exportable="false" styleClass="table-selections"/>
+                        <p:column headerText="Name" filterBy="#{user.name}">
+                            <h:outputText value="#{user.name}" />
+                        </p:column>
+                        <p:column headerText="Mail">
+                            <h:outputText value="#{user.mail}" styleClass="table-mail" />
+                        </p:column>
+                        <p:column headerText="Role">
+                            <h:outputText value="#{user.role}"/>
+                        </p:column>
+                        <p:column headerText="Profile">
+                            <h:outputText value="#{user.profile}"/>
+                        </p:column>
+                        <p:column headerText="State">
+                            <h:outputText value="#{user.state}"/>
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
         </div>
+
+        <h:form id="dialogs">
+            <!-- Dialogo para cerrar sesion -->
+            
+            <p:confirmDialog id="edit-content" widgetVar="editDialog" showEffect="fade" width="300"
+                header="Confirm"  message="Update the selected users?" >
+                <p:outputPanel id="update-role-content">
+                    <p:selectOneMenu id="role" value="#{adminBean.newRole}" label="Text 2" style="width: 12rem">
+                        <f:selectItem itemLabel="Select New Role" itemValue="" noSelectionOption="true"/>
+                        <f:selectItem itemLabel="Administrador" itemValue="Administrador"/>
+                        <f:selectItem itemLabel="Proponente" itemValue="Proponente"/>
+                    </p:selectOneMenu>
+                </p:outputPanel>
+                <p:commandButton value="Yes" icon="pi pi-check" process="update-role-content @this" oncomplete="PF('editDialog').hide()"
+                actionListener="#{adminBean.modifyUserRole()}" update="update-role-content"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                    onclick="PF('editDialog').hide()" />
+                
+            </p:confirmDialog>
+            <!-- Dialogo para cerrar sesion -->
+            <p:confirmDialog id="logout-content" widgetVar="logoutDialog" showEffect="fade" width="300"
+                message="Are you sure you want to sing out?"  header="Confirm" >
+                <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
+                    actionListener="#{loginBean.logout}"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                    onclick="PF('logoutDialog').hide()" />
+            </p:confirmDialog>
+        </h:form>
     </h:body>
 </html>
