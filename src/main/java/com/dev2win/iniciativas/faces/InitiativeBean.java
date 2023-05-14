@@ -292,6 +292,7 @@ public class InitiativeBean {
         this.selectedInitiative.setNumberLikes(counts);
         initiativeService.updateInitiative(this.selectedInitiative);
         primeFacesWrapper.current().ajax().update("initiatives-menu:initiatives-list");
+        primeFacesWrapper.current().ajax().update("comments-menu");
     }
 
     public void changeLoggedInitiativesView(String userName) {
