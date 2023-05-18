@@ -56,5 +56,8 @@ public class UserService {
     public List<User> getUserByRole(String roleToSearch) {
         return userRepository.findByRole(roleToSearch);
     }
-    public void deleteAll() { userRepository.deleteAll(); }
+
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
 }
