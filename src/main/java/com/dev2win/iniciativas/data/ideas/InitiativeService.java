@@ -42,4 +42,8 @@ public class InitiativeService {
     public List<Initiative> getUserInitiatives(User user) {
         return initiativeRepository.findByUser(user.getUserId());
     }
+
+    public int countByState(String requiredState){
+        return initiativeRepository.countByState(requiredState);
+    }
 }

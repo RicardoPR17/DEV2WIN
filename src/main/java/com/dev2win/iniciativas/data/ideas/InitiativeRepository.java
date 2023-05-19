@@ -13,4 +13,7 @@ public interface InitiativeRepository extends JpaRepository<Initiative, Long> {
     @Query("SELECT i FROM Initiative i WHERE i.user=:userId")
     List<Initiative> findByUser(@Param("userId") Long userId);
 
+    // Count initiatives with a specific state
+    @Query("SELECT COUNT(i) FROM Initiative i WHERE i.state=:requiredState")
+    int countByState (@Param("requiredState") String requiredState);
 }
