@@ -5,6 +5,8 @@ import java.io.Serializable;
 import com.dev2win.iniciativas.data.ideas.State;
 import javax.annotation.ManagedBean;
 import javax.annotation.PostConstruct;
+
+import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.model.chart.BarChartModel;
 import org.primefaces.model.chart.ChartSeries;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +54,8 @@ public class ChartBean implements Serializable {
         return barModel;
     }
 
-    //public void refreshCharts(){
-    //    createBarModel();
-    //}
+    public BarChartModel refreshCharts(){
+        createBarModel();
+        return getBarModel();
+    }
 }
