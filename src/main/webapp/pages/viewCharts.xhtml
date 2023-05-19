@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:f="http://java.sun.com/jsf/core"
+    lang="en">
+
+    <h:head>
+        <title>User Modification</title>
+        <link rel="stylesheet" type="text/css" href="css/viewCharts.css"/>
+    </h:head>
+
+    <h:body>
+        <div class="sidebar">
+            <div class="sidebar-brand">
+                <h2>
+                    <i class="pi pi-prime"></i><span>DEV2WIN</span>
+                </h2>
+            </div>
+    
+            <div class="sidebar-menu">
+                <ul>
+                    <li>
+                        <p:commandLink styleClass="link" actionListener="#{initiativeBean.backPage(loginBean.userName)}" process="@this">
+                            <i class="pi pi-home"></i>
+                            <span>Dashboard</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link">
+                            <i class="pi pi-comments"></i>
+                            <span>Comments</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link active" >
+                            <i class="pi pi-chart-bar"></i>
+                            <span>Charts</span>
+                        </p:commandLink>
+                    </li>
+                    <li>
+                        <p:commandLink styleClass="link" oncomplete="PF('logoutDialog').show()">
+                            <i class="pi pi-sign-out"></i>
+                            <span>Sing out</span>
+                        </p:commandLink>
+                    </li>
+                </ul>
+                <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="eci-image" alt="Logo_ECI" />
+            </div>
+        </div>
+
+        <div class="main-content">
+            <header>
+                <img src="https://user-images.githubusercontent.com/4140058/233420265-c256dc29-a77d-4e69-86f2-9835850dcb53.png" 
+                class="team-image" alt="TeamLogo"/>
+                <h1>Idea Bank</h1>
+                <div class="user-wrapper">
+                    <div class="user-description">
+                        <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
+                        <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                    </div>
+                    <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
+                </div>
+            </header>
+            <div class="view-charts">
+                <p:chart type="bar" model="#{chartBean.barModel}"/>
+            </div>
+        </div>
+
+        <h:form id="dialogs">
+            <!-- Dialogo para cerrar sesion -->
+            <p:confirmDialog id="logout-content" widgetVar="logoutDialog" showEffect="fade" width="300"
+                message="Are you sure you want to sing out?"  header="Confirm" >
+                <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
+                    actionListener="#{loginBean.logout}"/>
+                <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+                    onclick="PF('logoutDialog').hide()" />
+            </p:confirmDialog>
+        </h:form>
+    </h:body>
+</html>
