@@ -52,7 +52,7 @@ public class ChartBean implements Serializable {
         return barModel;
     }
 
-    public void refreshCharts(){
-       createBarModel();
-    }
+    //public void refreshCharts(){
+    //    createBarModel();
+    //}
 }
