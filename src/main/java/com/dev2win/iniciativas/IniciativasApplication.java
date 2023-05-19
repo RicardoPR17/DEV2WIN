@@ -11,6 +11,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
+import com.dev2win.iniciativas.data.ideas.InitiativeService;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
@@ -18,6 +19,9 @@ public class IniciativasApplication {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    InitiativeService initiativeService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
@@ -35,6 +39,8 @@ public class IniciativasApplication {
         srb.setLoadOnStartup(1);
 
         userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+        initiativeService.getAllInitiatives().forEach(initiative -> initiativeService.deleteInitiative(initiative.getInitiativeId()));
+
 
         User user = new User("Ricardo", "1234", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
                 "ricardo@dev2win.com");
