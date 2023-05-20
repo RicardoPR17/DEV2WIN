@@ -69,5 +69,5 @@ jobs:
         with:
           app-name: 'cvds-dev2win'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_A4C286D6CF0746918EBE9B799683C149 }}
+          publish-profile: ${{ secrets.AZURE_DEPLOY }}
           package: 'target/app.jar'
