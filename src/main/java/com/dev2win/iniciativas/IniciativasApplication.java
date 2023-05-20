@@ -11,6 +11,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
+import com.dev2win.iniciativas.data.comments.CommentService;
+import com.dev2win.iniciativas.data.likes.UpvoteService;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
@@ -18,6 +20,15 @@ public class IniciativasApplication {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    UserService iniciativeService;
+
+    @Autowired
+    CommentService commentService;
+
+    @Autowired
+    UpvoteService upvoteService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
@@ -34,7 +45,10 @@ public class IniciativasApplication {
         srb.setUrlMappings(Arrays.asList("*.xhtml"));
         srb.setLoadOnStartup(1);
 
-        userService.getAllUsers().forEach(user -> userService.deleteUser(user.getUserId()));
+        upvoteService.deleteAll();
+        commentService.deleteAll();
+        iniciativeService.deleteAll();
+        userService.deleteAll();
 
         User user = new User("Ricardo", "1234", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
                 "ricardo@dev2win.com");

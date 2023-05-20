@@ -52,4 +52,8 @@ public class UpvoteService {
         upvoteRepository.delete(upvote); 
     }
 
+    public void deleteAll() {
+        upvoteRepository.deleteAll();
+    }
+
 }
