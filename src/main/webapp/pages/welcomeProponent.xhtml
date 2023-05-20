@@ -97,8 +97,8 @@
                     <p:column headerText="Date" sortBy="#{initiative.date}">
                         <h:outputText value="#{initiative.date}" />
                     </p:column>
-                    <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
-                        <h:outputText value="#{initiative.getUser().profile}" />
+                    <p:column headerText="Area" sortBy="#{initiative.area}">
+                        <h:outputText value="#{initiative.getArea()}" />
                     </p:column>
                     <p:column headerText="Proposer" sortBy="#{initiative.getUser().name}" styleClass="table-proposer">
                         <h:outputText value="#{initiative.getUser().name}" />
@@ -170,6 +170,17 @@
                         <p:outputLabel for="keyword-3">Keyword 3</p:outputLabel>
                         <p:inputText id="keyword-3" required="true"
                         value="#{initiativeBean.selectedInitiative.keyword3}"/>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="area">Area</p:outputLabel>
+                        <p:selectOneMenu id="area" value="#{initiativeBean.selectedInitiative.area}">
+                            <f:selectItem itemLabel="Select The Area" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Environment" itemValue="Environment" />
+                            <f:selectItem itemLabel="Articial Intelligence" itemValue="Articial Intelligence" />
+                            <f:selectItem itemLabel="Undertaking" itemValue="Undertaking" />
+                            <f:selectItem itemLabel="Animal rights" itemValue="Animal rights" />
+                            <f:selectItem itemLabel="Healthy life" itemValue="Healthy life" />
+                        </p:selectOneMenu>
                     </div>
                 </p:outputPanel>
             </p:outputPanel>

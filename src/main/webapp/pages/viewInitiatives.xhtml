@@ -80,9 +80,11 @@
 
                 <p:panel header="Initiative Details" style="margin-bottom:5px;">
                     <p:panelGrid columns="2" styleClass="resume-panel">
+                        <p:outputLabel value="Registration Date: #{initiativeBean.getDateInitiative()}"/>
+                        <p:outputLabel value="Area Initiative: #{initiativeBean.getAreaInitiative()}"/>
                         <p:outputLabel value="Proponent: #{initiativeBean.getNameUserInitiative()}"/>
                         <p:outputLabel value="Contact: #{initiativeBean.getMailUserInitiative()}"/>
-                        <p:outputLabel value="Registration Date: #{initiativeBean.getDateInitiative()}"/>
+                        <p:outputLabel value="Profile: #{initiativeBean.getProfileUser()}"/>
                         <p:outputLabel value="Description: #{initiativeBean.getDescriptionInitiative()}"/>
                         <p:outputLabel value="Keys Words: #{initiativeBean.getKeysWordsInitiative()}"/>
                         <p:outputLabel value="State: #{initiativeBean.getStateInitiative()}"/>
