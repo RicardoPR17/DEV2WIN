@@ -46,4 +46,8 @@ public class InitiativeService {
     public Long countByState(String requiredState){
         return initiativeRepository.countByState(requiredState);
     }
+
+    public Long countByArea(String area) {
+        return initiativeRepository.countByArea(area);
+    }
 }
