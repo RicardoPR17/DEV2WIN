@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface InitiativeRepository extends JpaRepository<Initiative, Long> {
 
-    @Query("SELECT i FROM Initiative i WHERE i.user=:userId")
+    @Query("SELECT i FROM Initiative i WHERE i.user.userId=:userId")
     List<Initiative> findByUser(@Param("userId") Long userId);
 
 }
