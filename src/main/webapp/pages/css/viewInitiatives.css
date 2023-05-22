@@ -143,6 +143,18 @@ header {
     border: none !important;
 }
 
+.initiative-description  {
+    display: inline-block !important;
+    word-wrap: break-word !important;
+    width: 250px !important;
+}
+
+.initiative-keywords {
+    display: inline-block !important;
+    word-wrap: break-word !important;
+    width: 250px !important;
+}
+
 .ui-datatable * {
     word-wrap: break-word !important;
 }

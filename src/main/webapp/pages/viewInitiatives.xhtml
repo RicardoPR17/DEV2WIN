@@ -26,12 +26,6 @@
                 </p:commandLink>
             </li>
             <li>
-                <p:commandLink styleClass="link active">
-                    <i class="pi pi-comments"></i>
-                    <span>Comments</span>
-                </p:commandLink>
-            </li>
-            <li>
                 <p:commandLink styleClass="link" onclick="window.location.href='viewCharts.xhtml'">
                     <i class="pi pi-chart-bar"></i>
                     <span>Charts</span>
@@ -56,7 +50,7 @@
             <div class="user-wrapper">
                 <div class="user-description">
                     <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
-                    <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                    <p:outputLabel value="#{loginBean.getCurrentUserProfile(loginBean.userName)} | #{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
                 </div>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
             </div>
@@ -85,8 +79,8 @@
                         <p:outputLabel value="Proponent: #{initiativeBean.getNameUserInitiative()}"/>
                         <p:outputLabel value="Contact: #{initiativeBean.getMailUserInitiative()}"/>
                         <p:outputLabel value="Profile: #{initiativeBean.getProfileUser()}"/>
-                        <p:outputLabel value="Description: #{initiativeBean.getDescriptionInitiative()}"/>
-                        <p:outputLabel value="Keys Words: #{initiativeBean.getKeysWordsInitiative()}"/>
+                        <p:outputLabel value="Description: #{initiativeBean.getDescriptionInitiative()}" styleClass="initiative-description"/>
+                        <p:outputLabel value="Keys Words: #{initiativeBean.getKeysWordsInitiative()}" styleClass="initiative-keywords"/>
                         <p:outputLabel value="State: #{initiativeBean.getStateInitiative()}"/>
                         <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
                             value="#{initiativeBean.selectedInitiative.numberLikes}" icon="pi pi-heart" update="@this"

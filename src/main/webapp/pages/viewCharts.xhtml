@@ -27,12 +27,6 @@
                         </p:commandLink>
                     </li>
                     <li>
-                        <p:commandLink styleClass="link">
-                            <i class="pi pi-comments"></i>
-                            <span>Comments</span>
-                        </p:commandLink>
-                    </li>
-                    <li>
                         <p:commandLink styleClass="link active" >
                             <i class="pi pi-chart-bar"></i>
                             <span>Charts</span>
@@ -57,16 +51,14 @@
                 <div class="user-wrapper">
                     <div class="user-description">
                         <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
-                        <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                        <p:outputLabel value="#{loginBean.getCurrentUserProfile(loginBean.userName)} | #{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
                     </div>
                     <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
                 </div>
             </header>
-            <div class="view-charts">
-                <p:chart id="chart1" type="bar" model="#{chartBean.refreshCharts()}"/>
-            </div>
-            <div class="view-charts2">
-                <p:chart id="chart2" type="bar" model="#{chartBean.refreshChart2()}"/>
+            <div class="view-chart">
+                <p:barChart id="chart-by-state" type="bar" model="#{chartBean.refreshCharts()}" styleClass="view-chart-state"/>
+                <p:barChart id="chart-by-area" type="bar" model="#{chartBean.refreshChart2()}" styleClass="view-chart-area"/>
             </div>
         </div>
 

@@ -36,12 +36,6 @@
                         </p:commandLink>
                     </li>
                     <li>
-                        <p:commandLink styleClass="link">
-                            <i class="pi pi-comments"></i>
-                            <span>Comments</span>
-                        </p:commandLink>
-                    </li>
-                    <li>
                         <p:commandLink styleClass="link" onclick="window.location.href='chartsView.xhtml'">
                             <i class="pi pi-chart-bar"></i>
                             <span>Charts</span>
@@ -66,7 +60,7 @@
                 <div class="user-wrapper">
                     <div class="user-description">
                         <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
-                        <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                        <p:outputLabel id="role-label" value="#{loginBean.getCurrentUserProfile(loginBean.userName)} | #{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
                     </div>
                     <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
                 </div>

@@ -120,59 +120,19 @@ header {
     margin-left: 20%;
 }
 
-.view-charts{
+.view-chart {
     margin: 5%;
 }
 
-.card-datatable-crud {
+.view-chart-state {
     background: #ffffff !important;
     padding: 15px;
     border-radius: 25px;
+    margin-bottom: 5%;
 }
 
-.toolbar-crud {
-    border: none !important;
+.view-chart-area {
     background: #ffffff !important;
-    margin-bottom: 10px;
-}
-
-.header-datatable {
-    background: #ffffff !important;
-}
-
-.initiative-section {
-    float:left; 
-    display:inline; 
-    width: 100%;
-    margin-left: 20%;
-    left: 0;
-}
-
-.ui-datatable .table-proposer {
-    width:  92px;
-    word-wrap: break-word !important;
-}
-
-.ui-datatable .table-description {
-    width:  111px;
-    word-wrap: break-word !important;
-}
-
-.ui-datatable .table-keywords {
-    width:  100px;
-    word-wrap: break-word !important;
-}
-
-.edit-button {
-    margin-left: 25% !important;
-    margin-bottom: 3px !important;
-}
-
-.delete-button {
-    margin-left: 25% !important;
-    margin-bottom: 3px !important;
-}
-
-.watch-button {
-    margin-left: 25% !important;
+    padding: 15px;
+    border-radius: 25px;
 }
