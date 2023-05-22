@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" lang="en">
 
 <f:metadata>
-    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded()}" />
+    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded(loginBean.userName)}" />
 </f:metadata>
 <h:head>
     <title>Admin</title>

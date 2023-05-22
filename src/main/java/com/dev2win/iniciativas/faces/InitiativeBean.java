@@ -182,8 +182,13 @@ public class InitiativeBean {
         this.selectedInitiative = selectedInitiative;
     }
 
-    public void onDatabaseLoaded() {
-        this.initiatives = initiativeService.getAllInitiatives();
+    public void onDatabaseLoaded(String userName) {
+        if (loggedUserInitiatives) {
+            User user = userService.getUserByMail(userName);
+            this.initiatives = initiativeService.getUserInitiatives(user);
+        } else {
+            this.initiatives = initiativeService.getAllInitiatives();
+        }
     }
 
     public void newInitiative() {
@@ -296,12 +301,7 @@ public class InitiativeBean {
     }
 
     public void changeLoggedInitiativesView(String userName) {
-        loggedUserInitiatives = !loggedUserInitiatives;
-        if (loggedUserInitiatives) {
-            User user = userService.getUserByMail(userName);
-        } else {
-            initiatives = initiativeService.getAllInitiatives();
-        }
+        primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
     }
 
     public void saveComment(String userName) {
