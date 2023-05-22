@@ -300,7 +300,7 @@ public class InitiativeBean {
         primeFacesWrapper.current().ajax().update("comments-menu");
     }
 
-    public void changeLoggedInitiativesView(String userName) {
+    public void changeLoggedInitiativesView() {
         primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
     }
 

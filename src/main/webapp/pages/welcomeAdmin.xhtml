@@ -85,7 +85,7 @@
                     </p:toolbarGroup>
                     <p:toolbarGroup>
                         <p:selectBooleanCheckbox value="#{initiativeBean.loggedUserInitiatives}" itemLabel="My Initiatives">
-                            <p:ajax listener="#{initiativeBean.changeLoggedInitiativesView(loginBean.userName)}" update="messages" />
+                            <p:ajax listener="#{initiativeBean.changeLoggedInitiativesView()}" update="messages" />
                         </p:selectBooleanCheckbox>
                     </p:toolbarGroup>
                 </p:toolbar>
