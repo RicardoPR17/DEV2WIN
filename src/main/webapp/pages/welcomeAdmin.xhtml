@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" lang="en">
 
 <f:metadata>
-    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded()}" />
+    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded(loginBean.userName)}" />
 </f:metadata>
 <h:head>
     <title>Admin</title>
@@ -82,6 +82,11 @@
                             styleClass="rounded-button ui-button-success" style="margin-right: .5rem">
                             <p:resetInput target=":dialogs:manage-ideas-content" />
                         </p:commandButton>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:selectBooleanCheckbox value="#{initiativeBean.loggedUserInitiatives}" itemLabel="My Initiatives">
+                            <p:ajax listener="#{initiativeBean.changeLoggedInitiativesView()}" update="messages" />
+                        </p:selectBooleanCheckbox>
                     </p:toolbarGroup>
                 </p:toolbar>
 

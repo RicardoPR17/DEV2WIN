@@ -3,7 +3,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:p="http://primefaces.org/ui"
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" lang="en">
 <f:metadata>
-    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded()}" />
+    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded(loginBean.userName)}" />
 </f:metadata>
 <h:head>
     <title>Proponent</title>
@@ -79,8 +79,8 @@
                         </p:commandButton>
                     </p:toolbarGroup>
                     <p:toolbarGroup>
-                        <p:selectBooleanCheckbox itemLabel="My Initiatives" value="#{initiativeBean.loggedUserInitiatives}">
-                            <p:ajax update="messages" actionListener="#{initiativeBean.changeLoggedInitiativesView(loginBean.userName)}"/>
+                        <p:selectBooleanCheckbox value="#{initiativeBean.loggedUserInitiatives}" itemLabel="My Initiatives">
+                            <p:ajax listener="#{initiativeBean.changeLoggedInitiativesView()}" update="messages" />
                         </p:selectBooleanCheckbox>
                     </p:toolbarGroup>
                 </p:toolbar>
