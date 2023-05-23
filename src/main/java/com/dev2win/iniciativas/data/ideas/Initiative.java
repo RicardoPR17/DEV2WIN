@@ -35,6 +35,8 @@ public class Initiative {
     private String keyword1;
     private String keyword2;
     private String keyword3;
+    private String area;
+
 
     @ManyToOne
     @JoinColumn(name = "user_id")
@@ -46,9 +48,10 @@ public class Initiative {
     @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
     List<Comment> comments = new ArrayList<>();
 
-    public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user) {
+    public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user, Area area) {
         this.description = description;
         this.state = state.getValue();
+        this.area = area.getValue();
         this.date = LocalDate.now();
         this.keyword1 = keyword1;
         this.keyword2 = keyword2;
@@ -125,6 +128,14 @@ public class Initiative {
 
     public String getKeywords() {
         return keyword1 + "; " + keyword2 + "; " + keyword3;
+    }
+
+    public String getArea() {
+        return area;
+    }
+
+    public void setArea(String area) {
+        this.area = area;
     }
 
     public User getUser() {

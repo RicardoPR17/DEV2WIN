@@ -35,13 +35,7 @@
                     </p:commandLink>
                 </li>
                 <li>
-                    <p:commandLink styleClass="link">
-                        <i class="pi pi-comments"></i>
-                        <span>Comments</span>
-                    </p:commandLink>
-                </li>
-                <li>
-                    <p:commandLink styleClass="link" >
+                    <p:commandLink styleClass="link" onclick="window.location.href='viewCharts.xhtml'">
                         <i class="pi pi-chart-bar"></i>
                         <span>Charts</span>
                     </p:commandLink>
@@ -65,7 +59,7 @@
             <div class="user-wrapper">
                 <div class="user-description">
                     <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
-                    <p:outputLabel value="#{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                    <p:outputLabel value="#{loginBean.getCurrentUserProfile(loginBean.userName)} | #{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
                 </div>
                 <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
             </div>
@@ -103,8 +97,8 @@
                     <p:column headerText="Date" sortBy="#{initiative.date}">
                         <h:outputText value="#{initiative.date}" />
                     </p:column>
-                    <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
-                        <h:outputText value="#{initiative.getUser().profile}" />
+                    <p:column headerText="Area" sortBy="#{initiative.area}">
+                        <h:outputText value="#{initiative.getArea()}" />
                     </p:column>
                     <p:column headerText="Proposer" sortBy="#{initiative.getUser().name}" styleClass="table-proposer">
                         <h:outputText value="#{initiative.getUser().name}" />
@@ -159,7 +153,7 @@
     <!-- Dialogos -->
     <h:form id="dialogs">
         <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
-            responsive="true">
+            responsive="true" >
             <!-- Boton para editar la iniciativa -->
             <p:outputPanel id="manage-ideas-content" class="ui-fluid">
                 <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
@@ -192,6 +186,17 @@
                             <f:selectItem itemLabel="Review" itemValue="Review" />
                             <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
                         </p:selectOneRadio>
+                    </div>
+                    <div class="field">
+                        <p:outputLabel for="area">Area</p:outputLabel>
+                        <p:selectOneMenu id="area" value="#{initiativeBean.selectedInitiative.area}" required="true">
+                            <f:selectItem itemLabel="Select The Area" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Environment" itemValue="Environment" />
+                            <f:selectItem itemLabel="Articial Intelligence" itemValue="Articial Intelligence" />
+                            <f:selectItem itemLabel="Undertaking" itemValue="Undertaking" />
+                            <f:selectItem itemLabel="Animal rights" itemValue="Animal rights" />
+                            <f:selectItem itemLabel="Healthy life" itemValue="Healthy life" />
+                        </p:selectOneMenu>
                     </div>
                 </p:outputPanel>
             </p:outputPanel>

@@ -110,6 +110,14 @@ public class InitiativeBean {
         return selectedInitiative.getDescription();
     }
 
+    public String getAreaInitiative() {
+        return selectedInitiative.getArea();
+    }
+
+    public String getProfileUser() {
+        return selectedInitiative.getUser().getProfile();
+    }
+
     public String getCommentary() {
         return commentary;
     }

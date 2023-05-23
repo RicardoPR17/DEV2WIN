@@ -32,6 +32,7 @@ public class AdminBean {
     private List<User> selectedUsers = new ArrayList<>();
     private static final String USER_MOD_FORM_USER_LIST = "user-mod-form:users-list";
     private static final String USER_MOD_FORM_MESSAGES = "user-mod-form:messages";
+    private static final String ROLE_LABEL = ":role-label";
     private static final String ERROR = "Error";
 
     /**
@@ -64,7 +65,7 @@ public class AdminBean {
             e.printStackTrace();
         } finally {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Users Updated"));
-            primeFacesWrapper.current().ajax().update(USER_MOD_FORM_USER_LIST, USER_MOD_FORM_MESSAGES);
+            primeFacesWrapper.current().ajax().update(USER_MOD_FORM_USER_LIST, USER_MOD_FORM_MESSAGES, ROLE_LABEL);
         }
     }
 

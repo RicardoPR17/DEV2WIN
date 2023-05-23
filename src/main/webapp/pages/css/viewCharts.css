@@ -9,7 +9,6 @@ body {
     background: linear-gradient(to right, #7dbed9, #5492b4);
 }
 
-
 .sidebar {
     width: 20%;
     position: fixed;
@@ -81,7 +80,6 @@ body {
     height: 91.4px;
 }
 
-
 header {
     display: flex;
     align-items: center;
@@ -122,41 +120,19 @@ header {
     margin-left: 20%;
 }
 
-
-.view-initiatives {
+.view-chart {
     margin: 5%;
 }
 
-.card-comments {
+.view-chart-state {
+    background: #ffffff !important;
+    padding: 15px;
+    border-radius: 25px;
+    margin-bottom: 5%;
+}
+
+.view-chart-area {
     background: #ffffff !important;
     padding: 15px;
     border-radius: 25px;
 }
-
-.toolbar-comments {
-    border: none !important;
-    background: #ffffff !important;
-    margin-bottom: 10px;
-}
-
-.resume-panel * {
-    border: none !important;
-}
-
-.initiative-description  {
-    display: inline-block !important;
-    word-wrap: break-word !important;
-    width: 250px !important;
-}
-
-.initiative-keywords {
-    display: inline-block !important;
-    word-wrap: break-word !important;
-    width: 250px !important;
-}
-
-.ui-datatable * {
-    word-wrap: break-word !important;
-}
-
-
