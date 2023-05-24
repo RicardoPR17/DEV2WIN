@@ -51,7 +51,7 @@ class InitiativeBeanTest {
         MockitoAnnotations.initMocks(this);
         user = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user.setUserId(10L);
-        selectedInitiative = new Initiative("Test Initiative", State.APROVED, "keyword1", "keyword2", "keyword3", null);
+        selectedInitiative = new Initiative("Test Initiative", State.APROVED, "keyword1", "keyword2", "keyword3", null, Area.ENVIRONMENT);
         selectedInitiative.setInitiativeId(11L);
         initiatives.add(selectedInitiative);
         userEmail = user.getMail();

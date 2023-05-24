@@ -73,6 +73,10 @@ public class LoginBean {
         return userService.getUserByMail(userMail).getRole();
     }
 
+    public String getCurrentUserProfile(String userMail) {
+        return userService.getUserByMail(userMail).getProfile();
+    }
+
     public void createUserAccount() {
         this.newUser = new User();
     }
