@@ -230,6 +230,8 @@ public class Initiative {
                 + state + ", keyword1 = " + keyword1 + ", keyword2 = " + keyword2 + ", keyword3 = " + keyword3
                 + ", user = "
                 + user
+                + ", area = " 
+                + area
                 + "]";
     }
 
