@@ -38,7 +38,8 @@ class TopicTest {
     @ParameterizedTest
     @ValueSource(strings = { "Desarrollo", "Seguridad", "Pruebas" })
     void ShouldSetTopicName(String input) {
-        Topic topic = new Topic(input);
+        Topic topic = new Topic("test");
+        topic.setTopicName(input);
         assertEquals(input, topic.getTopicName());
     }
 
