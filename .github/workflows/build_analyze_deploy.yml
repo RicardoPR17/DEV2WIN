@@ -56,13 +56,16 @@ jobs:
             target
           key: cache-v1-${{ hashFiles('**/src', '**/pom.xml', '**/.github') }}
 
-      - name: change war to jar extension
-        run: mv target/iniciativas-0.0.1-SNAPSHOT.war target/app.jar
+      - name: change war name and zip
+        run: |
+          mv target/iniciativas-0.0.1-SNAPSHOT.war target/app.war
+          zip target/package.zip target/app.war
 
       - name: list
         run: |
           ls -la .
           ls -la target
+
       - name: Deploy to Azure Web App
         id: deploy-to-webapp
         uses: azure/webapps-deploy@v2
@@ -70,4 +73,4 @@ jobs:
           app-name: 'cvds-dev2win'
           slot-name: 'Production'
           publish-profile: ${{ secrets.AZURE_DEPLOY }}
-          package: 'target/app.jar'
+          package: 'target/package.zip'
