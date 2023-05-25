@@ -19,6 +19,7 @@ import javax.persistence.OneToMany;
 
 import com.dev2win.iniciativas.data.comments.Comment;
 import com.dev2win.iniciativas.data.likes.Upvote;
+import com.dev2win.iniciativas.data.topic.Topic;
 import com.dev2win.iniciativas.data.users.User;
 
 @Entity
@@ -37,7 +38,6 @@ public class Initiative {
     private String keyword3;
     private String area;
 
-
     @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
@@ -48,7 +48,12 @@ public class Initiative {
     @OneToMany(mappedBy = "initiative", cascade = { CascadeType.REMOVE })
     List<Comment> comments = new ArrayList<>();
 
-    public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user, Area area) {
+    @ManyToOne
+    @JoinColumn(name = "topic_id")
+    Topic topic;
+
+    public Initiative(String description, State state, String keyword1, String keyword2, String keyword3, User user,
+            Area area) {
         this.description = description;
         this.state = state.getValue();
         this.area = area.getValue();
@@ -58,6 +63,7 @@ public class Initiative {
         this.keyword3 = keyword3;
         this.user = user;
         this.numberLikes = "0";
+        this.topic = null;
     }
 
     public Initiative() {
@@ -160,6 +166,22 @@ public class Initiative {
 
     public void setNumberLikes(String numberLikes) {
         this.numberLikes = numberLikes;
+    }
+
+    public List<Upvote> getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(List<Upvote> upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public Topic getTopic() {
+        return topic;
+    }
+
+    public void setTopic(Topic topic) {
+        this.topic = topic;
     }
 
     @Override
