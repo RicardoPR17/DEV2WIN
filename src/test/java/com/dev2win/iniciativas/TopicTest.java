@@ -49,6 +49,8 @@ class TopicTest {
         User user = new User("Carlos", "123", Role.PROPONENTE, "", Profile.ESTUDIANTE, "carlos@test.com");
         Initiative initiative = new Initiative("Revisar seguridad", State.OPEN, "", "", "", user, Area.UNDERTAKING);
         ArrayList<Initiative> initiatives = new ArrayList<>();
+
+        initiative.setTopic(topic);
         initiatives.add(initiative);
 
         topic.setInitiatives(initiatives);
