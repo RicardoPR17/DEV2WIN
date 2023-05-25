@@ -25,6 +25,9 @@ public class TopicBean {
     private String topic = "";
     private List<Initiative> selectedInitiatives = new ArrayList<>();
 
+    /*
+     * Empty constructor
+     */
     public TopicBean() {
     }
 
