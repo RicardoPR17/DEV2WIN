@@ -1,9 +1,6 @@
 package com.dev2win.iniciativas;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
-
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 
