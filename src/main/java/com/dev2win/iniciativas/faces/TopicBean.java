@@ -29,6 +29,7 @@ public class TopicBean {
      * Empty constructor
      */
     public TopicBean() {
+        // empty constructor
     }
 
     public void createTopic(String name) {
