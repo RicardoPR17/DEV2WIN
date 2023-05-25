@@ -23,6 +23,9 @@ public class TopicBean {
     @Autowired
     InitiativeService initiativeService;
 
+    /**
+     * Empty constructor
+     */
     public TopicBean() {
     }
 
