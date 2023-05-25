@@ -1,5 +1,6 @@
 package com.dev2win.iniciativas.faces;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.faces.bean.ManagedBean;
@@ -8,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 
-import com.dev2win.iniciativas.data.ideas.Initiative;
-import com.dev2win.iniciativas.data.ideas.InitiativeService;
+import com.dev2win.iniciativas.data.ideas.*;
 import com.dev2win.iniciativas.data.topic.Topic;
 import com.dev2win.iniciativas.data.topic.TopicService;
 
@@ -22,6 +22,8 @@ public class TopicBean {
 
     @Autowired
     InitiativeService initiativeService;
+    private String topic = "";
+    private List<Initiative> selectedInitiatives = new ArrayList<>();
 
     public TopicBean() {
     }
@@ -42,6 +44,16 @@ public class TopicBean {
     }
 
     public void addInitiativeToTopic() {
+        try {
+            for (Initiative i : selectedInitiatives) {
+                i.setTopic(topicService.getTopicByTopicName(topic));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 
+    public boolean hasSelectedInitiatives() {
+        return this.selectedInitiatives != null && !this.selectedInitiatives.isEmpty();
     }
 }
