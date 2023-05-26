@@ -4,13 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-
 import com.dev2win.iniciativas.data.ideas.*;
 import com.dev2win.iniciativas.data.comments.*;
 import com.dev2win.iniciativas.data.users.*;
-
-import junit.framework.Assert;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
