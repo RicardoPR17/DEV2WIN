@@ -92,4 +92,26 @@ public class UpvoteServiceTest {
         assertEquals(2, upvoteService.getInitiativeUpvoteCount(initiative1));
     }
 
+    @Test
+    void getsUpvoteCorrectly() {
+        User user1 = new User("Equis", "abc", Role.PROPONENTE, "", Profile.ESTUDIANTE, "x@escuelaing.edu.co");
+        user1.setUserId(1L);
+        User user2 = new User("Juan", "uwu", Role.PROPONENTE, "", Profile.ESTUDIANTE, "juan@mail.com");
+        user2.setUserId(3L);
+        Initiative initiative1 = new Initiative("test idea", State.OPEN, "a", "b", "c", user2);
+        initiative1.setInitiativeId(5L);
+        Initiative initiative2 = new Initiative("another test", State.OPEN, "a", "f", "p", user1);
+        initiative2.setInitiativeId(8L);
+        Upvote upvote1 = new Upvote(initiative1, user1);
+        Upvote upvote2 = new Upvote(initiative2, user1);
+        Upvote upvote3 = new Upvote(initiative1, user2);
+        Upvote upvote4 = new Upvote(initiative2, user2);
+        upvoteService.addUpvote(upvote1);
+        upvoteService.addUpvote(upvote2);
+        upvoteService.addUpvote(upvote3);
+        upvoteService.addUpvote(upvote4);
+        List<Upvote> result = upvoteService.getUpvote(initiative1, user2);
+        assertEquals(upvote3, result.get(0));
+    }
+
 }
