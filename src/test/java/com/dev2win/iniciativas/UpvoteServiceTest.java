@@ -114,4 +114,16 @@ public class UpvoteServiceTest {
         assertEquals(upvote3, result.get(0));
     }
 
+    @Test
+    void deletesCorrectly() {
+        User user1 = new User("Equis", "abc", Role.PROPONENTE, "", Profile.ESTUDIANTE, "x@escuelaing.edu.co");
+        user1.setUserId(1L);
+        Initiative initiative1 = new Initiative("test idea", State.OPEN, "a", "b", "c", user1);
+        initiative1.setInitiativeId(5L);
+        Upvote upvote1 = new Upvote(initiative1, user1);
+        upvoteService.addUpvote(upvote1);
+        upvoteService.delete(upvote1);
+        int count = upvoteService.getInitiativeUpvoteCount(initiative1);
+        assertEquals(0, count);
+    }
 }
