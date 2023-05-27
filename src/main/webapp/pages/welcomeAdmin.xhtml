@@ -121,12 +121,12 @@
                     </p:column>
                     <p:column headerText="Actions" exportable="false">
                         <!-- Editar iniciativa -->
-                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-ideas-content"
-                            oncomplete="PF('manageIdeaDialog').show()" style="margin-right: .5rem"
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-state-content"
+                            oncomplete="PF('manageStateDialog').show()" style="margin-right: .5rem"
                             styleClass="edit-button rounded-button ui-button-success" process="@this">
                             <f:setPropertyActionListener value="#{initiative}"
                                 target="#{initiativeBean.selectedInitiative}" />
-                            <p:resetInput target=":dialogs:manage-ideas-content" />
+                            <p:resetInput target=":dialogs:manage-state-content" />
                         </p:commandButton>
                         <!-- Boton borrar iniciativa -->
                         <p:commandButton styleClass="delete-button ui-button-warning rounded-button" icon="pi pi-trash"
@@ -147,9 +147,8 @@
 
     <!-- Dialogos -->
     <h:form id="dialogs">
-        <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
+        <p:dialog header="Idea Details" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
             responsive="true" >
-            <!-- Boton para editar la iniciativa -->
             <p:outputPanel id="manage-ideas-content" class="ui-fluid">
                 <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
                     <div class="field">
@@ -173,16 +172,6 @@
                         value="#{initiativeBean.selectedInitiative.keyword3}"/>
                     </div>
                     <div class="field">
-                        <p:outputLabel for="state">State</p:outputLabel>
-                        <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
-                            layout="responsive" columns="2">
-                            <f:selectItem itemLabel="Open" itemValue="Open" />
-                            <f:selectItem itemLabel="Closed" itemValue="Closed" />
-                            <f:selectItem itemLabel="Review" itemValue="Review" />
-                            <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
-                        </p:selectOneRadio>
-                    </div>
-                    <div class="field">
                         <p:outputLabel for="area">Area</p:outputLabel>
                         <p:selectOneMenu id="area" value="#{initiativeBean.selectedInitiative.area}" required="true">
                             <f:selectItem itemLabel="Select The Area" itemValue="" noSelectionOption="true"/>
@@ -204,7 +193,31 @@
                     class="ui-button-secondary" type="button" />
             </f:facet>
         </p:dialog>
-
+        <!-- Dialogo para editar estado -->
+        <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageStateDialog"
+        responsive="true">
+            <p:outputPanel id="manage-state-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
+                    <div class="field">
+                        <p:outputLabel for="state">State</p:outputLabel>
+                        <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
+                            layout="responsive" columns="2">
+                            <f:selectItem itemLabel="Open" itemValue="Open" />
+                            <f:selectItem itemLabel="Closed" itemValue="Closed" />
+                            <f:selectItem itemLabel="Revision" itemValue="Revision" />
+                            <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+            <!-- Boton para publicar o cancelar iniciativa -->
+            <f:facet name="footer">
+                <p:commandButton value="Update" icon="pi pi-check" actionListener="#{initiativeBean.saveInitiative(loginBean.userName)}"
+                    update="manage-state-content" process="manage-state-content @this" styleClass="Publish"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageStateDialog').hide()"
+                    class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
         <!-- Dialogo para borrar iniciativa -->
         <p:confirmDialog widgetVar="deleteInitiativeDialog" showEffect="fade" width="300"
             message="Delete the initiative?" header="Confirm" severity="warn">
