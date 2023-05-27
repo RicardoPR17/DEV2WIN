@@ -46,6 +46,8 @@ public class ChartBean implements Serializable {
         createBarModel2();
     }
     
+    //Crea el modelo con los datos de las iniciativas y los estados en que se encuentran para mostrar esta información por
+    //pantalla en forma de histogramas.
     public void createBarModel() {
         barModel = new BarChartModel();
         ChartData data = new ChartData();
@@ -117,6 +119,8 @@ public class ChartBean implements Serializable {
         barModel.setOptions(options);
     }
 
+    //Crea el modelo con los datos de las iniciativas y las áreas a las que pertenecen para mostrar esta información por
+    //pantalla en forma de histogramas.
     public void createBarModel2() {
         barModel2 = new BarChartModel();
         ChartData data = new ChartData();
@@ -201,11 +205,13 @@ public class ChartBean implements Serializable {
         return barModel2;
     }
 
+    //Vuelve a construir el modelo de las iniciativas por estado y actualiza la vista.
     public BarChartModel refreshCharts(){
         createBarModel();
         return getBarModel();
     }
 
+    //Vuelve a construir el modelo de las iniciativas por área y actualiza la vista.
     public BarChartModel refreshChart2() {
         createBarModel2();
         return getChartModel2();
