@@ -38,7 +38,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User updateUsuario(User user) {
+    public User updateUser(User user) {
         if (userRepository.existsById(user.getUserId())) {
             return userRepository.save(user);
         }
@@ -56,5 +56,8 @@ public class UserService {
     public List<User> getUserByRole(String roleToSearch) {
         return userRepository.findByRole(roleToSearch);
     }
-    public void deleteAll() { userRepository.deleteAll(); }
+
+    public void deleteAll() {
+        userRepository.deleteAll();
+    }
 }

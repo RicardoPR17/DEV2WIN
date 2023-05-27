@@ -116,31 +116,6 @@ public class User {
     }
 
     @Override
-    public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-        User user = (User) o;
-        return userId.equals(user.userId);
-    }
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((userId == null) ? 0 : userId.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((password == null) ? 0 : password.hashCode());
-        result = prime * result + ((role == null) ? 0 : role.hashCode());
-        result = prime * result + ((state == null) ? 0 : state.hashCode());
-        result = prime * result + ((profile == null) ? 0 : profile.hashCode());
-        result = prime * result + ((mail == null) ? 0 : mail.hashCode());
-        result = prime * result + ((ideas == null) ? 0 : ideas.hashCode());
-        return result;
-    }
-
-    @Override
     public String toString() {
         return "User [UserId = " + userId + ", name = " + name + ", password = " + password + ", role = " + role
                 + ", state = "

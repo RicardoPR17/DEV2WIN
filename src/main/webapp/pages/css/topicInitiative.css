@@ -120,27 +120,47 @@ header {
     margin-left: 20%;
 }
 
-.user-mod {
+.view-initiatives {
     margin: 5%;
 }
 
-.card-usermod {
+.card-datatable-crud {
     background: #ffffff !important;
     padding: 15px;
     border-radius: 25px;
 }
 
-.toolbar-users {
+.toolbar-crud {
     border: none !important;
     background: #ffffff !important;
     margin-bottom: 10px;
 }
 
-.ui-datatable .table-selections {
-    width: 20px;
+.header-datatable {
+    background: #ffffff !important;
+}
+
+.ui-selection-column {
+    width: 24px !important;
+    padding: 5px !important;
+}
+
+.ui-datatable .table-proposer {
+    width:  92px;
     word-wrap: break-word !important;
 }
 
-.ui-datatable .table-mail {
+.ui-datatable .table-description {
+    width:  111px;
     word-wrap: break-word !important;
+}
+
+.ui-datatable .table-keywords {
+    width:  100px;
+    word-wrap: break-word !important;
+}
+
+.new-topic-dialog {
+    margin-bottom: 10px !important;
+    width: 200px !important;
 }

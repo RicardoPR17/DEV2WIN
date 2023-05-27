@@ -65,10 +65,41 @@ public class LoginBean {
         this.newUser = newUser;
     }
 
+    /***
+     * Get current username
+     * @param userMail email entered by user current
+     * @return Name of user current
+     */
+    public String getCurrentUserName(String userMail) {
+        return userService.getUserByMail(userMail).getName();
+    }
+
+    /***
+     * Function to get the role of the current user
+     * @param userMail email entered by user current
+     * @return Current user role
+     */
+    public String getCurrentUserRole(String userMail) {
+        return userService.getUserByMail(userMail).getRole();
+    }
+
+    /***
+     * unction to get the profile of the current user
+     * @param userMail c
+     * @return Current user profile
+     */
+    public String getCurrentUserProfile(String userMail) {
+        return userService.getUserByMail(userMail).getProfile();
+    }
+
     public void createUserAccount() {
         this.newUser = new User();
     }
 
+    /**
+     * Function that creates a user for the platform
+     * @return True if it complies with security validations otherwise False
+     */
     public Boolean createAccount() {
         String userEmail = this.newUser.getMail();
         try {
@@ -102,6 +133,11 @@ public class LoginBean {
         return true;
     }
     
+    /**
+     * Function that validates if the email meets validation requirements
+     * @param email entered by user current
+     * @return True if it matches special characters otherwise False
+     */
     public boolean isValidEmail(String email) {
         String emailRegex = "^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\\.[A-Z]{2,}$";
         Pattern pattern = Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE);
@@ -129,8 +165,21 @@ public class LoginBean {
         }
         // Si el usuario está autenticado, redirigirlo a la página correspondiente
         try {
+            password = null;
             ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
             String redirectPath = getRedirectPath(userToLogin);
+            ec.redirect(ec.getRequestContextPath() + redirectPath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return true;
+    }
+
+    public Boolean logout() {
+        userName = null;
+        try {
+            ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
+            String redirectPath = "../pages/login.xhtml";
             ec.redirect(ec.getRequestContextPath() + redirectPath);
         } catch (IOException e) {
             e.printStackTrace();

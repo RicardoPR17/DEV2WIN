@@ -48,8 +48,14 @@ public class UpvoteService {
         return upvoteRepository.findUpvote(initiative.getInitiativeId(), user.getUserId());
     }
 
+    //Elimina el like emitido por un usuario hacia una iniciativa.
     public void delete(Upvote upvote) { 
         upvoteRepository.delete(upvote); 
+    }
+
+    //Vacía el repositorio (elimina todos los likes, de todos los usuarios, a todas las iniciativas).
+    public void deleteAll() {
+        upvoteRepository.deleteAll();
     }
 
 }

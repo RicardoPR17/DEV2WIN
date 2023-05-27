@@ -42,4 +42,16 @@ public class InitiativeService {
     public List<Initiative> getUserInitiatives(User user) {
         return initiativeRepository.findByUser(user.getUserId());
     }
+
+    public Long countByState(String requiredState) {
+        return initiativeRepository.countByState(requiredState);
+    }
+
+    public Long countByArea(String area) {
+        return initiativeRepository.countByArea(area);
+    }
+
+    public List<Initiative> getInitiativesByTopic(Long topicId) {
+        return initiativeRepository.findByTopicId(topicId);
+    }
 }

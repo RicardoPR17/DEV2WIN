@@ -120,27 +120,19 @@ header {
     margin-left: 20%;
 }
 
-.user-mod {
+.view-chart {
     margin: 5%;
 }
 
-.card-usermod {
+.view-chart-state {
     background: #ffffff !important;
     padding: 15px;
     border-radius: 25px;
+    margin-bottom: 5%;
 }
 
-.toolbar-users {
-    border: none !important;
+.view-chart-area {
     background: #ffffff !important;
-    margin-bottom: 10px;
-}
-
-.ui-datatable .table-selections {
-    width: 20px;
-    word-wrap: break-word !important;
-}
-
-.ui-datatable .table-mail {
-    word-wrap: break-word !important;
+    padding: 15px;
+    border-radius: 25px;
 }

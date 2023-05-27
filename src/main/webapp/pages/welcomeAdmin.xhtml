@@ -4,7 +4,7 @@
     xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" lang="en">
 
 <f:metadata>
-    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded()}" />
+    <f:event type="preRenderView" listener="#{initiativeBean.onDatabaseLoaded(loginBean.userName)}" />
 </f:metadata>
 <h:head>
     <title>Admin</title>
@@ -13,108 +13,153 @@
 
 <h:body>
 
-    <div class="ImgContainer">
-        <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="Img" alt="Logo_ECI" />
+    <div class="sidebar">
+        <div class="sidebar-brand">
+            <h2>
+                <i class="pi pi-prime"></i><span>DEV2WIN</span>
+            </h2>
+        </div>
+
+        <div class="sidebar-menu">
+            <ul>
+                <li>
+                    <p:commandLink styleClass="link active" actionListener="#{initiativeBean.backPage(loginBean.userName)}">
+                        <i class="pi pi-home"></i>
+                        <span>Dashboard</span>
+                    </p:commandLink>
+                </li>
+                <li>
+                    <p:commandLink styleClass="link" onclick="window.location.href='userModification.xhtml'">
+                        <i class="pi pi-users"></i>
+                        <span>Users</span>
+                    </p:commandLink>
+                </li>
+                <li>
+                    <p:commandLink styleClass="link" onclick="window.location.href='topicInitiative.xhtml'">
+                        <i class="pi pi-book"></i>
+                        <span>Topics</span>
+                    </p:commandLink>
+                </li>
+                <li>
+                    <p:commandLink styleClass="link" onclick="window.location.href='viewCharts.xhtml'">
+                        <i class="pi pi-chart-bar"></i>
+                        <span>Charts</span>
+                    </p:commandLink>
+                </li>
+                <li>
+                    <p:commandLink styleClass="link" oncomplete="PF('logoutDialog').show()">
+                        <i class="pi pi-sign-out"></i>
+                        <span>Sing out</span>
+                    </p:commandLink>
+                </li>
+            </ul>
+            <img src="https://colombiaestudia.com/wp-content/uploads/2021/06/Logo_ECILG.jpg" class="eci-image" alt="Logo_ECI" />
+        </div>
     </div>
 
-    <div class="Title">
-        <h3>Idea Bank</h3>
-    </div>
-
-    <section class="hi-section">
-        <h2>Welcome Administrator</h2>
-    </section>
-
-    <!-- Boton de edicion iniciativas -->
-    <p:toolbar styleClass="toolbar-crud">
-        <p:toolbarGroup>
-            <p:commandButton value="New Idea" icon="pi pi-plus" actionListener="#{initiativeBean.newInitiative}"
-                update=":dialogs:manage-ideas-content" oncomplete="PF('manageIdeaDialog').show()"
-                styleClass="ui-button-success" style="margin-right: .5rem">
-                <p:resetInput target=":dialogs:manage-ideas-content" />
-            </p:commandButton>
-            <div id="editUsers">
-                <p:commandButton type="button" value="Edit Users"
-                    onclick="window.location.href='userModification.xhtml'" icon="pi pi-user-edit" styleClass="mr-2" />
+    <div class="main-content">
+        <header>
+            <img src="https://user-images.githubusercontent.com/4140058/233420265-c256dc29-a77d-4e69-86f2-9835850dcb53.png" 
+            class="team-image" alt="TeamLogo"/>
+            <h1>Idea Bank</h1>
+            <div class="user-wrapper">
+                <div class="user-description">
+                    <p:outputLabel value="#{loginBean.getCurrentUserName(loginBean.userName)}" styleClass="username-label"/>
+                    <p:outputLabel value="#{loginBean.getCurrentUserProfile(loginBean.userName)} | #{loginBean.getCurrentUserRole(loginBean.userName)}" styleClass="role-label"/>
+                </div>
+                <img src="https://www.w3schools.com/howto/img_avatar.png" class="user-image" alt="user" />
             </div>
-        </p:toolbarGroup>
-    </p:toolbar>
-    <!-- Vista iniciativas -->
-    <div class="view-initiatives">
-        <h:form id="initiatives-menu">
-            <p:growl id="messages" show-detail="true" />
-            <!-- Tabla para consultar iniciativas -->
-            <p:dataTable id="initiatives-list" var="initiative" value="#{initiativeBean.initiatives}" reflow="true"
-                rowKey="#{initative.initiativeId}" paginator="true" rows="10" paginatorPosition="bottom"
-                paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
-                <f:facet name="header">
-                    <div class="initiatives-list-header">
-                        <span style="font-weight: bold">INITIATIVES OF BANK</span>
-                        <span class="filter-container ui-input-icon-left">
-                        </span>
-                    </div>
-                </f:facet>
-                <!-- Columnas -->
-                <p:column headerText="Creation Date" sortBy="#{initiative.date}">
-                    <h:outputText value="#{initiative.date}" />
-                </p:column>
-                <p:column headerText="Area" sortBy="#{initiative.getUser().profile}">
-                    <h:outputText value="#{initiative.getUser().profile}" />
-                </p:column>
-                <p:column headerText="Name Proposer" sortBy="#{initiative.getUser().name}">
-                    <h:outputText value="#{initiative.getUser().name}" />
-                </p:column>
-                <p:column headerText="Description" sortBy="#{initiative.description}">
-                    <h:outputText value="#{initiative.description}" />
-                </p:column>
-                <p:column headerText="Keywords" sortBy="#{initiative.getKeywords()}"
-                    filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
-                    <h:outputText value="#{initiative.getKeywords()}" />
-                </p:column>
-                <p:column headerText="State" sortBy="#{initiative.state}" filterBy="#{initiative.getState()}"
-                    filterMatchMode="contains">
-                    <h:outputText value="#{initiative.state}" />
-                </p:column>
-                <p:column headerText="Likes">
-                    <!-- Dar upvote a iniciativa -->
-                    <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
-                        value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this" process="@this"
-                        styleClass="rounded-button">
-                        <f:setPropertyActionListener value="#{initiative}"
-                            target="#{initiativeBean.selectedInitiative}" />
-                        <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
-                    </p:commandButton>
-                </p:column>
-                <p:column headerText="Actions" exportable="false">
-                    <!-- Editar iniciativa -->
-                    <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-ideas-content"
-                        oncomplete="PF('manageIdeaDialog').show()" style="margin-right: .5rem"
-                        styleClass="edit-button rounded-button ui-button-success" process="@this">
-                        <f:setPropertyActionListener value="#{initiative}"
-                            target="#{initiativeBean.selectedInitiative}" />
-                        <p:resetInput target=":dialogs:manage-ideas-content" />
-                    </p:commandButton>
-                    <!-- Boton borrar iniciativa -->
-                    <p:commandButton class="ui-button-warning rounded-button" icon="pi pi-trash"
-                        oncomplete="PF('deleteInitiativeDialog').show()" process="@this">
-                        <f:setPropertyActionListener value="#{initiative}"
-                            target="#{initiativeBean.selectedInitiative}" />
-                    </p:commandButton>
-                    <!--Boton para ver detalles de Iniciativa-->
-                    <p:commandButton class="rounded-button ui-button-help" icon="pi pi-eye" 
-                        actionListener="#{initiativeBean.redirectToNewPage()}" process="@this" >
-                        <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
-                    </p:commandButton>
-                </p:column>
-            </p:dataTable>
-        </h:form>
+        </header>
+    
+        <!-- Vista iniciativas -->
+        <div class="view-initiatives">
+            <h:form id="initiatives-menu" styleClass="card-datatable-crud">
+                <p:growl id="messages" show-detail="true" />
+                <p:toolbar styleClass="toolbar-crud">
+                    <p:toolbarGroup>
+                        <p:commandButton value="New Idea" icon="pi pi-plus" actionListener="#{initiativeBean.newInitiative}"
+                            update=":dialogs:manage-ideas-content" oncomplete="PF('manageIdeaDialog').show()"
+                            styleClass="rounded-button ui-button-success" style="margin-right: .5rem">
+                            <p:resetInput target=":dialogs:manage-ideas-content" />
+                        </p:commandButton>
+                    </p:toolbarGroup>
+                    <p:toolbarGroup>
+                        <p:selectBooleanCheckbox value="#{initiativeBean.loggedUserInitiatives}" itemLabel="My Initiatives">
+                            <p:ajax listener="#{initiativeBean.changeLoggedInitiativesView()}" update="messages" />
+                        </p:selectBooleanCheckbox>
+                    </p:toolbarGroup>
+                </p:toolbar>
+
+                <!-- Tabla para consultar iniciativas -->
+                <p:dataTable id="initiatives-list" var="initiative" value="#{initiativeBean.initiatives}" reflow="true"
+                    rowKey="#{initative.initiativeId}" paginator="true" rows="10" paginatorPosition="bottom"
+                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}">
+                    <f:facet name="header" styleClass="header-datatable">
+                        <div class="initiatives-list-header">
+                            <span style="font-weight: bold">INITIATIVES OF BANK</span>
+                        </div>
+                    </f:facet>
+                    <!-- Columnas -->
+                    <p:column headerText="Date" sortBy="#{initiative.date}">
+                        <h:outputText value="#{initiative.date}" />
+                    </p:column>
+                    <p:column headerText="Area" sortBy="#{initiative.area}">
+                        <h:outputText value="#{initiative.getArea()}" />
+                    </p:column>
+                    <p:column headerText="Proposer" sortBy="#{initiative.getUser().name}" styleClass="table-proposer">
+                        <h:outputText value="#{initiative.getUser().name}" />
+                    </p:column>
+                    <p:column headerText="Description" sortBy="#{initiative.description}" styleClass="table-description">
+                        <h:outputText value="#{initiative.description}" />
+                    </p:column>
+                    <p:column headerText="Keywords" sortBy="#{initiative.getKeywords()}" styleClass="table-keywords"
+                        filterBy="#{initiative.getKeywords()}" filterMatchMode="contains">
+                        <h:outputText value="#{initiative.getKeywords()}" />
+                    </p:column>
+                    <p:column headerText="State" sortBy="#{initiative.state}" filterBy="#{initiative.getState()}"
+                        filterMatchMode="contains">
+                        <h:outputText value="#{initiative.state}" />
+                    </p:column>
+                    <p:column headerText="Likes" sortBy="#{initiative.numberLikes}">
+                        <!-- Dar upvote a iniciativa -->
+                        <p:commandButton id="upvote-button" actionListener="#{initiativeBean.upvoteInitiative()}"
+                            value="#{initiative.numberLikes}" icon="pi pi-heart" update="@this" process="@this"
+                            styleClass="rounded-button">
+                            <f:setPropertyActionListener value="#{initiative}"
+                                target="#{initiativeBean.selectedInitiative}" />
+                            <p:ajax event="click" update=":initiatives-menu:initiatives-list:upvote-button" />
+                        </p:commandButton>
+                    </p:column>
+                    <p:column headerText="Actions" exportable="false">
+                        <!-- Editar iniciativa -->
+                        <p:commandButton icon="pi pi-pencil" update=":dialogs:manage-state-content"
+                            oncomplete="PF('manageStateDialog').show()" style="margin-right: .5rem"
+                            styleClass="edit-button rounded-button ui-button-success" process="@this">
+                            <f:setPropertyActionListener value="#{initiative}"
+                                target="#{initiativeBean.selectedInitiative}" />
+                            <p:resetInput target=":dialogs:manage-state-content" />
+                        </p:commandButton>
+                        <!-- Boton borrar iniciativa -->
+                        <p:commandButton styleClass="delete-button ui-button-warning rounded-button" icon="pi pi-trash"
+                            oncomplete="PF('deleteInitiativeDialog').show()" process="@this">
+                            <f:setPropertyActionListener value="#{initiative}"
+                                target="#{initiativeBean.selectedInitiative}" />
+                        </p:commandButton>
+                        <!--Boton para ver detalles de Iniciativa-->
+                        <p:commandButton styleClass="watch-button rounded-button ui-button-help" icon="pi pi-eye" 
+                            actionListener="#{initiativeBean.redirectToNewPage()}" process="@this" >
+                            <f:setPropertyActionListener value="#{initiative}" target="#{initiativeBean.selectedInitiative}" />
+                        </p:commandButton>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </div>
     </div>
 
     <!-- Dialogos -->
     <h:form id="dialogs">
-        <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
-            responsive="true">
-            <!-- Boton para editar la iniciativa -->
+        <p:dialog header="Idea Details" showEffect="fade" modal="true" widgetVar="manageIdeaDialog"
+            responsive="true" >
             <p:outputPanel id="manage-ideas-content" class="ui-fluid">
                 <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
                     <div class="field">
@@ -138,14 +183,15 @@
                         value="#{initiativeBean.selectedInitiative.keyword3}"/>
                     </div>
                     <div class="field">
-                        <p:outputLabel for="state">State</p:outputLabel>
-                        <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
-                            layout="responsive" columns="2">
-                            <f:selectItem itemLabel="Open" itemValue="Open" />
-                            <f:selectItem itemLabel="Closed" itemValue="Closed" />
-                            <f:selectItem itemLabel="Review" itemValue="Review" />
-                            <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
-                        </p:selectOneRadio>
+                        <p:outputLabel for="area">Area</p:outputLabel>
+                        <p:selectOneMenu id="area" value="#{initiativeBean.selectedInitiative.area}" required="true">
+                            <f:selectItem itemLabel="Select The Area" itemValue="" noSelectionOption="true"/>
+                            <f:selectItem itemLabel="Environment" itemValue="Environment" />
+                            <f:selectItem itemLabel="Articial Intelligence" itemValue="Articial Intelligence" />
+                            <f:selectItem itemLabel="Undertaking" itemValue="Undertaking" />
+                            <f:selectItem itemLabel="Animal rights" itemValue="Animal rights" />
+                            <f:selectItem itemLabel="Healthy life" itemValue="Healthy life" />
+                        </p:selectOneMenu>
                     </div>
                 </p:outputPanel>
             </p:outputPanel>
@@ -158,7 +204,31 @@
                     class="ui-button-secondary" type="button" />
             </f:facet>
         </p:dialog>
-
+        <!-- Dialogo para editar estado -->
+        <p:dialog header="Update State of Initiative" showEffect="fade" modal="true" widgetVar="manageStateDialog"
+        responsive="true">
+            <p:outputPanel id="manage-state-content" class="ui-fluid">
+                <p:outputPanel rendered="#{not empty initiativeBean.selectedInitiative}">
+                    <div class="field">
+                        <p:outputLabel for="state">State</p:outputLabel>
+                        <p:selectOneRadio id="state" value="#{initiativeBean.selectedInitiative.state}"
+                            layout="responsive" columns="2">
+                            <f:selectItem itemLabel="Open" itemValue="Open" />
+                            <f:selectItem itemLabel="Closed" itemValue="Closed" />
+                            <f:selectItem itemLabel="Revision" itemValue="Revision" />
+                            <f:selectItem itemLabel="Aproved" itemValue="Aproved" />
+                        </p:selectOneRadio>
+                    </div>
+                </p:outputPanel>
+            </p:outputPanel>
+            <!-- Boton para publicar o cancelar iniciativa -->
+            <f:facet name="footer">
+                <p:commandButton value="Update" icon="pi pi-check" actionListener="#{initiativeBean.saveInitiative(loginBean.userName)}"
+                    update="manage-state-content" process="manage-state-content @this" styleClass="Publish"/>
+                <p:commandButton value="Cancel" icon="pi pi-times" onclick="PF('manageStateDialog').hide()"
+                    class="ui-button-secondary" type="button" />
+            </f:facet>
+        </p:dialog>
         <!-- Dialogo para borrar iniciativa -->
         <p:confirmDialog widgetVar="deleteInitiativeDialog" showEffect="fade" width="300"
             message="Delete the initiative?" header="Confirm" severity="warn">
@@ -176,8 +246,14 @@
             <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
                 onclick="PF('upvoteInitiativeDialog').hide()" />
         </p:confirmDialog>
-
-        <p:dialog header="In Work" showEffect="fade" modal="true" responsive="true" widgetVar="inWorkDialog" />
+        <!-- Dialogo para cerrar sesion -->
+        <p:confirmDialog id="logout-content" widgetVar="logoutDialog" showEffect="fade" width="300"
+        message="Are you sure you want to sing out?"  header="Confirm" >
+        <p:commandButton value="Yes" icon="pi pi-check" process="@this" oncomplete="PF('upvoteInitiativeDialog').hide()"
+            actionListener="#{loginBean.logout}"/>
+        <p:commandButton value="No" type="button" styleClass="ui-button-secondary" icon="pi pi-times"
+            onclick="PF('logoutDialog').hide()" />
+        </p:confirmDialog>
     </h:form>
 </h:body>
 

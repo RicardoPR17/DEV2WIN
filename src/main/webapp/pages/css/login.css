@@ -1,153 +1,162 @@
-html {
-    width: 100%;
-    height: 100%;
-    overflow-x: hidden;
-    overflow-y: hidden;
+*, html, body {
+    margin: 0;
+    padding: 0;
 }
 
 body {
-    background: linear-gradient(225deg, #000000, #231c50);
-    background-repeat: no-repeat;
     font-family: Helvetica, sans-serif;
-}
-
-h2 {
-  text-align: center;
-  font-size: 28px;
-  margin-bottom: 30px;
-  color: #fff;
-}
-
-h3 {
+    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5px;
-    font-size: 2em;
-    color: #fff;
-    text-align: center;
+    background: linear-gradient(to bottom right, #7DBED9, #265D83, #13365E);
 }
 
-.leftPage {
+.login-container {
+    width: 40vw;
+    height: 80vh;
     display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente */
-    flex-direction: column;
+    box-shadow: 0 0 17px 10px rgb(0 0 0 / 30%);
+    border-radius: 20px;
+    background: white;
+}
+
+.login {
     width: 100%;
-    height: 99vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 .title {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    color: #fff;
 }
 
-.loginContainer {
-    width: 400px;
-    margin: 0 auto;
-    font-family: Arial, sans-serif;
+.team-image {
+    width: 120px;
+    height: 120px;
 }
 
-.loginSection {
-    background-color: #1c1642;
-    border: 2px groove #2e2469;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0 0 1px #ccc;
-}
-
-.nombre {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.contrasena {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    border: none;
-    border-bottom: 1px solid #ccc;
-    font-size: 16px;
-    margin-bottom: 20px;
-}
-
-.buttonsContainer {
+.login-section {
+    margin: 40px 0 10px 0;
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
     align-items: center;
-    margin-top: 40px;
+    width: 90%;
 }
 
-.buttonsContainer button {
-    width: 45%;
+.login-section h2.login-title {
+    margin-bottom: 15px 0;
+}
+
+.input-field {
+    background: #5492B4;
+    height: 40px;
+    display: flex;
+    width: 70%;
+    align-items: center;
+    border-radius: 10px;
+    margin: 5px 0;
+}
+
+.input-field .input-text {
+    background: none;
+    border: none;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.input-field .input-text:focus {
+    box-shadow: none;
+}
+
+.input-field .input-text::placeholder {
+    color: white;
+}
+
+.login-button {
+    width: 70%;
+    height: 40px;
+    color: white;
+    background: linear-gradient(to right, #13365E, #1B4970, #13365E) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    margin-top: 10px !important;
+}
+
+.create {
+    display: flex;
+    align-items: center;
+    margin: 40px 0 5px 0;
+}
+
+.create span {
+    margin-right: 30px;
+}
+
+.create-button {
+    height: 40px;
+    color: white;
+    background: linear-gradient(to right, #13365E, #1B4970, #13365E) !important;
+    border: none !important;
+    border-radius: 10px !important;
+}
+
+.create-account {
+    width: 30vw !important;
+    border-radius: 10px !important;
+}
+
+.create-field {
+    background: #5492B4;
+    align-items: center;
+    border-radius: 5px;
+    margin: 10px 0;
+}
+
+.create-field .create-input-text {
+    background: none;
+    border: none !important;
+    outline: none !important;
+    width: 100%;
+    height: 100%;
+    color: white;
+}
+
+.create-field .create-input-text::placeholder {
+    color: white;
+}
+
+.create-input-text .ui-selectonemenu-label {
+    color: white;
+}
+
+.buttonsAccountContainer .done-create-button {
+    color: white;
+    background: linear-gradient(to right, #13365E, #1B4970, #13365E) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    margin-top: 10px !important;
+}
+
+.buttonsAccountContainer .cancel-create-button {
+    color: white;
+    background: linear-gradient(to right, #A11008, #C0230C, #A11008) !important;
+    border: none !important;
+    border-radius: 10px !important;
+    margin-top: 10px !important;
 }
 
 .sponsor {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 5%;
+    width: 100%;
 }
-
-.teamImage {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-left: 2%;
-}
-
-.rightPage {
-    margin-left: 60%;
-    right: 0;
-    background: #dfdee6;
-    border: 2px groove #2e2469;
-    margin-top: -1.5%;
-    top: 0;
-}
-
-.menuImage {
-    margin-top: -1.5%;
-    margin-left: 1%;
-}
-
-/* Create Accout Dialog */
-.ui-dialog-create-account {
-    position: fixed;
-    background-color: #fff;
-    border-radius: 10px;
-}
-
-.ui-dialog-create-account .field {
-    margin-top: 1em;
-}
-
-.ui-dialog-create-account .ui-inputfield {
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    background-color: #f2f2f2;
-}
-
-.ui-dialog-create-account .ui-selectonemenu {
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.buttonsAccountContainer {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.buttonsAccountContainer button {
-    width: 50%;
-}
-  

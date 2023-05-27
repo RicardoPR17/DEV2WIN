@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import com.dev2win.iniciativas.data.ideas.Area;
 import com.dev2win.iniciativas.data.ideas.Initiative;
 import com.dev2win.iniciativas.data.ideas.State;
 import com.dev2win.iniciativas.data.users.Profile;
@@ -105,7 +106,7 @@ class UserTest {
     @Test
     void shouldSetInitiative() {
         User user = new User("Pepe", "1234", Role.PROPONENTE, "", Profile.ESTUDIANTE, "test@test.com");
-        Initiative initiative = new Initiative("Hacer renunines antes de las 7", State.OPEN, "", "", "", user);
+        Initiative initiative = new Initiative("Hacer renunines antes de las 7", State.OPEN, "", "", "", user, Area.ENVIRONMENT);
         ArrayList<Initiative> InitiativeArray = new ArrayList<>();
         InitiativeArray.add(initiative);
         user.setIdeas(InitiativeArray);
