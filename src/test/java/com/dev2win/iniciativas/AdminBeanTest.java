@@ -28,11 +28,15 @@ class AdminBeanTest {
     @Mock
     private PrimeFacesWrapper primeFacesWrapper;
 
+    @Mock
+    private UserService userService;
+
     @InjectMocks
     private AdminBean adminBean;
 
     private User user1;
     private User user2;
+    private User user;
     private ArrayList<User> users;
     private ArrayList<User> usersT;
 
@@ -41,6 +45,7 @@ class AdminBeanTest {
         MockitoAnnotations.initMocks(this);
         user1 = new User("Jorge", "Pass", Role.ADMINISTRADOR, "", Profile.DIRECTIVO, "juuseche@gmail.com");
         user2 = new User("Gonzalo", "Pass", Role.PROPONENTE, "", Profile.ESTUDIANTE, "gonzalo@gmail.com");
+        user = new User("Gonzalo", "Pass", Role.PROPONENTE, "", Profile.ESTUDIANTE, "gonzalo@gmail.com");
         users = new ArrayList<User>();
         usersT = new ArrayList<User>();
         users.add(user1);
@@ -49,6 +54,7 @@ class AdminBeanTest {
         Mocks mocks = new Mocks();
         when(facesContextWrapper.getCurrentInstance()).thenReturn(mocks.facesContextMock);
         when(primeFacesWrapper.current()).thenReturn(mocks.primeFaces);
+        when(userService.updateUser(user)).thenReturn(user);
     }
 
     @Test
@@ -91,9 +97,15 @@ class AdminBeanTest {
 
     @Test
     void shouldModifyUserRoleIfThereIsAssignedRole(){
-        assertFalse(adminBean.modifyUserRole());
         String role = "Administrador";
         adminBean.setNewRole(role);
         assertTrue(adminBean.modifyUserRole());
+    }
+
+    @Test
+    void shouldNotModifyUserRoleIfThereIsNotAssignedRole(){
+        String role = null;
+        adminBean.setNewRole(role);
+        assertFalse(adminBean.modifyUserRole());
     }
 }
