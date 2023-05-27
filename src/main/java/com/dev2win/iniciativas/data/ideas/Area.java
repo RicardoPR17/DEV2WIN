@@ -2,7 +2,7 @@ package com.dev2win.iniciativas.data.ideas;
 
 public enum Area {
     ENVIRONMENT("Environment"),
-    IA("Articial Intelligence"),
+    IA("Artificial Intelligence"),
     UNDERTAKING("Undertaking"),
     ANIMALS("Animal rights"),
     HEALTHY("Healthy life");
