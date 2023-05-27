@@ -90,6 +90,7 @@ public class TopicBean {
         this.selectedTopic = new Topic();
     }
 
+    //Registra un nuevo topic en la aplicación.
     public void saveTopic() {
         topicService.addTopic(this.selectedTopic);
         this.selectedTopic = null;
@@ -102,6 +103,7 @@ public class TopicBean {
         this.topics = topicService.getAllTopics();
     }
 
+    //Remueve el topic seleccionado de las iniciativas que lo posean, y luego lo elimina.
     public void deleteTopic() {
         Topic topicToDelete = topicService.getTopicByTopicName(topic);
         List<Initiative> topicInitiatives = initiativeService.getInitiativesByTopic(topicToDelete.getTopicId());
@@ -114,6 +116,7 @@ public class TopicBean {
         primeFacesWrapper.current().ajax().update(TOPIC_MENU_TOPIC_LIST, TOPIC_MENU_MESSAGES);
     }
 
+    //Agrega una iniciativa al topic seleccionado.
     public void addInitiativeToTopic() {
         Topic topicToAdd = topicService.getTopicByTopicName(topic);
         try {
@@ -129,6 +132,8 @@ public class TopicBean {
         }
     }
 
+    //Devuelve un mensaje para mostrar por pantalla al usuario según si se ha seleccionado solo una iniciativa
+    //o más de una.
     public String getUpdateButtonMessage() {
         String message = "Group";
         if (hasSelectedInitiatives()) {
@@ -138,6 +143,7 @@ public class TopicBean {
         return message;
     }
 
+    //Devuelve un valor booleano indicando si se ha seleccionado al menos una iniciativa.
     public boolean hasSelectedInitiatives() {
         return this.selectedInitiatives != null && !this.selectedInitiatives.isEmpty();
     }
