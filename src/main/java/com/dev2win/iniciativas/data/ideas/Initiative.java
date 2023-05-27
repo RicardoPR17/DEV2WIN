@@ -193,6 +193,8 @@ public class Initiative {
                 + user
                 + ", area = " 
                 + area
+                + ", topic = " 
+                + topic
                 + "]";
     }
 
