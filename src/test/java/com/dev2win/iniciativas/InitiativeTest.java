@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import com.dev2win.iniciativas.data.comments.Comment;
 import com.dev2win.iniciativas.data.ideas.*;
+import com.dev2win.iniciativas.data.topic.Topic;
 import com.dev2win.iniciativas.data.users.*;
 
 import java.util.ArrayList;
@@ -22,6 +23,7 @@ class InitiativeTest {
     private User user;
     private Comment comment1;
     private Comment comment2;
+    private Topic topic;
 
     @BeforeAll
     void setup() {
@@ -29,6 +31,7 @@ class InitiativeTest {
         initiative = new Initiative("Test Initiative", State.APROVED, "keyword1", "keyword2", "keyword3", null, Area.ENVIRONMENT);
         comment1 = new Comment("Comentario 1", user, initiative);
         comment2 = new Comment("Comentario 2", user, initiative);
+        topic = new Topic("Sociedad y cultura");
     }
 
     @Test
@@ -64,6 +67,19 @@ class InitiativeTest {
         initiative.setState(expected);
         String ans = initiative.getState();
         assertEquals(expected, ans);
+    }
+
+    @Test
+    void shouldSetAndGetEachKeyword(){
+        String k1 = "Keyword 1";
+        String k2 = "Keyword 2";
+        String k3 = "Keyword 3";
+        initiative.setKeyword1(k1);
+        initiative.setKeyword2(k2);
+        initiative.setKeyword3(k3);
+        assertEquals(k1, initiative.getKeyword1());
+        assertEquals(k2, initiative.getKeyword2());
+        assertEquals(k3, initiative.getKeyword3());
     }
 
     @Test
@@ -109,5 +125,11 @@ class InitiativeTest {
         initiative.setNumberLikes(expected);
         String ans = initiative.getNumberLikes();
         assertEquals(expected, ans);
+    }
+
+    @Test
+    void shouldSetAndGetTopics(){
+        initiative.setTopic(topic);
+        assertEquals(topic, initiative.getTopic());
     }
 }
