@@ -49,17 +49,17 @@ public class AdminBean {
         this.newRole = newRole;
     }
 
-    public void modifyUserRole() {
+    public Boolean modifyUserRole() {
         if (this.newRole == null || this.newRole.isEmpty()) {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
-            "Please select a role", ERROR));
+                    "Please select a role", ERROR));
             primeFacesWrapper.current().ajax().update(USER_MOD_FORM_MESSAGES);
-            return;
+            return false;
         }
         try {
             for (User user : selectedUsers) {
                 user.setRole(Role.findByValue(newRole).getValue());
-                userService.updateUsuario(user);
+                userService.updateUser(user);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -67,6 +67,7 @@ public class AdminBean {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Users Updated"));
             primeFacesWrapper.current().ajax().update(USER_MOD_FORM_USER_LIST, USER_MOD_FORM_MESSAGES, ROLE_LABEL);
         }
+        return true;
     }
 
     public List<User> getUsers() {
@@ -102,5 +103,4 @@ public class AdminBean {
         return this.selectedUsers != null && !this.selectedUsers.isEmpty();
     }
 
-    
 }
