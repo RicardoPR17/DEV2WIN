@@ -49,6 +49,8 @@ public class AdminBean {
         this.newRole = newRole;
     }
 
+    //Toma el rol de usuario seleccionado y lo setea como el rol de cada usuario en la lista de usuarios seleccionados.
+    //Verifica que haya un rol seleccionado y retorna un valor booleano según si se había indicado un rol o no.
     public Boolean modifyUserRole() {
         if (this.newRole == null || this.newRole.isEmpty()) {
             facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,
@@ -90,6 +92,7 @@ public class AdminBean {
         this.users = userService.getAllUsers();
     }
 
+    //Devuelve un mensaje para mostrar por pantalla según si se han seleccionado múltiples usuarios o uno solo
     public String getUpdateButtonMessage() {
         String message = "Update";
         if (hasSelectedUsers()) {
@@ -99,6 +102,7 @@ public class AdminBean {
         return message;
     }
 
+    //Devuelve un valor booleano que indica si se ha seleccionado al menos un usuario o no.
     public boolean hasSelectedUsers() {
         return this.selectedUsers != null && !this.selectedUsers.isEmpty();
     }

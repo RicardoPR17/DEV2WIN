@@ -190,6 +190,8 @@ public class InitiativeBean {
         this.selectedInitiative = selectedInitiative;
     }
 
+    //Construye la vista de las iniciativas según si se ha seleccionado que se muestren las del usuario logueado o no,
+    //en caso contrario muestra todas.
     public void onDatabaseLoaded(String userName) {
         if (loggedUserInitiatives) {
             User user = userService.getUserByMail(userName);
@@ -199,6 +201,7 @@ public class InitiativeBean {
         }
     }
 
+    //Crea una nueva iniciativa vacía y la asigna como seleccionada en el bean.
     public void newInitiative() {
         this.selectedInitiative = new Initiative();
     }
@@ -207,6 +210,8 @@ public class InitiativeBean {
         this.comment = new Comment();
     }
 
+    //Guarda los cambios subidos al repositorio de iniciativas, tanto para registrar una nueva o como para
+    //actualizar los datos de una iniciativa ya existente.
     public int saveInitiative(String userName) {
         int flag = -1;
         if (this.selectedInitiative.getUser() == null) {
@@ -232,12 +237,15 @@ public class InitiativeBean {
         return flag;
     }
 
+    //Elimina la iniciativa seleccionada del repositorio de iniciativas de la aplicación.
     public void deleteInitiative() {
         facesContextWrapper.getCurrentInstance().addMessage(null, new FacesMessage("Initiative Removed"));
         primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         initiativeService.deleteInitiative(this.selectedInitiative.getInitiativeId());
     }
 
+    //Devuelve un mensaje mostrando la cantidad de iniciativas seleccionadas para mostrar al usuario
+    //por pantalla.
     public String getUpdateButtonMessage() {
         if (hasSelectedInitiatives()) {
             int size = this.selectedInitiatives.size();
@@ -247,10 +255,13 @@ public class InitiativeBean {
         return "Update";
     }
 
+    //Devuelve un valor booleano indicando si se han seleccionado iniciativas.
     public boolean hasSelectedInitiatives() {
         return this.selectedInitiatives != null && !this.selectedInitiatives.isEmpty();
     }
 
+    //Valida que el usuario sólo pueda realizar las acciones permitidas sobre sus propias iniciativas,
+    //y no sobre iniciativas propuestas por otros usuarios de la aplicación.
     public void isYourInitiative(String userName, String dialogType) {
         if (this.selectedInitiative.getUser().getMail().equals(userName)) {
             if (dialogType.equals("delete")) {
@@ -265,6 +276,7 @@ public class InitiativeBean {
         }
     }
 
+    //Registra un nuevo like hacia una iniciativa.
     public void upvoteInitiative() {
         if (this.selectedInitiative != null) {
             primeFacesWrapper.current().executeScript("PF('upvoteInitiativeDialog').show()");
@@ -272,6 +284,7 @@ public class InitiativeBean {
         }
     }
 
+    //Devuelve un valor booleano indicado si el usuario logueado le ha dado like a la iniciativa seleccionada o no.
     public boolean isUpvoted(String userName) {
         User user = userService.getUserByMail(userName);
         if (this.selectedInitiative != null) {
@@ -282,6 +295,8 @@ public class InitiativeBean {
         return false;
     }
 
+    //Devuelve un valor para mostrar al usuario por pantalla cuando este quiera votar por una iniciativa
+    //o quitar su voto anteriormente registrado.
     public String upvoteMessage(String userName) {
         String message = "Do you want to upvote this initiative?";
         if (isUpvoted(userName)) {
@@ -290,6 +305,8 @@ public class InitiativeBean {
         return message;
     }
 
+    //Registra un nuevo voto por una iniciativa, o quita el voto anteriormente registrado por un usuario hacia una
+    //iniciativa, y actualiza el número de likes de la misma.
     public void changeVote(String userName) {
         User user = userService.getUserByMail(userName);
         if (this.selectedInitiative != null) {
@@ -308,10 +325,13 @@ public class InitiativeBean {
         primeFacesWrapper.current().ajax().update("comments-menu");
     }
 
+    //Actualiza la vista de las iniciativas - este evento es llamado cuando se cambia la opción de mostrar sólo
+    //las del usuario logueado o no.
     public void changeLoggedInitiativesView() {
         primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
     }
 
+    //Registra un nuevo comentario sobre una iniciativa.
     public void saveComment(String userName) {
         User userOpinion = userService.getUserByMail(userName);
         this.comment.setCommentary(commentary);
@@ -324,6 +344,7 @@ public class InitiativeBean {
         primeFacesWrapper.current().ajax().update("comments-menu:messages", "comments-menu:comments-list");
     }
 
+    //Redirige a la página de vista de iniciativas en el frontend.
     public String redirectToNewPage() {
         FacesContext context = FacesContext.getCurrentInstance();
         ExternalContext externalContext = context.getExternalContext();
@@ -335,6 +356,7 @@ public class InitiativeBean {
         return null;
     }
 
+    //Redirige a la página de vista de iniciativas según si el usuario es administrador o proponente.
     public void backPage(String userName) {
         try {
             ExternalContext ec = facesContextWrapper.getCurrentInstance().getExternalContext();
@@ -346,6 +368,7 @@ public class InitiativeBean {
         }
     }
 
+    //Devuelve la ruta a la cual redirigir al usuario según si este es un administrador o un proponente.
     private String getRedirectPath(User user) {
         if (user.getRole().equals("Administrador")) {
             return "../pages/welcomeAdmin.xhtml";
