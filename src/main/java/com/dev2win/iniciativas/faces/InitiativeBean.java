@@ -233,6 +233,7 @@ public class InitiativeBean {
         }
 
         primeFacesWrapper.current().executeScript("PF('manageIdeaDialog').hide()");
+        primeFacesWrapper.current().executeScript("PF('manageStateDialog').hide()");
         primeFacesWrapper.current().ajax().update(INITIATIVES_MENU_MESSAGES, INITIATIVES_MENU_INITIATIVES_LIST);
         return flag;
     }
