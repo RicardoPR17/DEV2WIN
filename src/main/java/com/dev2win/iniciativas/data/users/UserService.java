@@ -38,7 +38,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User updateUsuario(User user) {
+    public User updateUser(User user) {
         if (userRepository.existsById(user.getUserId())) {
             return userRepository.save(user);
         }

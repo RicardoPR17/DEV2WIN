@@ -8,7 +8,7 @@ public enum Area {
     HEALTHY("Healthy life");
 
     private String value;
-    
+
     Area(String value) {
         this.value = value;
     }

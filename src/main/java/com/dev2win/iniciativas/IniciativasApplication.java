@@ -1,7 +1,6 @@
 package com.dev2win.iniciativas;
 
 import java.util.Arrays;
-
 import javax.faces.webapp.FacesServlet;
 import javax.servlet.ServletContext;
 
@@ -12,7 +11,9 @@ import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;
 
 import com.dev2win.iniciativas.data.comments.CommentService;
+import com.dev2win.iniciativas.data.ideas.*;
 import com.dev2win.iniciativas.data.likes.UpvoteService;
+import com.dev2win.iniciativas.data.topic.*;
 import com.dev2win.iniciativas.data.users.*;
 
 @SpringBootApplication
@@ -22,13 +23,16 @@ public class IniciativasApplication {
     UserService userService;
 
     @Autowired
-    UserService iniciativeService;
+    InitiativeService iniciativeService;
 
     @Autowired
     CommentService commentService;
 
     @Autowired
     UpvoteService upvoteService;
+
+    @Autowired
+    TopicService topicService;
 
     public static void main(String[] args) {
         SpringApplication.run(IniciativasApplication.class, args);
@@ -48,6 +52,7 @@ public class IniciativasApplication {
         upvoteService.deleteAll();
         commentService.deleteAll();
         iniciativeService.deleteAll();
+        topicService.deleteAll();
         userService.deleteAll();
 
         User user = new User("Ricardo", "1234", Role.ADMINISTRADOR, "desarrollo", Profile.ESTUDIANTE,
@@ -56,6 +61,7 @@ public class IniciativasApplication {
                 "angie@dev2win.com");
         userService.addUser(user);
         userService.addUser(user2);
+
         return srb;
     }
 
